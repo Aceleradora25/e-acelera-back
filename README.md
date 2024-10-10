@@ -1,6 +1,6 @@
 # Instruções de Configuração do Projeto
 
-### Passos iniciais:
+### Passos iniciais: 
 
 1. Execute o comando para instalar as dependências do projeto:
    ```bash
