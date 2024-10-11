@@ -2,12 +2,11 @@
   "name": "e-acelera-backend",
   "version": "1.0.0",
   "description": "A backend repository for e-acelera project",
-  "type": "module",
   "main": "src/index.ts",
   "scripts": {
     "start": "npx tsx src/index.ts",
     "dev": "nodemon --watch src --exec tsx src/index.ts",
-    "build": "npx prisma migrate deploy && npx tsx src/index.ts",
+    "build": "npx prisma migrate deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "prisma": {
