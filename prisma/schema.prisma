@@ -15,7 +15,7 @@ model User {
 
 model Progress {
   id          Int         @id @default(autoincrement())
-  itemId      String      @unique
+  itemId      String      
   itemStatus  ItemStatus
   elementType ElementType
   userId      Int         @unique
