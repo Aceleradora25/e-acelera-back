@@ -17,6 +17,6 @@ router.get('/login', (req, res) => {
     res.send('Login page');
 });
 
-router.put('/exercise/:id/status', new ExerciseController().updateExerciseStatus
-) 
+router.put('/exercise/:id/status', new ExerciseController().updateExerciseStatus);
+ 
 export default router;

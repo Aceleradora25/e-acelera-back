@@ -1,34 +1,58 @@
-import { Prisma, PrismaClient } from "@prisma/client";
 import { Response, Request } from "express";
+import { ExerciseService } from "../services/ExerciseService";
 
 export class ExerciseController {
+    private exerciseService: ExerciseService
+
+    constructor(){
+        this.exerciseService = new ExerciseService()
+    }
+
     async updateExerciseStatus(req: Request, res: Response) {
-        const prisma = new PrismaClient();
         const { exerciseId } = req.params;
-        const { value, userId } = req.body;
+        const { itemStatus } = req.body;
+        const token = req.headers.authorization?.split(" ")[1];
+
         try {
-            if (!value) {
-                return res.status(400).json({ message: "Status value is required" });
+            if (!token) {
+                return res.status(401).json({ message: "Session token is required" });
             }
 
-            const validateStatus = ["NotStarted", "InProgress", "Completed"]
-            if (!validateStatus.includes(value)) {
-                return res.status(400).json({ message: "Status value is invalid" });
+            let email = await this.exerciseService.tokenVerify(token)
+
+            if (!email) {
+                return res.status(401).json({ message: "Invalid token or unauthenticated user" });
             }
 
-            const currentProgress = await prisma.progress.findUnique({
-                where: { userId: userId, itemId: exerciseId }
-            })
+            const user = await this.exerciseService.findUserByEmail(email)
 
-            if (currentProgress && currentProgress.itemStatus == value) {
-                return res.status(400).json({ message: "Status value is already being used" });
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
             }
 
-            const exercise = await prisma.progress.update({ where: { userId: currentProgress?.userId, itemId: currentProgress?.itemId }, data: { itemStatus: value } });
-            res.status(200).json(exercise)
+            const validateStatus = await this.exerciseService.validateStatus(itemStatus)
 
-        } catch (error) {
-            res.json({ message: "Erro" })
+            if (!validateStatus) {
+                return res.status(400).json({ message: "Status value is invalid or missing" });
+            }
+
+            const currentProgress = await this.exerciseService.findProgress(user.id, exerciseId)
+
+            if (!currentProgress) {
+                return res.status(404).json({ message: "Progress not found for the exercise" });
+            }
+
+            if (currentProgress.itemStatus === itemStatus) {
+                return res.status(200).json({ message: "Status value is already being used" });
+            }
+
+            const updatedProgress = await this.exerciseService.updatedProgress(user.id, exerciseId, itemStatus)
+
+            return res.status(200).json(updatedProgress);
+
+        } catch (error: any) {
+            console.error(error);
+            res.status(500).json({ message: "Error processing the request" });
         }
     }
 }
