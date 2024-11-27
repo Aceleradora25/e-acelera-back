@@ -1,23 +1,19 @@
 import { ItemStatus, PrismaClient } from "@prisma/client";
-import jwt from "jsonwebtoken";
+import * as dotenv from 'dotenv';
+
+dotenv.config()
 
 const prisma = new PrismaClient();
 
 export class ExerciseService {
-    async tokenVerify(token: string): Promise<string | null> {
+
+    async findUserByEmail(email: string) {
         try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { email: string };
-            return decoded.email
-
-        } catch (error: any) {
-            throw new Error('Invalid token')
+            const user = await prisma.user.findUnique({ where: { email } });
+            return user
+        } catch (error) {
+            throw new Error("Error fetching user from database");
         }
-    }
-
-    async findUserByEmail(email: string){
-        const user = await prisma.user.findUnique({ where: { email } });
-        if(!user) throw new Error("User not found")
-        return user
     }
 
     async validateStatus(value: string): Promise<boolean>{
@@ -25,15 +21,15 @@ export class ExerciseService {
         return validateStatus.includes(value)
     }
 
-    async findProgress(userId: number, exerciseId: string){
+    async findProgress(userId: number, itemId: string){
         return await prisma.progress.findUnique({
-            where: { userId, itemId: exerciseId },
+            where: { userId, itemId },
         });
     }
 
-    async updatedProgress(userId: number, exerciseId: string, itemStatus: ItemStatus){
+    async updatedProgress(userId: number, itemId: string, itemStatus: ItemStatus){
         return await prisma.progress.update({
-            where: { userId, itemId: exerciseId },
+            where: { userId, itemId },
             data: { itemStatus: itemStatus }
         });
     }
