@@ -1,24 +1,24 @@
-import { ItemStatus, PrismaClient, User } from "@prisma/client";
-import * as dotenv from 'dotenv';
+import {PrismaClient} from "@prisma/client"
+import * as dotenv from 'dotenv'
 
 dotenv.config()
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
-export class AllExercisesService {
+export class AllExercisesStatusService {
 
     async findUserByEmail(email: string) {
         try {
-            const user = await prisma.user.findUnique({ where: { email } });
+            const user = await prisma.user.findUnique({ where: { email } })
             return user
         } catch (error) {
-            throw new Error("Error fetching user from database");
+            throw new Error("Error fetching user from database")
         }
     }
 
     async getStatus(userId: number, topicId: string) {
         try {
-            const userWithProgress = await prisma.progress.findMany({
+            const infoStatus = await prisma.progress.findMany({
                 where: {
                     userId,
                     topicId
@@ -27,17 +27,17 @@ export class AllExercisesService {
                     itemStatus: true,
                     itemId: true
                 }
-            });
+            })
 
-            return userWithProgress.map(progress => {
+            return infoStatus.map(progress => {
                 return {
                     itemId: progress.itemId,
                     itemStatus: progress.itemStatus
                 }
-            });
+            })
 
         } catch (error) {
-            throw new Error("Error fetching user progress from database");
+            throw new Error("Error fetching user progress from database")
         }
     }
 }
