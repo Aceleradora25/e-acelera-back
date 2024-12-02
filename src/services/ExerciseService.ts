@@ -33,4 +33,10 @@ export class ExerciseService {
             data: { itemStatus: itemStatus }
         });
     }
+    async exerciseStatus(userId: number, itemId: string){
+        return await prisma.progress.get({
+            where: { userId, itemId },
+            
+        });
+    }
 }

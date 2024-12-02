@@ -8,6 +8,9 @@ router.get('/', (req, res) => {
     res.send('Welcome to the homepage');
 });
 
+
+router.get('/exercise/:itemId/status', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res));
+
 router.put('/exercise/:itemId/status', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res));
- 
+
 export default router;

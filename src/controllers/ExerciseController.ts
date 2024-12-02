@@ -48,4 +48,30 @@ export class ExerciseController {
             return res.status(500).json({ message: "Error processing the request" });
         }
     }
+    async getExerciseStatus(req: Request, res: Response){
+        const { itemId } = req.params;
+        const email = req.user?.email
+    
+    try {
+        if (!email){
+            return res.status(401).json({ message: "User not authenticated" });
+        }
+          const user = await this.exerciseService.findUserByEmail(email)
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if (!itemId){
+            return res.status(404).json({ message: "itemId not found" });
+        }
+
+        const exerciseStatus = await this.exerciseService.exerciseStatus(user.id, itemId)
+
+        return res.status(200).json(exerciseStatus);
+
+    } catch (error: any) {
+        return res.status(500).json({ message: "Error processing the request" });
+    }
+}
 }
