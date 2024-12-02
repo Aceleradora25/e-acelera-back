@@ -22,15 +22,45 @@ export class ExerciseService {
     }
 
     async findProgress(userId: number, itemId: string){
-        return await prisma.progress.findUnique({
+        return await prisma.progress.findFirst({
             where: { userId, itemId },
         });
     }
 
-    async updatedProgress(userId: number, itemId: string, itemStatus: ItemStatus){
-        return await prisma.progress.update({
+    async updatedProgress(userId: number, itemId: string, itemStatus: ItemStatus) {
+        await prisma.progress.updateMany({
             where: { userId, itemId },
-            data: { itemStatus: itemStatus }
+            data: { itemStatus },
         });
+    
+        return await this.findProgress(userId, itemId)
     }
+    
+
+    async getStatus(userId: number, topicId: string) {
+        try {
+            const infoStatus = await prisma.progress.findMany({
+                where: {
+                    userId,
+                    topicId
+                },
+                select: {
+                    itemStatus: true,
+                    itemId: true
+                }
+            })
+
+            return infoStatus.map(progress => {
+                return {
+                    itemId: progress.itemId,
+                    itemStatus: progress.itemStatus
+                }
+            })
+
+        } catch (error) {
+            throw new Error("Error fetching user progress from database")
+        }
+    }
+
+
 }

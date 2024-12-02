@@ -1,7 +1,6 @@
 import express from 'express'
 import { ExerciseController } from '../controllers/ExerciseController'
 import { validateTokenMiddleware } from '../middleware/validateTokenMiddleware'
-import { AllExercisesStatusController } from '../controllers/AllExercisesStatusController'
 
 const router = express.Router()
 
@@ -10,6 +9,6 @@ router.get('/', (req, res) => {
 })
 
 router.put('/exercise/:itemId/status', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res))
-router.get('/:topicId/status', validateTokenMiddleware, (req, res) => new AllExercisesStatusController().getTopicExercisesStatus(req, res))
+router.get('/:topicId/status', validateTokenMiddleware, (req, res) => new ExerciseController().getTopicExercisesStatus(req, res))
 
 export default router
