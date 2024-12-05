@@ -7,8 +7,10 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.send('Welcome to the homepage');
 });
-
-router.put('/topic/:idTopic/item/:idItem', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res));
+//Rota antiga para teste//
+router.put('/exercise/:itemId/status', new ExerciseController().updateExerciseStatus);
+//Rota Nova//
+router.put('/topic/:idTopic/item/:idItem/status', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res));
  
 export default router;
 
