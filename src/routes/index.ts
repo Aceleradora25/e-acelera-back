@@ -9,6 +9,6 @@ router.get('/', (req, res) => {
 })
 
 router.put('/exercise/:itemId/status', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res))
-router.get('/:topicId/status', validateTokenMiddleware, (req, res) => new ExerciseController().getTopicExercisesStatus(req, res))
+router.get('/topic/:topicId/item', validateTokenMiddleware, (req, res) => new ExerciseController().getTopicExercisesStatus(req, res))
 
 export default router

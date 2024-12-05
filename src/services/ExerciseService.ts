@@ -36,7 +36,6 @@ export class ExerciseService {
         return await this.findProgress(userId, itemId)
     }
     
-
     async getStatus(userId: number, topicId: string) {
         try {
             const infoStatus = await prisma.progress.findMany({
@@ -46,14 +45,16 @@ export class ExerciseService {
                 },
                 select: {
                     itemStatus: true,
-                    itemId: true
+                    itemId: true,
+                    elementType: true
                 }
             })
 
             return infoStatus.map(progress => {
                 return {
                     itemId: progress.itemId,
-                    itemStatus: progress.itemStatus
+                    itemStatus: progress.itemStatus,
+                    elementType: progress.elementType
                 }
             })
 
@@ -61,6 +62,4 @@ export class ExerciseService {
             throw new Error("Error fetching user progress from database")
         }
     }
-
-
 }
