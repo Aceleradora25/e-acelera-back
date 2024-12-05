@@ -22,13 +22,13 @@ export class ExerciseService {
     }
 
     async findProgress(userId: number, itemId: string){
-        return await prisma.progress.findUnique({
+        return await prisma.progress.findFirst({
             where: { userId, itemId },
         });
     }
 
     async updatedProgress(userId: number, itemId: string, itemStatus: ItemStatus){
-        return await prisma.progress.update({
+        return await prisma.progress.updateMany({
             where: { userId, itemId },
             data: { itemStatus: itemStatus }
         });
