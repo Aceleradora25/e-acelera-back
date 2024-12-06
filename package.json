@@ -2,22 +2,31 @@
   "name": "e-acelera-backend",
   "version": "1.0.0",
   "description": "A backend repository for e-acelera project",
-  "type": "module",
   "main": "src/index.ts",
   "scripts": {
     "start": "npx tsx src/index.ts",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon --watch src --exec tsx src/index.ts",
+    "build": "npx prisma migrate deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "prisma": {
+    "seed": "npx tsx prisma/seed.ts"
   },
   "author": "daniellemadrid, barbaraanger, aceleradora-TW/teams/turma-25",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.20.0",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "husky": "^9.0.11",
+    "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.7",
+    "prisma": "^5.20.0",
+    "ts-node": "^10.9.2",
     "tsx": "^4.11.0",
     "typescript": "^5.4.5"
   }

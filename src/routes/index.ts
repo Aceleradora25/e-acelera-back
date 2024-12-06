@@ -1,17 +1,14 @@
-import express from 'express';
+import express from 'express'
+import { ExerciseController } from '../controllers/ExerciseController'
+import { validateTokenMiddleware } from '../middleware/validateTokenMiddleware'
 
-const router = express.Router();
+const router = express.Router()
 
 router.get('/', (req, res) => {
-    res.send('Welcome to the homepage');
-});
+    res.send('Welcome to the homepage')
+})
 
-router.get('/user', (req, res) => {
-    res.send('User page');
-});
+router.put('/exercise/:itemId/status', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res))
+router.get('/topic/:topicId/item', validateTokenMiddleware, (req, res) => new ExerciseController().getTopicExercisesStatus(req, res))
 
-router.get('/login', (req, res) => {
-    res.send('Login page');
-});
-
-export default router;
+export default router
