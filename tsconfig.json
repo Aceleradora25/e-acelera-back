@@ -4,12 +4,14 @@
         "module": "commonjs",
         "outDir": "dist",
         "strict": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "typeRoots" : ["./src/types", "./node_modules/@types"]
     },
     "include": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "src/types/**/*.d.ts"
     ],
     "exclude": [
         "node_modules"
-    ]
+    ],
 }
