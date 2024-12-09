@@ -48,8 +48,36 @@ export class ExerciseController {
             return res.status(500).json({ message: "Error processing the request" })
         }
     }
+
+    async getTopicExercisesStatus(req: Request, res: Response) {
+        const email = req.user?.email
+        const { topicId } = req.params
+
+        try {
+            if (!email) {
+                return res.status(401).json({ message: "User not authenticated" })
+            }
+
+            const user = await this.exerciseService.findUserByEmail(email)
+
+            if (!user) {
+                return res.status(404).json({ message: "User not found" })
+            }
+
+            const getAllExercisesStatus = await this.exerciseService.getStatus(user.id, topicId)
+
+            if (getAllExercisesStatus.length === 0) {
+                return res.status(404).json({ message: "Progress not found" })
+            }
+
+            return res.status(200).json(getAllExercisesStatus)
+
+        } catch (error: any) {
+            return res.status(500).json({ message: "Error processing the request" })
+        }
+    }
     async getExerciseStatus(req: Request, res: Response){
-        const { itemId } = req.params
+        const { itemId, topicId } = req.params
         const email = req.user?.email
     
     try {
@@ -66,8 +94,16 @@ export class ExerciseController {
             return res.status(404).json({ message: "itemId not found" })
         }
 
+        if (!topicId) {
+            return res.status(400).json({ message: "topicId not found" })
+        }
 
-        const exerciseStatus = await this.exerciseService.exerciseStatus(user.id, itemId)
+        const topicExists = await this.exerciseService.findTopicById(topicId)
+        if (!topicExists) {
+            return res.status(404).json({ message: "topicId invalid" })
+        }
+
+        const exerciseStatus = await this.exerciseService.exerciseStatus(user.id, itemId, topicId)
         
         if (exerciseStatus.length === 0){
             return res.status(404).json({ message: "Status not found"})
@@ -79,3 +115,4 @@ export class ExerciseController {
     }
 }
 }
+

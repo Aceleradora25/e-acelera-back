@@ -8,9 +8,8 @@ router.get('/', (req, res) => {
     res.send('Welcome to the homepage')
 })
 
-
-router.get('/topic/:topicId/item/:itemId', validateTokenMiddleware, (req, res) => new ExerciseController().getExerciseStatus(req, res))
-
 router.put('/exercise/:itemId/status', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res))
+router.get('/topic/:topicId/item', validateTokenMiddleware, (req, res) => new ExerciseController().getTopicExercisesStatus(req, res))
+router.get('/topic/:topicId/item/:itemId', validateTokenMiddleware, (req, res) => new ExerciseController().getExerciseStatus(req, res))
 
 export default router

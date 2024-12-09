@@ -8,17 +8,18 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  Progress Progress?
+  id       Int        @id @default(autoincrement())
+  email    String     @unique
+  Progress Progress[]
 }
 
 model Progress {
   id          Int         @id @default(autoincrement())
-  itemId      String      
+  itemId      String
   itemStatus  ItemStatus
   elementType ElementType
-  userId      Int         @unique
+  topicId     String      @default("default-topic-id")
+  userId      Int
   user        User        @relation(fields: [userId], references: [id])
 }
 
