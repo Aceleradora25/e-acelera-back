@@ -36,7 +36,8 @@ export class ExerciseService {
     async exerciseStatus(userId: number, itemId: string){
         return await prisma.progress.findMany({
             where: { userId, itemId },
-            
+            select: { itemStatus: true, itemId: true }
+
         })
     }
 }
