@@ -6,7 +6,6 @@ dotenv.config()
 const prisma = new PrismaClient();
 
 export class ExerciseService {
-
     async findUserByEmail(email: string) {
         try {
             const user = await prisma.user.findUnique({ where: { email } });
@@ -21,10 +20,10 @@ export class ExerciseService {
         return validateStatus.includes(value)
     }
 
-    async findProgress(userId: number, itemId: string) {
+    async findProgress(userId: number, itemId: string, topicId: string) {
         try {
             const count = await prisma.progress.count({
-                where: { userId, itemId },
+                where: { userId, itemId, topicId },
             });
 
             if (count > 1) {
@@ -32,11 +31,11 @@ export class ExerciseService {
             }
 
             const response = await prisma.progress.findFirst({
-                where: { userId, itemId },
+                where: { userId, itemId, topicId },
             });
 
             if (!response) {
-                throw new Error(`Progress record not found for user ${userId} and item ${itemId}.`);
+                throw new Error(`Progress record not found for user ${userId} and item ${itemId}, ${topicId}.`);
             }
 
             if (!this.validateStatus(response.itemStatus)) {
@@ -49,7 +48,7 @@ export class ExerciseService {
             throw new Error(`Failed to fetch progress: ${error.message}`);
         }
     }
-    async updatedProgress(userId: number, itemId: string, itemStatus: ItemStatus) {
+    async updatedProgress(userId: number, itemId: string, itemStatus: ItemStatus, topicId: string) {
     
         const isStatusValid = await this.validateStatus(itemStatus);
         if (!isStatusValid) {
@@ -62,7 +61,7 @@ export class ExerciseService {
         }
 
         const existingProgress = await prisma.progress.findFirst({
-            where: { userId, itemId },
+            where: { userId, itemId, topicId },
         });
 
         if (!existingProgress) {
@@ -75,7 +74,7 @@ export class ExerciseService {
 
         try {
             const updatedProgress = await prisma.progress.updateMany({
-                where: { userId, itemId },
+                where: { userId, itemId, topicId },
                 data: { itemStatus },
             });
 

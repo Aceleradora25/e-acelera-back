@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 //Rota antiga para teste//
 router.put('/exercise/:itemId/status', new ExerciseController().updateExerciseStatus);
 //Rota Nova//
-router.put('/topic/:idTopic/item/:idItem', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res));
+router.put('/topic/:topicId/item/:itemId/status', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res));
  
 export default router;
 

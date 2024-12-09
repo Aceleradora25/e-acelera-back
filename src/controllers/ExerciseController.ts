@@ -10,6 +10,7 @@ export class ExerciseController {
 
     async updateExerciseStatus(req: Request, res: Response) {
         const { itemId } = req.params;
+        const { topicId } = req.params;
         const { itemStatus } = req.body;
         const email = req.user?.email;
     
@@ -28,7 +29,7 @@ export class ExerciseController {
                 return res.status(400).json({ message: "Invalid or missing status value." });
             }
     
-            const currentProgress = await this.exerciseService.findProgress(user.id, itemId);
+            const currentProgress = await this.exerciseService.findProgress(user.id, itemId, topicId);
     
             if (!currentProgress) {
                 return res.status(404).json({ message: "Progress not found for the exercise." });
@@ -38,7 +39,7 @@ export class ExerciseController {
                 return res.status(200).json({ message: "The status is already up to date." });
             }
     
-            const updatedProgress = await this.exerciseService.updatedProgress(user.id, itemId, itemStatus);
+            const updatedProgress = await this.exerciseService.updatedProgress(user.id, itemId, itemStatus, topicId);
             return res.status(200).json(updatedProgress);
     
         } catch (error: any) {
