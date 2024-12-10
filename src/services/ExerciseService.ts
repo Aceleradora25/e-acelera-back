@@ -87,4 +87,30 @@ export class ExerciseService {
             throw new Error("An error occurred while updating progress.");
         }
     }
+    async getStatus(userId: number, topicId: string) {
+        try {
+            const infoStatus = await prisma.progress.findMany({
+                where: {
+                    userId,
+                    topicId
+                },
+                select: {
+                    itemStatus: true,
+                    itemId: true,
+                    elementType: true
+                }
+            })
+
+            return infoStatus.map(progress => {
+                return {
+                    itemId: progress.itemId,
+                    itemStatus: progress.itemStatus,
+                    elementType: progress.elementType
+                }
+            })
+
+        } catch (error) {
+            throw new Error("Error fetching user progress from database")
+        }
+    }
 }
