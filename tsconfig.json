@@ -5,11 +5,13 @@
         "outDir": "dist",
         "strict": true,
         "esModuleInterop": true,
+        "types": ["jest"],
         "typeRoots" : ["./src/types", "./node_modules/@types"]
     },
     "include": [
         "src/**/*.ts",
-        "src/types/**/*.d.ts"
+        "src/types/**/*.d.ts",
+        "tests"
     ],
     "exclude": [
         "node_modules"

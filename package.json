@@ -7,7 +7,7 @@
     "start": "npx tsx src/index.ts",
     "dev": "nodemon --watch src --exec tsx src/index.ts",
     "build": "npx prisma migrate deploy",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
@@ -24,8 +24,13 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.7",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
     "prisma": "^5.20.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsx": "^4.11.0",
     "typescript": "^5.4.5"
