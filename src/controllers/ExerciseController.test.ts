@@ -34,7 +34,7 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
         }
     })
 
-    it('should return "User not authenticated" if email doesn\'t exist', async () => {
+    it('deve retornar "Usuário não autenticado" se o email não existir', async () => {
         req.user = undefined
 
         await controller.getTopicExercisesStatus(req as Request, res as Response)
@@ -43,7 +43,7 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
         expect(res.json).toHaveBeenCalledWith({ message: "User not authenticated" })
     })
 
-    it('should return "User not found" if user doesn\'t exist', async () => {
+    it('deve retornar "Usuário não encontrado" se o usuário não existir', async () => {
         mockExerciseService.findUserByEmail.mockResolvedValue(null)
 
         await controller.getTopicExercisesStatus(req as Request, res as Response)
@@ -52,7 +52,7 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
         expect(res.json).toHaveBeenCalledWith({ message: "User not found" })
     })
 
-    it('should return "Progress not found" if no exercise status is found', async () => {
+    it('deve retornar "Progresso não encontrado" se o status do exercício não for encontrado', async () => {
         mockExerciseService.findUserByEmail.mockResolvedValue({ id: 1, email:"teste@gmail.com" })
         mockExerciseService.getStatus.mockResolvedValue([])
 
@@ -62,7 +62,7 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
         expect(res.json).toHaveBeenCalledWith({ message: "Progress not found" })
     })
 
-    it('should return "Error processing the request" if an error occurs', async () => {
+    it('deve retornar "Erro ao processar a solicitação" se ocorrer um erro', async () => {
         mockExerciseService.findUserByEmail.mockRejectedValue(new Error("Internal error"))
 
         await controller.getTopicExercisesStatus(req as Request, res as Response)
@@ -71,7 +71,7 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
         expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" })
     })
 
-    it('should return the list of exercise statuses when available', async () => {
+    it('deve retornar a lista de status dos exercícios quando disponível', async () => {
 
         const statusList: {
             itemId: string;
