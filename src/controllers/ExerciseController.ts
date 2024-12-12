@@ -25,7 +25,7 @@ export class ExerciseController {
                 return res.status(404).json({ message: "User not found." });
             }
     
-            if (!this.exerciseService.validateStatus(itemStatus)) {
+            if (! await this.exerciseService.validateStatus(itemStatus)) {
                 return res.status(400).json({ message: "Invalid or missing status value." });
             }
     

@@ -50,28 +50,6 @@ export class ExerciseService {
     }
     async updatedProgress(userId: number, itemId: string, itemStatus: ItemStatus, topicId: string) {
     
-        const isStatusValid = await this.validateStatus(itemStatus);
-        if (!isStatusValid) {
-            throw new Error("Invalid item status provided.");
-        }
-
-        const userExists = await prisma.user.findUnique({ where: { id: userId } });
-        if (!userExists) {
-            throw new Error("User does not exist.");
-        }
-
-        const existingProgress = await prisma.progress.findFirst({
-            where: { userId, itemId, topicId },
-        });
-
-        if (!existingProgress) {
-            throw new Error("No progress record found for this user and item.");
-        }
-
-        if (existingProgress.itemStatus === itemStatus) {
-            throw new Error("The progress status is already the same.");
-        }
-
         try {
             const updatedProgress = await prisma.progress.updateMany({
                 where: { userId, itemId, topicId },
@@ -81,8 +59,19 @@ export class ExerciseService {
             if (updatedProgress.count === 0) {
                 throw new Error("Failed to update progress.");
             }
+            const updatedRecords = await prisma.progress.findMany({
+                where: { userId, itemId, topicId },
+                select: {
+                  id: true,
+                  userId: true,
+                  elementType: true,
+                  itemId: true,
+                  itemStatus: true,
+                },
+              });
+        
+              return updatedRecords;
 
-            return updatedProgress;  
         } catch (error) {
             throw new Error("An error occurred while updating progress.");
         }
