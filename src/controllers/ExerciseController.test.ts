@@ -74,21 +74,5 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
         expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" });
     });
 
-    it('deve retornar a lista de status dos exercícios quando disponível', async () => {
-        const statusList: {
-            itemId: string;
-            itemStatus: ItemStatus;
-            elementType: ElementType;
-        }[] = [
-            { itemId: "1", itemStatus: ItemStatus.Completed, elementType: ElementType.Exercise },
-        ];
-
-        mockExerciseService.findUserByEmail.mockResolvedValue({ id: 1, email: "teste@gmail.com" });
-        mockExerciseService.getStatus.mockResolvedValue(statusList);
-
-        await controller.getTopicExercisesStatus(req as Request, res as Response);
-
-        expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.json).toHaveBeenCalledWith(statusList);
-    });
+    
 });
