@@ -106,14 +106,25 @@ export class ExerciseService {
     }
 
     async exerciseStatus(userId: number, itemId: string, topicId: string){
-        return await prisma.progress.findMany({
-            where: { userId, itemId, topicId },
-            select: { itemStatus: true, itemId: true }
-        })
+        
+        try {
+            return await prisma.progress.findMany({
+                where: { userId, itemId, topicId },
+                select: { itemStatus: true, itemId: true }
+            })
+            
+        } catch (error) {
+            throw new Error("Error fetching status progress from database")
+        }
 
 }
 
     async findTopicById(topicId: string){
-        return await prisma.progress.findFirst({ where: { topicId } })
+        try {
+            return await prisma.progress.findFirst({ where: { topicId } })
+            
+        } catch (error) {
+            throw new Error("Error fetching topicId progress from database")
+        } 
     }
 }
