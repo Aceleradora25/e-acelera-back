@@ -206,7 +206,7 @@ describe("ExerciseController - getExerciseStatus", () => {
             topicId: "rw17212367802520ba251"
             }
 
-        const exerciseSucess: { itemStatus: ItemStatus; itemId: string } [] = [{
+        const exerciseSuccess: { itemStatus: ItemStatus; itemId: string } [] = [{
             
             itemStatus: ItemStatus.InProgress,
             itemId: "rw1726148766181e6dab5"
@@ -214,11 +214,11 @@ describe("ExerciseController - getExerciseStatus", () => {
 
         mockExerciseService.findUserByEmail.mockResolvedValue({ id: 1, email: "teste@gmail.com" })
         mockExerciseService.findTopicById.mockResolvedValue(topicValidation)
-        mockExerciseService.exerciseStatus.mockResolvedValue(exerciseSucess)
+        mockExerciseService.exerciseStatus.mockResolvedValue(exerciseSuccess)
         
         await controller.getExerciseStatus(req as Request, res as Response)
         
         expect(res.status).toHaveBeenCalledWith(200)
-        expect(res.json).toHaveBeenCalledWith(exerciseSucess)
+        expect(res.json).toHaveBeenCalledWith(exerciseSuccess)
     })
 })
