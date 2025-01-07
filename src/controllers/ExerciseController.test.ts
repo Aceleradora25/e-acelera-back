@@ -15,6 +15,45 @@ enum ElementType {
 
 jest.mock("../services/ExerciseService")
 
+describe('ExerciseController - updateExerciseStatus', () => {
+    let controller: ExerciseController
+    let req: Partial<Request>
+    let res: Partial<Response>
+    let mockExerciseService: jest.Mocked<ExerciseService>
+
+    beforeEach(() => {
+        mockExerciseService = new ExerciseService() as jest.Mocked<ExerciseService>
+
+        controller = new ExerciseController()
+        controller['exerciseService'] = mockExerciseService
+
+        req = { params: { topicId: "1", itemId: "1" }, body: { ItemStatus: "NotStarted" }, user: { email: "test@gmail.com" } }
+        res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        }
+    })
+
+    it('Usuário não autenticado', async () => {
+        req.user = undefined
+
+        await controller.updateExerciseStatus(req as Request, res as Response)
+
+        expect(res.status).toHaveBeenCalledWith(401)
+        expect(res.json).toHaveBeenCalledWith({ message: "User not authenticated." })
+    })
+
+    it('Usuário não encontrado', async () => {
+        
+        await controller.updateExerciseStatus(req as Request, res as Response)
+
+        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.json).toHaveBeenCalledWith({ message: "User not found." })
+        
+    })
+
+})
+
 describe('ExerciseController - getTopicExercisesStatus', () => {
     let controller: ExerciseController
     let req: Partial<Request>
