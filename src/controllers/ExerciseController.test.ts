@@ -14,12 +14,12 @@ enum ElementType {
 }
 
 jest.mock("../services/ExerciseService")
-
-describe('ExerciseController - updateExerciseStatus', () => {
     let controller: ExerciseController
     let req: Partial<Request>
     let res: Partial<Response>
     let mockExerciseService: jest.Mocked<ExerciseService>
+
+describe('ExerciseController - updateExerciseStatus', () => {
 
     beforeEach(() => {
         mockExerciseService = new ExerciseService() as jest.Mocked<ExerciseService>
@@ -97,12 +97,14 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         mockExerciseService.findProgress.mockResolvedValue({ id: 1, itemId: "rw12346789", itemStatus: "InProgress", elementType: "Exercise", topicId: "rw987654321", userId: 1 });
 
-        mockExerciseService.updatedProgress.mockResolvedValue([{ id: 1, itemId: "rw12346789", itemStatus: "NotStarted", elementType: "Exercise", userId: 1 }]);
+        const progress = [{ id: 1, itemId: "rw12346789", itemStatus: ItemStatus.NotStarted, elementType: ElementType.Exercise, userId: 1 }]
+        
+        mockExerciseService.updatedProgress.mockResolvedValue(progress);
 
         await controller.updateExerciseStatus(req as Request, res as Response);
 
         expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.json).toHaveBeenCalledWith([{ id: 1, itemId: "rw12346789", itemStatus: "NotStarted", elementType: "Exercise", userId: 1 }]);
+        expect(res.json).toHaveBeenCalledWith(progress);
     });
 
     it('deve retornar "Internal server error while processing the request" em caso de erro no servidor', async () => {
@@ -120,10 +122,6 @@ describe('ExerciseController - updateExerciseStatus', () => {
 })
 
 describe('ExerciseController - getTopicExercisesStatus', () => {
-    let controller: ExerciseController
-    let req: Partial<Request>
-    let res: Partial<Response>
-    let mockExerciseService: jest.Mocked<ExerciseService>
 
     beforeEach(() => {
         mockExerciseService = new ExerciseService() as jest.Mocked<ExerciseService>
