@@ -37,7 +37,7 @@ export class ExerciseController {
             }
     
             if (currentProgress.itemStatus === itemStatus) {
-                return res.status(200).json({ message: "Status value is already being used" })
+                return res.status(200).json({ message: "Status value is already being used" });
             }
 
             const updatedProgress = await this.exerciseService.updatedProgress(user.id, itemId, itemStatus, topicId)
