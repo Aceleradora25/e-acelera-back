@@ -40,7 +40,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
         await controller.updateExerciseStatus(req as Request, res as Response)
 
         expect(res.status).toHaveBeenCalledWith(401)
-        expect(res.json).toHaveBeenCalledWith({ message: "User not authenticated." })
+        expect(res.json).toHaveBeenCalledWith({ message: "User not authenticated" })
     })
 
     it('deve retornar "User not found" se o usuário não for encontrado', async () => {
@@ -49,7 +49,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
         await controller.updateExerciseStatus(req as Request, res as Response)
 
         expect(res.status).toHaveBeenCalledWith(404)
-        expect(res.json).toHaveBeenCalledWith({ message: "User not found." })
+        expect(res.json).toHaveBeenCalledWith({ message: "User not found" })
     })
 
     it('deve retornar "Invalid or missing status value" se o status for inválido', async () => {
@@ -87,7 +87,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
         await controller.updateExerciseStatus(req as Request, res as Response)
 
         expect(res.status).toHaveBeenCalledWith(200)
-        expect(res.json).toHaveBeenCalledWith({ message: "The status is already up to date." })
+        expect(res.json).toHaveBeenCalledWith({ message: "Status value is already being used" })
     })
 
     it('deve retornar o progresso atualizado ao mudar o status', async () => {
@@ -116,7 +116,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
         await controller.updateExerciseStatus(req as Request, res as Response)
     
         expect(res.status).toHaveBeenCalledWith(500)
-        expect(res.json).toHaveBeenCalledWith({ message: "Internal server error while processing the request." })
+        expect(res.json).toHaveBeenCalledWith({ message: "Internal server error while processing the request" })
     })
 
 })
