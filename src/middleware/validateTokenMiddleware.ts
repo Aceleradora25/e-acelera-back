@@ -8,9 +8,9 @@ export async function validateTokenMiddleware(req: Request, res: Response, next:
     if (!token) {
         return res.status(401).json({ message: "Token was not provided" });
     }
-    const email = await tokenService.extractEmailToken(token);
+    const extractToken = await tokenService.extractToken(token);
+    const email = extractToken?.email
     try {
-
         if (!email) {
             return res.status(401).json({ message: "Token invalid" });
         }
