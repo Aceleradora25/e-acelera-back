@@ -17,7 +17,7 @@ interface UserToken {
     iat: number,
     exp: number,
     jti: string
-  }
+}
 
 export class TokenService {
     private secretKey = process.env.NEXTAUTH_SECRET || "";
@@ -54,6 +54,7 @@ export class TokenService {
                 console.error("Token inválido");
                 return null;
             }
+
             return decodedToken;
 
         } catch (error: any) {
@@ -62,15 +63,40 @@ export class TokenService {
         }
     }
 
-    // async registerUser(token: string) {
-    //     try {
-    //         const email = await this.extractEmailToken(token)
+    async registerUser(token: string) {
+        try {
+            const extractToken = await this.extractToken(token)
 
-    //         if(email){
-    //             const user = prisma.user.findFirst({ where: {email, provider}})
-    //         }
-    //     } catch (error) {
-            
-    //     }
-    // }
+            if (extractToken) {
+                const findUser = await prisma.user.findUnique({ where: { email: extractToken.email } })
+
+                if (findUser) {
+                    throw new Error("")
+                }
+
+
+                const convertIatToDateTime = (iat: number): Date => {
+                    return new Date(iat * 1000)
+                }
+
+                const iat = extractToken.iat;
+                const dateTime = convertIatToDateTime(iat);
+
+                const createUser = await prisma.user.create({
+                    data: {
+                        email: extractToken.email,
+                        provider: extractToken.provider,
+                        loginDate: dateTime.toLocaleString("pt-BR"),
+                    },
+                })
+
+                if(!createUser) return null
+
+                return createUser
+            }
+        } catch (error) {
+            console.error("Erro ao registrar usuario: ", error)
+            return null
+        }
+    }
 }
