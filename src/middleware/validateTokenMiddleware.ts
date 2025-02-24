@@ -12,7 +12,7 @@ export async function validateTokenMiddleware(req: Request, res: Response, next:
     const email = extractToken?.email
     try {
         if (!email) {
-            return res.status(401).json({ message: "Token invalid" });
+            return res.status(498).json({ message: "Token invalid" });
         }
         req.user = { email };
         next();
