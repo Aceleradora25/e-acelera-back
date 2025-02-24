@@ -1,5 +1,5 @@
 import { Response, Request } from "express"
-import { ExerciseService } from "../services/ExerciseService"
+import { ExerciseService } from "../../services/ExerciseService"
 
 export class ExerciseController {
     private exerciseService: ExerciseService

@@ -71,7 +71,7 @@ export class TokenService {
                 const findUser = await prisma.user.findUnique({ where: { email: extractToken.email } })
 
                 if (findUser) {
-                    throw new Error("")
+                    throw new Error("User already exists")
                 }
 
 
@@ -86,16 +86,16 @@ export class TokenService {
                     data: {
                         email: extractToken.email,
                         provider: extractToken.provider,
-                        loginDate: dateTime.toLocaleString("pt-BR"),
+                        loginDate: dateTime,
                     },
                 })
 
-                if(!createUser) return null
+                if(!createUser) throw new Error("Error creating user")
 
                 return createUser
             }
         } catch (error) {
-            console.error("Erro ao registrar usuario: ", error)
+            console.error(error)
             return null
         }
     }

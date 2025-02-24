@@ -1,5 +1,5 @@
 import express from 'express'
-import { ExerciseController } from '../controllers/ExerciseController'
+import { ExerciseController } from '../controllers/exercise/ExerciseController'
 import { validateTokenMiddleware } from '../middleware/validateTokenMiddleware'
 
 const router = express.Router()
@@ -7,6 +7,8 @@ const router = express.Router()
 router.get('/', (req, res) => {
     res.send('Welcome to the homepage')
 })
+
+router.get('/login', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res))
 
 router.put('/topic/:topicId/item/:itemId/status', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res))
 
