@@ -30,4 +30,24 @@ describe('LoginController - registerUser', () => {
         expect(res.status).toHaveBeenCalledWith(498)
         expect(res.json).toHaveBeenCalledWith({ message: "Expired or invalid token" })
     })
+    it('Verifica se ocorreu erro ao extrair o token, deve retornar: "Error extracting token"', async () => {
+       
+        mockTokenService.extractToken.mockResolvedValue(null)
+
+        await controller.registerUser(req as Request, res as Response)
+        expect(res.status).toHaveBeenCalledWith(500)
+        expect(res.json).toHaveBeenCalledWith({message: "Error extracting token"})
+    })
+
+    it('Verifica se o usuário existe no banco de dados, deve retornar: "User already exists"', async () => {
+
+        const date: Date = new Date(2025, 1, 24)
+        mockTokenService.extractToken.mockResolvedValue({name:"Milena", email:"usuariaaceleradora@gmail.com", sub:"1568888", id:"1", provider:"google", accessToken:"kmmxddvbh", iat:4567, exp:5689, jti:"njjdkmk"})
+        mockTokenService.findUserByEmail.mockResolvedValue({id:1, email:"usuariaaceleradora@gmail.com", provider:"google", loginDate:date})
+
+        await controller.registerUser( req as Request, res as Response)
+        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.json).toHaveBeenCalledWith({message: "User already exists"})
+    })
+    
 })
