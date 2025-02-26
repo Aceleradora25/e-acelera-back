@@ -60,14 +60,22 @@ export class TokenService {
     }
   }
 
-  async registerUser(extractToken: UserToken) {
-    try {
-      const convertIatToDateTime = (iat: number): Date => {
+  async convertIatToDateTime(extractToken: UserToken){
+    const brasiliaTimeZone = 10800
+      const iat = extractToken.iat - brasiliaTimeZone
+
+      const convertDate = (iat: number): Date => {
         return new Date(iat * 1000)
       }
 
-      const iat = extractToken.iat
-      const dateTime = convertIatToDateTime(iat)
+      const dateTime = convertDate(iat)
+
+      return dateTime
+  }
+
+  async registerUser(extractToken: UserToken) {
+    try {
+      const dateTime =  await this.convertIatToDateTime(extractToken)
 
       const createUser = await prisma.user.create({
         data: {
@@ -84,12 +92,19 @@ export class TokenService {
     }
   }
 
-  async findUserByEmail(email: string) {
+  async findUserByEmail(extractToken: UserToken)  {
     try {
-      const user = await prisma.user.findUnique({ where: { email } })
-      return user
+      const loginDate =  await this.convertIatToDateTime(extractToken)
+
+      const updateUser = await prisma.user.update({
+        where: { email: extractToken.email },
+        data: { loginDate, provider: extractToken.provider },
+      })
+      console.log(updateUser)
+      return updateUser
     } catch (error) {
       throw new Error("Error fetching user from database")
+      return null
     }
   }
 }

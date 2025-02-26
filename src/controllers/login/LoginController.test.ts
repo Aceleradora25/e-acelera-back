@@ -73,6 +73,7 @@ describe("LoginController - registerUser", () => {
   })
 
   it('Verifica se ocorreu um erro ao registrar o usuário, deve retornar: "Error registering user"', async () => {
+    const date: Date = new Date(2025, 1, 25)
 
     mockTokenService.extractToken.mockResolvedValue({
       name: "Milena",
