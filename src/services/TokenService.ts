@@ -100,7 +100,7 @@ export class TokenService {
         where: { email: extractToken.email },
         data: { loginDate, provider: extractToken.provider },
       })
-      console.log(updateUser)
+     
       return updateUser
     } catch (error) {
       console.error("Error fetching user from database")

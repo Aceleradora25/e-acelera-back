@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     res.send('Welcome to the homepage')
 })
 
-router.get('/login', validateTokenMiddleware, (req, res) => new LoginController().registerUser(req, res))
+router.post('/login', validateTokenMiddleware, (req, res) => new LoginController().registerUser(req, res))
 
 router.put('/topic/:topicId/item/:itemId/status', validateTokenMiddleware, (req, res) => new ExerciseController().updateExerciseStatus(req, res))
 
