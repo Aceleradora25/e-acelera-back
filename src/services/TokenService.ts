@@ -52,7 +52,7 @@ export class TokenService {
         console.error("Invalid token")
         return null
       }
-
+  
       return decodedToken
     } catch (error: any) {
       console.error("Error decrypting token:", error)
@@ -103,7 +103,7 @@ export class TokenService {
       console.log(updateUser)
       return updateUser
     } catch (error) {
-      throw new Error("Error fetching user from database")
+      console.error("Error fetching user from database")
       return null
     }
   }
