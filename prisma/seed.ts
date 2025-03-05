@@ -47,7 +47,7 @@ async function main() {
             topicId: "rw1721236357157ccf465",
           },
           {
-            itemId: "rw1725556521808c8761e",
+            itemId: "rw1725630408780f28e7a",
             itemStatus: "Completed",
             elementType: "Video",
             topicId: "rw1721236357157ccf465",
