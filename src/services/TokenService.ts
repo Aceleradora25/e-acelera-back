@@ -90,8 +90,7 @@ export class TokenService {
       })
      
       return updateUser
-    } catch (error) {
-      console.error("Error fetching user from database")
+    } catch {
       return null
     }
   }
