@@ -2,23 +2,11 @@ import * as dotenv from "dotenv"
 import * as jose from "jose"
 import * as crypto from "crypto"
 import { PrismaClient } from "@prisma/client"
+import { UserToken } from "../utils/types"
 
 dotenv.config()
 
 const prisma = new PrismaClient()
-
-interface UserToken {
-  name: string
-  email: string
-  sub: string
-  id: string
-  provider: string
-  accessToken: string
-  iat: number
-  exp: number
-  jti: string
-}
-
 export class TokenService {
   private secretKey = process.env.NEXTAUTH_SECRET || ""
 
