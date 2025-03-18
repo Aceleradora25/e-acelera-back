@@ -1,5 +1,5 @@
 import { Response, Request } from "express"
-import { ExerciseService } from "../services/ExerciseService"
+import { ExerciseService } from "../../services/ExerciseService"
 
 export class ExerciseController {
     private exerciseService: ExerciseService
@@ -37,7 +37,7 @@ export class ExerciseController {
             }
     
             if (currentProgress.itemStatus === itemStatus) {
-                return res.status(200).json({ message: "Status value is already being used" })
+                return res.status(200).json({ message: "Status value is already being used" });
             }
 
             const updatedProgress = await this.exerciseService.updatedProgress(user.id, itemId, itemStatus, topicId)
@@ -48,7 +48,7 @@ export class ExerciseController {
             if (error.message.includes("not found") || error.message.includes("Invalid")) {
                 return res.status(400).json({ message: error.message })
             }
-            console.error(`Error in updateExerciseStatus: ${error.message}`)
+          
             return res.status(500).json({ message: "Internal server error while processing the request" })
         }
     }
