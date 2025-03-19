@@ -25,6 +25,10 @@ describe("LoginController - registerUser", () => {
     }
   })
 
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('Verifica se o token é expirado ou invalido, deve retornar: "Expired or invalid token"', async () => {
     req = { headers: { authorization: "eynkdsflmdnas" } }
 
@@ -73,8 +77,7 @@ describe("LoginController - registerUser", () => {
   })
 
   it('Verifica se ocorreu um erro ao registrar o usuário, deve retornar: "Error registering user"', async () => {
-    const date: Date = new Date(2025, 1, 25)
-
+    
     mockTokenService.extractToken.mockResolvedValue({
       name: "Milena",
       email: "usuariaaceleradora@gmail.com",
@@ -96,6 +99,16 @@ describe("LoginController - registerUser", () => {
     expect(res.status).toHaveBeenCalledWith(500)
     expect(res.json).toHaveBeenCalledWith({
       message: "Error registering user",
+    })
+  })
+
+  it('Verifica se ocorreu uma exceção ao criar usuário, deve retornar: "Error processing the created user"', async () => {
+    mockTokenService.extractToken.mockRejectedValue(new Error("Error processing the created user"))
+
+    await controller.registerUser(req as Request, res as Response)
+    expect(res.status).toHaveBeenCalledWith(500)
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Error processing the created user",
     })
   })
 
