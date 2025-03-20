@@ -146,7 +146,7 @@ export class ExerciseService {
                     userId,
                     itemStatus,
                     topicId,
-                    modifiedAt
+                    modifiedAt: DateTime
                 }
             })  
         } catch(error){

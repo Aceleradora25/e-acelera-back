@@ -117,6 +117,40 @@ export class ExerciseController {
     } catch (error: any) {
         return res.status(500).json({ message: "Error processing the request" })
     }
-}
+    }
+
+    async saveStatusElement(req: Request, res: Response){
+        const { topicId, itemId } = req.params
+        const { elementType, itemStatus, modifiedAt } = req.body
+        const email = req.user?.email
+
+        try {
+            if (!email) {
+                return res.status(401).json({ message: "User not authenticated" })
+            }
+
+            const user = await this.exerciseService.findUserByEmail(email)
+
+            if (!user) {
+                return res.status(404).json({ message: "User not found" })
+            }
+
+            if (!itemId){
+                return res.status(404).json({ message: "itemId not found" })
+            }
+    
+            if (!topicId) {
+                return res.status(400).json({ message: "topicId not found" })
+            }
+
+            const savedStatus = await this.exerciseService.saveStatus(itemId, elementType, user.id, itemStatus, topicId, modifiedAt)
+ 
+            return res.status(201).json(savedStatus) 
+
+        } catch(error){
+            return res.status(500).json({ message: "Error processing the request" })
+        }
+    }
+
 }
 
