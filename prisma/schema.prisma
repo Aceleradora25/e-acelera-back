@@ -21,6 +21,7 @@ model Progress {
   itemStatus  ItemStatus
   elementType ElementType
   topicId     String      @default("default-topic-id")
+  modifiedAt  DateTime
   userId      Int
   user        User        @relation(fields: [userId], references: [id])
 }
