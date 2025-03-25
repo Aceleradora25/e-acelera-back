@@ -1,5 +1,6 @@
 import { TokenService } from "../../services/TokenService"
 import { Response, Request } from "express"
+import { STATUS_CODE } from "../../utils/constants"
 
 export class LoginController {
   private tokenService: TokenService
@@ -12,33 +13,33 @@ export class LoginController {
     const token = req.headers.authorization?.split(" ")[1]
 
     if (!token) {
-      return res.status(498).json({ message: "Expired or invalid token" })
+      return res.status(STATUS_CODE.TOKEN_EXPIRED).json({ message: "Expired or invalid token" })
     }
 
     try {
       const extractToken = await this.tokenService.extractToken(token)
 
       if (!extractToken) {
-        return res.status(500).json({ message: "Error extracting token" })
+        return res.status(STATUS_CODE.INTERNET_SERVER_ERROR).json({ message: "Error extracting token" })
       }
 
       const findUser = await this.tokenService.findUserByEmail(
         extractToken)
 
       if (findUser) {
-        return res.status(200).json({ message: "User already exists" })
+        return res.status(STATUS_CODE.OK).json({ message: "User already exists" })
       }
 
       const createdUser = await this.tokenService.registerUser(extractToken)
 
       if (!createdUser) {
-        return res.status(500).json({ message: "Error registering user" })
+        return res.status(STATUS_CODE.INTERNET_SERVER_ERROR).json({ message: "Error registering user" })
       }
 
-      return res.status(200).json({ message: "User created successfully!" })
+      return res.status(STATUS_CODE.OK).json({ message: "User created successfully!" })
     } catch (error: any) {
       return res
-        .status(500)
+        .status(STATUS_CODE.INTERNET_SERVER_ERROR)
         .json({ message: "Error processing the created user" })
     }
   }
