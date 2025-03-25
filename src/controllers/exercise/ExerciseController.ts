@@ -121,7 +121,9 @@ export class ExerciseController {
 
     async saveStatusElement(req: Request, res: Response){
         const { topicId, itemId } = req.params
-        const { elementType, itemStatus, modifiedAt } = req.body
+        const { elementType } = req.body
+        const { itemStatus } = req.body
+        const { modifiedAt } = req.body
         const email = req.user?.email
 
         try {
@@ -143,11 +145,14 @@ export class ExerciseController {
                 return res.status(400).json({ message: "topicId not found" })
             }
 
-            const savedStatus = await this.exerciseService.saveStatus(itemId, elementType, user.id, itemStatus, topicId, modifiedAt)
+            const modifiedAtDate = new Date(modifiedAt);
+
+            const savedStatus = await this.exerciseService.saveStatus(itemId, elementType, user.id, itemStatus, topicId, modifiedAtDate)
  
             return res.status(201).json(savedStatus) 
 
         } catch(error){
+            console.error("Error in saveStatusElement:", error);
             return res.status(500).json({ message: "Error processing the request" })
         }
     }

@@ -128,16 +128,14 @@ export class ExerciseService {
         }
     }
 
-    async formatDateTime(currentDate: Date) {
-        return new Intl.DateTimeFormat("pt-BR", {
-            timeZone: "America/Sao_Paulo",
-            dateStyle: "short",
-            timeStyle: "medium"
-        }).format(currentDate)
+    async formatDateTime(currentDate: Date): Promise<Date> {
+        const offset = -3 * 60 * 60 * 1000; 
+        return new Date(currentDate.getTime() + offset);
     }
+    
 
-    async saveStatus(itemId: string, elementType: ElementType, userId: number, itemStatus: ItemStatus, topicId: string, modifiedAt: Date) {
-        const DateTime = await this.formatDateTime(modifiedAt) 
+    async saveStatus(itemId: string, elementType: ElementType, userId: number, itemStatus: ItemStatus, topicId: string, modifiedAtDate: Date) {
+        const dateTime = await this.formatDateTime(modifiedAtDate) 
         try {
             return await prisma.progress.create({
                 data: {
@@ -146,7 +144,7 @@ export class ExerciseService {
                     userId,
                     itemStatus,
                     topicId,
-                    modifiedAt: DateTime
+                    modifiedAt: dateTime
                 }
             })  
         } catch(error){
