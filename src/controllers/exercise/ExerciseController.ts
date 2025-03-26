@@ -25,7 +25,9 @@ export class ExerciseController {
                 return res.status(404).json({ message: "User not found" })
             }
 
-            if (! await this.exerciseService.validateStatus(itemStatus)) {
+            const isValidStatus = this.exerciseService.validateStatus(itemStatus)
+
+            if (!isValidStatus) {
                 return res.status(400).json({ message: "Invalid or missing status value." })
             }
 
@@ -79,6 +81,7 @@ export class ExerciseController {
             return res.status(500).json({ message: "Error processing the request" })
         }
     }
+    
     async getExerciseStatus(req: Request, res: Response){
         const { itemId, topicId } = req.params
         const email = req.user?.email
@@ -102,6 +105,7 @@ export class ExerciseController {
         }
 
         const topicExists = await this.exerciseService.findTopicById(topicId)
+
         if (!topicExists) {
             return res.status(404).json({ message: "topicId invalid" })
         }
@@ -142,29 +146,36 @@ export class ExerciseController {
                 return res.status(400).json({ message: "topicId not found" })
             }
 
-            if (! await this.exerciseService.validateElementType(elementType)) {
+            const isValidElementType = this.exerciseService.validateElementType(elementType)
+
+            if (!isValidElementType) {
                 return res.status(400).json({ message: "Invalid or missing element type." })
             }
 
-            if (! await this.exerciseService.validateStatus(itemStatus)) {
+            const isValidStatus = this.exerciseService.validateStatus(itemStatus)
+
+            if (!isValidStatus) {
                 return res.status(400).json({ message: "Invalid or missing status value." })
             }
 
             const modifiedAtDate = new Date(modifiedAt);
 
             if(!modifiedAtDate) {
-                return res.status(400).json({ message: "incorrect data" })
+                return res.status(400).json({ message: "Incorrect date" })
             }
+
+            const findExercise = await this.exerciseService.findItemById(itemId)
+            
+            const saveProgressStatusCode = findExercise.length ? 200 : 201
 
             const savedStatus = await this.exerciseService.saveStatus(itemId, elementType, user.id, itemStatus, topicId, modifiedAtDate)
  
-            return res.status(201).json(savedStatus) 
+            return res.status(saveProgressStatusCode).json(savedStatus) 
 
         } catch(error){
             console.error("Error in saveStatusElement:", error);
             return res.status(500).json({ message: "Error processing the request" })
         }
     }
-
 }
 

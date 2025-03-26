@@ -15,12 +15,12 @@ export class ExerciseService {
         }
     }
 
-    async validateStatus(value: string): Promise<boolean> {
+    validateStatus(value: string): boolean {
         const validateStatus = ["NotStarted", "InProgress", "Completed"]
         return validateStatus.includes(value)
     }
 
-    async validateElementType(value: string): Promise<boolean> {
+    validateElementType(value: string): boolean {
         const validateStatus = ["Exercise", "Video"]
         return validateStatus.includes(value)
     }
@@ -111,7 +111,6 @@ export class ExerciseService {
     }
 
     async exerciseStatus(userId: number, itemId: string, topicId: string) {
-
         try {
             return await prisma.progress.findMany({
                 where: { userId, itemId, topicId },
@@ -121,7 +120,6 @@ export class ExerciseService {
         } catch (error) {
             throw new Error("Error fetching status progress from database")
         }
-
     }
 
     async findTopicById(topicId: string) {
@@ -133,24 +131,35 @@ export class ExerciseService {
         }
     }
 
+    async findItemById(itemId: string){
+        try{
+            return await prisma.progress.findMany({where: { itemId } })
+        } catch(error){
+            throw new Error("Error fetching itemId progress from database")
+        }
+    }
+
     async formatDateTime(currentDate: Date): Promise<Date> {
-        const offset = -3 * 60 * 60 * 1000;
+        const offset = -3 * 60 * 60 * 1000
         return new Date(currentDate.getTime() + offset)
     }
     
     async saveStatus(itemId: string, elementType: ElementType, userId: number, itemStatus: ItemStatus, topicId: string, modifiedAtDate: Date) {
         const dateTime = await this.formatDateTime(modifiedAtDate) 
         try {
-            return await prisma.progress.create({
-                data: {
+            const createdProgress = await prisma.progress.upsert({
+                where: { itemId, userId },
+                create: {
                     itemId,
                     elementType,
                     userId,
                     itemStatus,
                     topicId,
                     modifiedAt: dateTime
-                }
+                },
+                update: { itemStatus, modifiedAt: dateTime }
             })  
+            return createdProgress
         } catch(error){
             throw new Error("Error saving progress status")
         }
