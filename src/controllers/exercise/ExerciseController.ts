@@ -29,7 +29,6 @@ export class ExerciseController {
                 return res.status(400).json({ message: "Invalid or missing status value." })
             }
 
-    
             const currentProgress = await this.exerciseService.findProgress(user.id, itemId, topicId)
     
             if (!currentProgress) {
@@ -121,9 +120,7 @@ export class ExerciseController {
 
     async saveStatusElement(req: Request, res: Response){
         const { topicId, itemId } = req.params
-        const { elementType } = req.body
-        const { itemStatus } = req.body
-        const { modifiedAt } = req.body
+        const { elementType, itemStatus, modifiedAt } = req.body
         const email = req.user?.email
 
         try {
@@ -145,7 +142,19 @@ export class ExerciseController {
                 return res.status(400).json({ message: "topicId not found" })
             }
 
+            if (! await this.exerciseService.validateElementType(elementType)) {
+                return res.status(400).json({ message: "Invalid or missing element type." })
+            }
+
+            if (! await this.exerciseService.validateStatus(itemStatus)) {
+                return res.status(400).json({ message: "Invalid or missing status value." })
+            }
+
             const modifiedAtDate = new Date(modifiedAt);
+
+            if(!modifiedAtDate) {
+                return res.status(400).json({ message: "incorrect data" })
+            }
 
             const savedStatus = await this.exerciseService.saveStatus(itemId, elementType, user.id, itemStatus, topicId, modifiedAtDate)
  

@@ -20,6 +20,11 @@ export class ExerciseService {
         return validateStatus.includes(value)
     }
 
+    async validateElementType(value: string): Promise<boolean> {
+        const validateStatus = ["Exercise", "Video"]
+        return validateStatus.includes(value)
+    }
+
     async findProgress(userId: number, itemId: string, topicId: string) {
         try {
             const count = await prisma.progress.count({
@@ -129,11 +134,10 @@ export class ExerciseService {
     }
 
     async formatDateTime(currentDate: Date): Promise<Date> {
-        const offset = -3 * 60 * 60 * 1000; 
-        return new Date(currentDate.getTime() + offset);
+        const offset = -3 * 60 * 60 * 1000;
+        return new Date(currentDate.getTime() + offset)
     }
     
-
     async saveStatus(itemId: string, elementType: ElementType, userId: number, itemStatus: ItemStatus, topicId: string, modifiedAtDate: Date) {
         const dateTime = await this.formatDateTime(modifiedAtDate) 
         try {
@@ -148,8 +152,7 @@ export class ExerciseService {
                 }
             })  
         } catch(error){
-                throw new Error("Error saving progress status")
-
+            throw new Error("Error saving progress status")
         }
     }
 }
