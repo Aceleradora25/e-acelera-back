@@ -57,7 +57,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         mockExerciseService.findUserByEmail.mockResolvedValue({ id: 1, email: "teste@gmail.com", provider: "google", loginDate: date });
 
-        mockExerciseService.validateStatus.mockResolvedValue(false)
+        mockExerciseService.validateStatus.mockReturnValue(false)
 
         await controller.updateExerciseStatus(req as Request, res as Response)
 
@@ -70,7 +70,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         mockExerciseService.findUserByEmail.mockResolvedValue({ id: 1, email: "teste@gmail.com", provider: "google", loginDate: date });
 
-        mockExerciseService.validateStatus.mockResolvedValue(true)
+        mockExerciseService.validateStatus.mockReturnValue(true)
 
         mockExerciseService.findProgress.mockRejectedValue(new Error("Progress record not found for user 1 and item 1, 1."));
 
@@ -86,9 +86,9 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         mockExerciseService.findUserByEmail.mockResolvedValue({ id: 1, email: "teste@gmail.com", provider: "google", loginDate: date });
 
-        mockExerciseService.validateStatus.mockResolvedValue(true)
+        mockExerciseService.validateStatus.mockReturnValue(true)
 
-        mockExerciseService.findProgress.mockResolvedValue({ id: 1, itemId: "rw12346789", itemStatus: "NotStarted", elementType: "Exercise", topicId: "rw987654321", userId: 1 });
+        mockExerciseService.findProgress.mockResolvedValue({ id: 1, itemId: "rw12346789", itemStatus: "NotStarted", elementType: "Exercise", topicId: "rw987654321", userId: 1, modifiedAt: new Date() });
 
         await controller.updateExerciseStatus(req as Request, res as Response)
 
@@ -101,9 +101,9 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         mockExerciseService.findUserByEmail.mockResolvedValue({ id: 1, email: "teste@gmail.com", provider: "google", loginDate: date });
 
-        mockExerciseService.validateStatus.mockResolvedValue(true);
+        mockExerciseService.validateStatus.mockReturnValue(true);
 
-        mockExerciseService.findProgress.mockResolvedValue({ id: 1, itemId: "rw12346789", itemStatus: "InProgress", elementType: "Exercise", topicId: "rw987654321", userId: 1 });
+        mockExerciseService.findProgress.mockResolvedValue({ id: 1, itemId: "rw12346789", itemStatus: "InProgress", elementType: "Exercise", topicId: "rw987654321", userId: 1, modifiedAt: new Date() });
 
         const progress = [{ id: 1, itemId: "rw12346789", itemStatus: ItemStatus.NotStarted, elementType: ElementType.Exercise, userId: 1 }]
 
@@ -119,7 +119,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
         const date: Date = new Date(2025, 1, 24)
 
         mockExerciseService.findUserByEmail.mockResolvedValue({ id: 1, email: "teste@gmail.com", provider: "google", loginDate: date });
-        mockExerciseService.validateStatus.mockResolvedValue(true)
+        mockExerciseService.validateStatus.mockReturnValue(true)
 
         mockExerciseService.findProgress.mockRejectedValue(new Error("Internal server error"));
 
@@ -288,13 +288,14 @@ describe("ExerciseController - getExerciseStatus", () => {
 
     it("deve retornar 'status não encontrado' se o status não for encontrado", async () => {
 
-        const topicValidation: { id: number; itemId: string; elementType: ElementType; userId: number; itemStatus: ItemStatus; topicId: string } = {
+        const topicValidation: { id: number; itemId: string; elementType: ElementType; userId: number; itemStatus: ItemStatus; topicId: string, modifiedAt: Date } = {
             id: 1,
             itemId: "rw1726148766181e6dab5",
             elementType: ElementType.Exercise,
             userId: 1,
             itemStatus: ItemStatus.Completed,
-            topicId: "rw17212367802520ba251"
+            topicId: "rw17212367802520ba251",
+            modifiedAt: new Date()
         }
 
         const date: Date = new Date(2025, 1, 24)
@@ -320,13 +321,14 @@ describe("ExerciseController - getExerciseStatus", () => {
 
     it("deve retornar um objeto com itemStatus e itemId quando disponível", async () => {
 
-        const topicValidation: { id: number; itemId: string; elementType: ElementType; userId: number; itemStatus: ItemStatus; topicId: string } = {
+        const topicValidation: { id: number; itemId: string; elementType: ElementType; userId: number; itemStatus: ItemStatus; topicId: string, modifiedAt: Date } = {
             id: 1,
             itemId: "rw1726148766181e6dab5",
             elementType: ElementType.Exercise,
             userId: 1,
             itemStatus: ItemStatus.Completed,
-            topicId: "rw17212367802520ba251"
+            topicId: "rw17212367802520ba251",
+            modifiedAt: new Date()
         }
 
         const exerciseSuccess: { itemStatus: ItemStatus; itemId: string }[] = [{
