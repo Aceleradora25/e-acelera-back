@@ -158,11 +158,11 @@ export class ExerciseController {
                 return res.status(400).json({ message: "Invalid or missing status value." })
             }
 
-            const modifiedAtDate = new Date(modifiedAt);
+            const modifiedAtDate = new Date(modifiedAt)
 
-            if(!modifiedAtDate) {
+            if (isNaN(modifiedAtDate.getTime())) {
                 return res.status(400).json({ message: "Incorrect date" })
-            }
+            }            
 
             const findExercise = await this.exerciseService.findItemById(itemId)
             
