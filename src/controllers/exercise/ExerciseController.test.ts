@@ -128,7 +128,6 @@ describe('ExerciseController - updateExerciseStatus', () => {
         expect(res.status).toHaveBeenCalledWith(500)
         expect(res.json).toHaveBeenCalledWith({ message: "Internal server error while processing the request" })
     })
-
 })
 
 describe('ExerciseController - getTopicExercisesStatus', () => {
@@ -332,7 +331,6 @@ describe("ExerciseController - getExerciseStatus", () => {
         }
 
         const exerciseSuccess: { itemStatus: ItemStatus; itemId: string }[] = [{
-
             itemStatus: ItemStatus.InProgress,
             itemId: "rw1726148766181e6dab5"
         }]
@@ -435,18 +433,74 @@ describe("ExerciseController - saveStatusElement", () => {
         expect(res.json).toHaveBeenCalledWith({ message: "Invalid or missing status value." })
     })
     
-    // it("deve retornar 'Incorrect date' se a data modificada for inválida", async () => {
-    //     req.body = { ...req.body, modifiedAt: ""}
+    it("deve retornar 'Incorrect date' se a data modificada for inválida", async () => {
+        req.body = { ...req.body, modifiedAt: "28/03/2025"}
     
-    //     mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
 
-    //     mockExerciseService.validateElementType.mockReturnValue(true)
-    //     mockExerciseService.validateStatus.mockReturnValue(true)
+        mockExerciseService.validateElementType.mockReturnValue(true)
+        mockExerciseService.validateStatus.mockReturnValue(true)
 
-    //     await controller.saveStatusElement(req as Request, res as Response);
+        await controller.saveStatusElement(req as Request, res as Response);
     
-    //     expect(res.status).toHaveBeenCalledWith(400);
-    //     expect(res.json).toHaveBeenCalledWith({ message: "Incorrect date" });
-    // });
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({ message: "Incorrect date" });
+    })
+
+    it("dado um exercicio que já existe deve retornar que o exercicio foi atualizado", async () => {
+        const date: Date = new Date(2025, 3, 27)
+        const updatedDate: Date = new Date(2025, 3, 28)
+
+        const exerciseFound = { 
+            id: 1, 
+            itemId: "rw12346789", 
+            itemStatus: ItemStatus.InProgress, 
+            elementType: ElementType.Exercise, 
+            topicId: "rw987654321", 
+            modifiedAt: updatedDate,  
+            userId: 1 
+        }
+
+        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+
+        mockExerciseService.validateElementType.mockReturnValue(true)
+        mockExerciseService.validateStatus.mockReturnValue(true)
+
+        mockExerciseService.findItemById.mockResolvedValue([{ id: 1, itemId: "rw12346789", itemStatus: ItemStatus.NotStarted, elementType: ElementType.Exercise, topicId: "rw987654321", modifiedAt: date,  userId: 1 }])
+
+        mockExerciseService.saveStatus.mockResolvedValue(exerciseFound)
+
+        await controller.saveStatusElement(req as Request, res as Response)
+
+        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.json).toHaveBeenCalledWith(exerciseFound)
+    })
+
+    it("deve retornar que o exercicio foi salvo", async () => {
+        const date: Date = new Date(2025, 3, 28)
+        
+        const exerciseSalved = { 
+            id: 1, 
+            itemId: "rw12346789", 
+            itemStatus: ItemStatus.Completed, 
+            elementType: ElementType.Video, 
+            topicId: "rw987654321", 
+            modifiedAt: date,  
+            userId: 1 
+        }
+
+        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+
+        mockExerciseService.validateElementType.mockReturnValue(true)
+        mockExerciseService.validateStatus.mockReturnValue(true)
+        mockExerciseService.findItemById.mockResolvedValue([])
+
+        mockExerciseService.saveStatus.mockResolvedValue(exerciseSalved)
+
+        await controller.saveStatusElement(req as Request, res as Response)
+
+        expect(res.status).toHaveBeenCalledWith(201)
+        expect(res.json).toHaveBeenCalledWith(exerciseSalved)
+    })
     
 });
