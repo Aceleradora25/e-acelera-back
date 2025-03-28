@@ -388,7 +388,14 @@ describe("ExerciseController - saveStatusElement", () => {
     it("deve retornar 'itemId not found' se o itemId não existir", async () => {
         req.params = { ...req.params, itemId: ""}
 
-        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+        const login = {
+            id: 1, 
+            email: "test@gmail.com", 
+            provider: "google", 
+            loginDate: new Date()
+        }
+
+        mockExerciseService.findUserByEmail.mockResolvedValue(login)
 
         await controller.saveStatusElement(req as Request, res as Response)
     
@@ -399,7 +406,14 @@ describe("ExerciseController - saveStatusElement", () => {
     it("deve retornar 'topicId not found' se o topicId não existir", async () => {
         req.params = { ...req.params, topicId: ""}
 
-        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+        const login = {
+            id: 1, 
+            email: "test@gmail.com", 
+            provider: "google", 
+            loginDate: new Date()
+        }
+
+        mockExerciseService.findUserByEmail.mockResolvedValue(login)
     
         await controller.saveStatusElement(req as Request, res as Response)
     
@@ -408,9 +422,16 @@ describe("ExerciseController - saveStatusElement", () => {
     })
 
     it("deve retornar 'Invalid or missing element type.' se o tipo de elemento for inválido", async () => {
-        req.body = { ...req.body, ElementType: "ashd"}
+        req.body = { ...req.body, ElementType: "Invalid"}
 
-        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+        const login = {
+            id: 1, 
+            email: "test@gmail.com", 
+            provider: "google", 
+            loginDate: new Date()
+        }
+
+        mockExerciseService.findUserByEmail.mockResolvedValue(login)
         
         mockExerciseService.validateElementType.mockReturnValue(false)
 
@@ -421,8 +442,16 @@ describe("ExerciseController - saveStatusElement", () => {
     })
     
     it("deve retornar 'Invalid or missing status value.' se o status for inválido", async () => {
-        req.body = { ...req.body, itemStatus: "askdkaj"}
-        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+        req.body = { ...req.body, itemStatus: "Finished"}
+
+        const login = {
+            id: 1, 
+            email: "test@gmail.com", 
+            provider: "google", 
+            loginDate: new Date()
+        }
+
+        mockExerciseService.findUserByEmail.mockResolvedValue(login)
 
         mockExerciseService.validateElementType.mockReturnValue(true)
         mockExerciseService.validateStatus.mockReturnValue(false)
@@ -433,23 +462,59 @@ describe("ExerciseController - saveStatusElement", () => {
         expect(res.json).toHaveBeenCalledWith({ message: "Invalid or missing status value." })
     })
     
-    it("deve retornar 'Incorrect date' se a data modificada for inválida", async () => {
+    it("deve retornar 'Incorrect date' se a data for inválida", async () => {
         req.body = { ...req.body, modifiedAt: "28/03/2025"}
+
+        const login = {
+            id: 1, 
+            email: "test@gmail.com", 
+            provider: "google", 
+            loginDate: new Date()
+        }
     
-        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+        mockExerciseService.findUserByEmail.mockResolvedValue(login)
 
         mockExerciseService.validateElementType.mockReturnValue(true)
         mockExerciseService.validateStatus.mockReturnValue(true)
 
-        await controller.saveStatusElement(req as Request, res as Response);
+        await controller.saveStatusElement(req as Request, res as Response)
     
-        expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.json).toHaveBeenCalledWith({ message: "Incorrect date" });
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ message: "Incorrect date" })
+    })
+
+    it("deve retornar 'Error processing the request' ao receber uma exceção durante a requisição", async () => {
+        const login = {
+            id: 1, 
+            email: "test@gmail.com", 
+            provider: "google", 
+            loginDate: new Date()
+        }
+    
+        mockExerciseService.findUserByEmail.mockResolvedValue(login)
+
+        mockExerciseService.validateElementType.mockReturnValue(true)
+        mockExerciseService.validateStatus.mockReturnValue(true)
+        mockExerciseService.findItemById.mockResolvedValue([])
+
+        mockExerciseService.saveStatus.mockRejectedValue(new Error("Error processing the request"))    
+
+        await controller.saveStatusElement(req as Request, res as Response)
+
+        expect(res.status).toHaveBeenCalledWith(500)
+        expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" })
     })
 
     it("dado um exercicio que já existe deve retornar que o exercicio foi atualizado", async () => {
         const date: Date = new Date(2025, 3, 27)
         const updatedDate: Date = new Date(2025, 3, 28)
+
+        const login = {
+            id: 1, 
+            email: "test@gmail.com", 
+            provider: "google", 
+            loginDate: new Date()
+        }
 
         const exerciseFound = { 
             id: 1, 
@@ -461,7 +526,7 @@ describe("ExerciseController - saveStatusElement", () => {
             userId: 1 
         }
 
-        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+        mockExerciseService.findUserByEmail.mockResolvedValue(login)
 
         mockExerciseService.validateElementType.mockReturnValue(true)
         mockExerciseService.validateStatus.mockReturnValue(true)
@@ -503,4 +568,4 @@ describe("ExerciseController - saveStatusElement", () => {
         expect(res.json).toHaveBeenCalledWith(exerciseSalved)
     })
     
-});
+})

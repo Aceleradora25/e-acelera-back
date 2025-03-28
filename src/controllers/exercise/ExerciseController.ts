@@ -173,7 +173,6 @@ export class ExerciseController {
             return res.status(saveProgressStatusCode).json(savedStatus) 
 
         } catch(error){
-            console.error("Error in saveStatusElement:", error);
             return res.status(500).json({ message: "Error processing the request" })
         }
     }
