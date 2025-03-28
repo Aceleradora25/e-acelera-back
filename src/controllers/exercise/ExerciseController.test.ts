@@ -349,3 +349,104 @@ describe("ExerciseController - getExerciseStatus", () => {
         expect(res.json).toHaveBeenCalledWith(exerciseSuccess)
     })
 })
+
+describe("ExerciseController - saveStatusElement", () => {
+
+    beforeEach(() => {
+        mockExerciseService = new ExerciseService() as jest.Mocked<ExerciseService>
+
+        controller = new ExerciseController()
+        controller["exerciseService"] = mockExerciseService
+
+        req = { 
+            params: { topicId: "1", itemId: "2" }, 
+            body: { elementType: ElementType.Video, itemStatus: ItemStatus.Completed, modifiedAt: "2025-03-27T12:00:00Z" },
+            user: { email: "teste@gmail.com" },
+        }
+        res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        }
+    })
+
+    it("deve retornar 'Usuário não autenticado' se o email não existir", async () => {
+        req.user = undefined
+
+        await controller.saveStatusElement(req as Request, res as Response)
+
+        expect(res.status).toHaveBeenCalledWith(401)
+        expect(res.json).toHaveBeenCalledWith({ message: "User not authenticated" })
+    })
+
+    it("deve retornar 'User not found' se o usuário não for encontrado", async () => {
+        mockExerciseService.findUserByEmail.mockResolvedValue(null)
+    
+        await controller.saveStatusElement(req as Request, res as Response)
+    
+        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.json).toHaveBeenCalledWith({ message: "User not found" })
+    })
+    
+    it("deve retornar 'itemId not found' se o itemId não existir", async () => {
+        req.params = { ...req.params, itemId: ""}
+
+        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+
+        await controller.saveStatusElement(req as Request, res as Response)
+    
+        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.json).toHaveBeenCalledWith({ message: "itemId not found" })
+    })
+    
+    it("deve retornar 'topicId not found' se o topicId não existir", async () => {
+        req.params = { ...req.params, topicId: ""}
+
+        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+    
+        await controller.saveStatusElement(req as Request, res as Response)
+    
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ message: "topicId not found" })
+    })
+
+    it("deve retornar 'Invalid or missing element type.' se o tipo de elemento for inválido", async () => {
+        req.body = { ...req.body, ElementType: "ashd"}
+
+        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+        
+        mockExerciseService.validateElementType.mockReturnValue(false)
+
+        await controller.saveStatusElement(req as Request, res as Response)
+    
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ message: "Invalid or missing element type." })
+    })
+    
+    it("deve retornar 'Invalid or missing status value.' se o status for inválido", async () => {
+        req.body = { ...req.body, itemStatus: "askdkaj"}
+        mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+
+        mockExerciseService.validateElementType.mockReturnValue(true)
+        mockExerciseService.validateStatus.mockReturnValue(false)
+    
+        await controller.saveStatusElement(req as Request, res as Response)
+    
+        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.json).toHaveBeenCalledWith({ message: "Invalid or missing status value." })
+    })
+    
+    // it("deve retornar 'Incorrect date' se a data modificada for inválida", async () => {
+    //     req.body = { ...req.body, modifiedAt: ""}
+    
+    //     mockExerciseService.findUserByEmail.mockResolvedValue({id: 1, email: "test@gmail.com", provider: "google", loginDate: new Date()})
+
+    //     mockExerciseService.validateElementType.mockReturnValue(true)
+    //     mockExerciseService.validateStatus.mockReturnValue(true)
+
+    //     await controller.saveStatusElement(req as Request, res as Response);
+    
+    //     expect(res.status).toHaveBeenCalledWith(400);
+    //     expect(res.json).toHaveBeenCalledWith({ message: "Incorrect date" });
+    // });
+    
+});
