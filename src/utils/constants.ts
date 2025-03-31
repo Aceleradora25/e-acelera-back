@@ -6,3 +6,9 @@ export enum STATUS_CODE {
   TOKEN_EXPIRED = 498,
   INTERNET_SERVER_ERROR = 500
 }
+
+export const ALLOWED_ORIGINS = [
+  "http://localhost:3000/",
+  "https://staging--e-acelera-homologacao.netlify.app/",
+  "https://aceleradora-agil.com.br/"
+]
