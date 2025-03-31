@@ -1,6 +1,7 @@
 import { ExerciseController } from "./ExerciseController"
 import { Request, Response } from "express"
 import { ExerciseService } from "../../services/ExerciseService"
+import { STATUS_CODE } from "../../utils/constants"
 
 enum ItemStatus {
     Completed = "Completed",
@@ -39,7 +40,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         await controller.updateExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(401)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.UNAUTHORIZED)
         expect(res.json).toHaveBeenCalledWith({ message: "User not authenticated" })
     })
 
@@ -48,7 +49,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         await controller.updateExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND)
         expect(res.json).toHaveBeenCalledWith({ message: "User not found" })
     })
 
@@ -61,7 +62,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         await controller.updateExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST)
         expect(res.json).toHaveBeenCalledWith({ message: "Invalid or missing status value." })
     })
 
@@ -76,7 +77,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         await controller.updateExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST)
         expect(res.json).toHaveBeenCalledWith({ message: "Progress record not found for user 1 and item 1, 1." })
     })
 
@@ -92,7 +93,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         await controller.updateExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK)
         expect(res.json).toHaveBeenCalledWith({ message: "Status value is already being used" })
     })
 
@@ -111,7 +112,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         await controller.updateExerciseStatus(req as Request, res as Response);
 
-        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
         expect(res.json).toHaveBeenCalledWith(progress);
     });
 
@@ -125,7 +126,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         await controller.updateExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(500)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
         expect(res.json).toHaveBeenCalledWith({ message: "Internal server error while processing the request" })
     })
 })
@@ -150,7 +151,7 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
 
         await controller.getTopicExercisesStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(401)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.UNAUTHORIZED)
         expect(res.json).toHaveBeenCalledWith({ message: "User not authenticated" })
     })
 
@@ -171,7 +172,7 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
 
         await controller.getTopicExercisesStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND)
         expect(res.json).toHaveBeenCalledWith({ message: "Progress not found" })
     })
 
@@ -180,7 +181,7 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
 
         await controller.getTopicExercisesStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(500)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
         expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" })
     })
 
@@ -201,7 +202,7 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
 
         await controller.getTopicExercisesStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK)
         expect(res.json).toHaveBeenCalledWith(statusList)
     })
 
@@ -227,7 +228,7 @@ describe("ExerciseController - getExerciseStatus", () => {
 
         await controller.getExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(401)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.UNAUTHORIZED)
         expect(res.json).toHaveBeenCalledWith({ message: "User not authenticated" })
     })
 
@@ -236,7 +237,7 @@ describe("ExerciseController - getExerciseStatus", () => {
 
         await controller.getExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND)
         expect(res.json).toHaveBeenCalledWith({ message: "User not found" })
     })
 
@@ -250,7 +251,7 @@ describe("ExerciseController - getExerciseStatus", () => {
 
         await controller.getExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND)
         expect(res.json).toHaveBeenCalledWith({ message: "itemId not found" })
     })
 
@@ -265,7 +266,7 @@ describe("ExerciseController - getExerciseStatus", () => {
 
         await controller.getExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST)
         expect(res.json).toHaveBeenCalledWith({ message: "topicId not found" })
     })
 
@@ -281,7 +282,7 @@ describe("ExerciseController - getExerciseStatus", () => {
 
         await controller.getExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND)
         expect(res.json).toHaveBeenCalledWith({ message: "topicId invalid" })
     })
 
@@ -305,7 +306,7 @@ describe("ExerciseController - getExerciseStatus", () => {
 
         await controller.getExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND)
         expect(res.json).toHaveBeenCalledWith({ message: "Status not found" })
     })
 
@@ -314,7 +315,7 @@ describe("ExerciseController - getExerciseStatus", () => {
 
         await controller.getExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(500)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
         expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" })
     })
 
@@ -343,7 +344,7 @@ describe("ExerciseController - getExerciseStatus", () => {
 
         await controller.getExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK)
         expect(res.json).toHaveBeenCalledWith(exerciseSuccess)
     })
 })

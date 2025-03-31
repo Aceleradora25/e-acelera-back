@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { TokenService } from "../../services/TokenService"
 import { LoginController } from "./LoginController"
+import { STATUS_CODE } from "../../utils/constants"
 
 jest.mock("../../services/TokenService")
 let controller: LoginController
@@ -25,11 +26,15 @@ describe("LoginController - registerUser", () => {
     }
   })
 
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('Verifica se o token é expirado ou invalido, deve retornar: "Expired or invalid token"', async () => {
     req = { headers: { authorization: "eynkdsflmdnas" } }
 
     await controller.registerUser(req as Request, res as Response)
-    expect(res.status).toHaveBeenCalledWith(498)
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.TOKEN_EXPIRED)
     expect(res.json).toHaveBeenCalledWith({
       message: "Expired or invalid token",
     })
@@ -39,7 +44,7 @@ describe("LoginController - registerUser", () => {
     mockTokenService.extractToken.mockResolvedValue(null)
 
     await controller.registerUser(req as Request, res as Response)
-    expect(res.status).toHaveBeenCalledWith(500)
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
     expect(res.json).toHaveBeenCalledWith({
       message: "Error extracting token",
     })
@@ -68,13 +73,12 @@ describe("LoginController - registerUser", () => {
     })
 
     await controller.registerUser(req as Request, res as Response)
-    expect(res.status).toHaveBeenCalledWith(200)
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK)
     expect(res.json).toHaveBeenCalledWith({ message: "User already exists" })
   })
 
   it('Verifica se ocorreu um erro ao registrar o usuário, deve retornar: "Error registering user"', async () => {
-    const date: Date = new Date(2025, 1, 25)
-
+    
     mockTokenService.extractToken.mockResolvedValue({
       name: "Milena",
       email: "usuariaaceleradora@gmail.com",
@@ -93,9 +97,19 @@ describe("LoginController - registerUser", () => {
 
     await controller.registerUser(req as Request, res as Response)
 
-    expect(res.status).toHaveBeenCalledWith(500)
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
     expect(res.json).toHaveBeenCalledWith({
       message: "Error registering user",
+    })
+  })
+
+  it('Verifica se ocorreu uma exceção ao criar usuário, deve retornar: "Error processing the created user"', async () => {
+    mockTokenService.extractToken.mockRejectedValue(new Error("Error processing the created user"))
+
+    await controller.registerUser(req as Request, res as Response)
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Error processing the created user",
     })
   })
 
@@ -125,7 +139,7 @@ describe("LoginController - registerUser", () => {
 
     await controller.registerUser(req as Request, res as Response)
 
-    expect(res.status).toHaveBeenCalledWith(200)
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK)
     expect(res.json).toHaveBeenCalledWith({
       message: "User created successfully!",
     })
