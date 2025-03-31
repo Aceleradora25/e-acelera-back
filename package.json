@@ -6,8 +6,9 @@
   "scripts": {
     "start": "npx tsx src/index.ts",
     "dev": "nodemon --watch src --exec tsx src/index.ts",
-    "build": "npx prisma migrate deploy",
-    "test": "jest"
+    "build": "npx prisma generate && npx prisma migrate deploy",
+    "test": "jest",
+    "postinstall": "npx prisma generate"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
