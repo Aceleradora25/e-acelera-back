@@ -1,12 +1,13 @@
 import express from 'express'
 import router from './routes/index'
 import cors from 'cors'
+import { ALLOWED_ORIGINS } from './utils/constants'
 
 const app = express()
 const port = 5002
 
 app.use(cors({
-    origin: 'http://localhost:3000', 
+    origin: ALLOWED_ORIGINS, 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
