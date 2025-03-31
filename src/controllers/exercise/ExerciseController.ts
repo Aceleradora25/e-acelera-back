@@ -130,13 +130,13 @@ export class ExerciseController {
 
         try {
             if (!email) {
-                return res.status(401).json({ message: "User not authenticated" })
+                return res.status(STATUS_CODE.UNAUTHORIZED).json({ message: "User not authenticated" })
             }
 
             const user = await this.exerciseService.findUserByEmail(email)
 
             if (!user) {
-                return res.status(404).json({ message: "User not found" })
+                return res.status(STATUS_CODE.NOT_FOUND).json({ message: "User not found" })
             }
 
             if (!itemId){
@@ -144,37 +144,37 @@ export class ExerciseController {
             }
     
             if (!topicId) {
-                return res.status(400).json({ message: "topicId not found" })
+                return res.status(STATUS_CODE.NOT_FOUND).json({ message: "topicId not found" })
             }
 
             const isValidElementType = this.exerciseService.validateElementType(elementType)
 
             if (!isValidElementType) {
-                return res.status(400).json({ message: "Invalid or missing element type." })
+                return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "Invalid or missing element type." })
             }
 
             const isValidStatus = this.exerciseService.validateStatus(itemStatus)
 
             if (!isValidStatus) {
-                return res.status(400).json({ message: "Invalid or missing status value." })
+                return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "Invalid or missing status value." })
             }
 
             const modifiedAtDate = new Date(modifiedAt)
 
             if (isNaN(modifiedAtDate.getTime())) {
-                return res.status(400).json({ message: "Incorrect date" })
+                return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "Incorrect date" })
             }            
 
             const findExercise = await this.exerciseService.findItemById(itemId)
             
-            const saveProgressStatusCode = findExercise.length ? 200 : 201
+            const saveProgressStatusCode = findExercise.length ? STATUS_CODE.OK : STATUS_CODE.CREATED
 
             const savedStatus = await this.exerciseService.saveStatus(itemId, elementType, user.id, itemStatus, topicId, modifiedAtDate)
  
             return res.status(saveProgressStatusCode).json(savedStatus) 
 
         } catch(error){
-            return res.status(500).json({ message: "Error processing the request" })
+            return res.status(STATUS_CODE.INTERNET_SERVER_ERROR).json({ message: "Error processing the request" })
         }
     }
 }

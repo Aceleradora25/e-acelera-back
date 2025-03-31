@@ -373,7 +373,7 @@ describe("ExerciseController - saveStatusElement", () => {
 
         await controller.saveStatusElement(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(401)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.UNAUTHORIZED)
         expect(res.json).toHaveBeenCalledWith({ message: "User not authenticated" })
     })
 
@@ -382,7 +382,7 @@ describe("ExerciseController - saveStatusElement", () => {
     
         await controller.saveStatusElement(req as Request, res as Response)
     
-        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND)
         expect(res.json).toHaveBeenCalledWith({ message: "User not found" })
     })
     
@@ -400,7 +400,7 @@ describe("ExerciseController - saveStatusElement", () => {
 
         await controller.saveStatusElement(req as Request, res as Response)
     
-        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND)
         expect(res.json).toHaveBeenCalledWith({ message: "itemId not found" })
     })
     
@@ -418,7 +418,7 @@ describe("ExerciseController - saveStatusElement", () => {
     
         await controller.saveStatusElement(req as Request, res as Response)
     
-        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND)
         expect(res.json).toHaveBeenCalledWith({ message: "topicId not found" })
     })
 
@@ -438,7 +438,7 @@ describe("ExerciseController - saveStatusElement", () => {
 
         await controller.saveStatusElement(req as Request, res as Response)
     
-        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST)
         expect(res.json).toHaveBeenCalledWith({ message: "Invalid or missing element type." })
     })
     
@@ -459,7 +459,7 @@ describe("ExerciseController - saveStatusElement", () => {
     
         await controller.saveStatusElement(req as Request, res as Response)
     
-        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST)
         expect(res.json).toHaveBeenCalledWith({ message: "Invalid or missing status value." })
     })
     
@@ -480,7 +480,7 @@ describe("ExerciseController - saveStatusElement", () => {
 
         await controller.saveStatusElement(req as Request, res as Response)
     
-        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST)
         expect(res.json).toHaveBeenCalledWith({ message: "Incorrect date" })
     })
 
@@ -502,7 +502,7 @@ describe("ExerciseController - saveStatusElement", () => {
 
         await controller.saveStatusElement(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(500)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
         expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" })
     })
 
@@ -538,7 +538,7 @@ describe("ExerciseController - saveStatusElement", () => {
 
         await controller.saveStatusElement(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(200)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK)
         expect(res.json).toHaveBeenCalledWith(exerciseFound)
     })
 
@@ -565,8 +565,7 @@ describe("ExerciseController - saveStatusElement", () => {
 
         await controller.saveStatusElement(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(201)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.CREATED)
         expect(res.json).toHaveBeenCalledWith(exerciseSalved)
     })
-    
 })
