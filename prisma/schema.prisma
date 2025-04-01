@@ -17,10 +17,11 @@ model User {
 
 model Progress {
   id          Int         @id @default(autoincrement())
-  itemId      String
+  itemId      String      @unique
   itemStatus  ItemStatus
   elementType ElementType
   topicId     String      @default("default-topic-id")
+  modifiedAt  DateTime
   userId      Int
   user        User        @relation(fields: [userId], references: [id])
 }
