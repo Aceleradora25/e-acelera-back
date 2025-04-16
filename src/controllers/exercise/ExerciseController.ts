@@ -125,7 +125,7 @@ export class ExerciseController {
 
     async saveStatusElement(req: Request, res: Response){
         const { topicId, itemId } = req.params
-        const { elementType, itemStatus, modifiedAt } = req.body
+        const { elementType, itemStatus } = req.body
         const email = req.user?.email
 
         try {
@@ -158,18 +158,12 @@ export class ExerciseController {
             if (!isValidStatus) {
                 return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "Invalid or missing status value." })
             }
-
-            const modifiedAtDate = new Date(modifiedAt)
-
-            if (isNaN(modifiedAtDate.getTime())) {
-                return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "Incorrect date" })
-            }            
-
+        
             const findExercise = await this.exerciseService.findItemById(itemId)
             
             const saveProgressStatusCode = findExercise.length ? STATUS_CODE.OK : STATUS_CODE.CREATED
 
-            const savedStatus = await this.exerciseService.saveStatus(itemId, elementType, user.id, itemStatus, topicId, modifiedAtDate)
+            const savedStatus = await this.exerciseService.saveStatus(itemId, elementType, user.id, itemStatus, topicId)
  
             return res.status(saveProgressStatusCode).json(savedStatus) 
 

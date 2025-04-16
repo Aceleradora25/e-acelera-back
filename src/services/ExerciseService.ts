@@ -139,13 +139,13 @@ export class ExerciseService {
         }
     }
 
-    async formatDateTime(currentDate: Date): Promise<Date> {
+    async formatDateTime(): Promise<Date> {
         const offset = -3 * 60 * 60 * 1000
-        return new Date(currentDate.getTime() + offset)
+        return new Date(Date.now() + offset)
     }
     
-    async saveStatus(itemId: string, elementType: ElementType, userId: number, itemStatus: ItemStatus, topicId: string, modifiedAtDate: Date) {
-        const dateTime = await this.formatDateTime(modifiedAtDate) 
+    async saveStatus(itemId: string, elementType: ElementType, userId: number, itemStatus: ItemStatus, topicId: string) {
+        const dateTime = await this.formatDateTime() 
         try {
             const createdProgress = await prisma.progress.upsert({
                 where: { itemId, userId },
