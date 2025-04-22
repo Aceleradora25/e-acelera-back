@@ -1,11 +1,12 @@
 import express from 'express'
 import router from './routes/index'
-import { customCors } from './middleware/cors'
+import { corsMiddleware } from './middleware/corsMiddleware'
+import { Request, Response, NextFunction } from 'express'
 
 const app = express()
 const port = 5002
 
-app.use(customCors); 
+app.use((req: Request, res: Response, next: NextFunction) => corsMiddleware(req, res, next));
 
 app.use(express.json())
 
