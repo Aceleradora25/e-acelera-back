@@ -1,5 +1,5 @@
 import { ElementType, ItemStatus, PrismaClient } from "@prisma/client"
-import * as dotenv from 'dotenv'
+import * as dotenv from "dotenv"
 
 dotenv.config()
 
@@ -124,7 +124,7 @@ export class ExerciseService {
 
     async findTopicById(topicId: string) {
         try {
-            return await prisma.progress.findFirst({ where: { topicId } })
+            return await prisma.progress.findFirstOrThrow({ where: { topicId } })
 
         } catch (error) {
             throw new Error("Error fetching topicId progress from database")
