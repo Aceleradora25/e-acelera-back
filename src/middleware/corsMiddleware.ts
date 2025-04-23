@@ -37,29 +37,12 @@ next:NextFunction
 
 export function corsMiddleware(req: Request, res: Response, next: NextFunction): void {
   const origin = req?.headers.origin;
-  console.log('@@@@REFERER', req?.headers.referer)
-  console.log('@@@@HOST', req?.headers.host)
-  console.log("@@@@HEADERS", JSON.stringify(req?.headers))
 
   if(isString(origin) && isAllowedOrigin(origin)) {
     sendCorsResponse({origin, res, next, allowed: true});
+    return
   }
 
   sendCorsResponse({origin: undefined, res, next, allowed: false});
 
-  // if (origin && ALLOWED_ORIGINS.includes(origin)) {
-  //   res.header('Access-Control-Allow-Origin', origin);
-  //   res.header('Access-Control-Allow-Credentials', 'true');
-
-  //   if (req.method === 'OPTIONS') {
-  //     return res.sendStatus(STATUS_CODE.NO_CONTENT);
-  //   }
-
-  //   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  //   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-
-  //   next();
-  // } else {
-  //   res.status(STATUS_CODE.FORBIDDEN).json({ message: 'Origem não permitida pelo CORS.' });
-  // }
 }

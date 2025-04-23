@@ -44,7 +44,7 @@ describe("LoginController - registerUser", () => {
     mockTokenService.extractToken.mockResolvedValue(null)
 
     await controller.registerUser(req as Request, res as Response)
-    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR)
     expect(res.json).toHaveBeenCalledWith({
       message: "Error extracting token",
     })
@@ -97,7 +97,7 @@ describe("LoginController - registerUser", () => {
 
     await controller.registerUser(req as Request, res as Response)
 
-    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR)
     expect(res.json).toHaveBeenCalledWith({
       message: "Error registering user",
     })
@@ -107,7 +107,7 @@ describe("LoginController - registerUser", () => {
     mockTokenService.extractToken.mockRejectedValue(new Error("Error processing the created user"))
 
     await controller.registerUser(req as Request, res as Response)
-    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR)
     expect(res.json).toHaveBeenCalledWith({
       message: "Error processing the created user",
     })

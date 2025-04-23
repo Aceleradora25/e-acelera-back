@@ -126,7 +126,7 @@ describe('ExerciseController - updateExerciseStatus', () => {
 
         await controller.updateExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR)
         expect(res.json).toHaveBeenCalledWith({ message: "Internal server error while processing the request" })
     })
 
@@ -182,7 +182,7 @@ describe('ExerciseController - getTopicExercisesStatus', () => {
 
         await controller.getTopicExercisesStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR)
         expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" })
     })
 
@@ -315,7 +315,7 @@ describe("ExerciseController - getExerciseStatus", () => {
 
         await controller.getExerciseStatus(req as Request, res as Response)
 
-        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNET_SERVER_ERROR)
+        expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR)
         expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" })
     })
 
