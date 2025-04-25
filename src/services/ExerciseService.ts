@@ -1,5 +1,5 @@
-import { ItemStatus, PrismaClient } from "@prisma/client"
-import * as dotenv from 'dotenv'
+import { ElementType, ItemStatus, PrismaClient } from "@prisma/client"
+import * as dotenv from "dotenv"
 
 dotenv.config()
 
@@ -15,8 +15,13 @@ export class ExerciseService {
         }
     }
 
-    async validateStatus(value: string): Promise<boolean>{
+    validateStatus(value: string): boolean {
         const validateStatus = ["NotStarted", "InProgress", "Completed"]
+        return validateStatus.includes(value)
+    }
+
+    validateElementType(value: string): boolean {
+        const validateStatus = ["Exercise", "Video"]
         return validateStatus.includes(value)
     }
 
@@ -50,7 +55,7 @@ export class ExerciseService {
     }
 
     async updatedProgress(userId: number, itemId: string, itemStatus: ItemStatus, topicId: string) {
-    
+
         try {
             const updatedProgress = await prisma.progress.updateMany({
                 where: { userId, itemId, topicId },
@@ -63,21 +68,21 @@ export class ExerciseService {
             const updatedRecords = await prisma.progress.findMany({
                 where: { userId, itemId, topicId },
                 select: {
-                  id: true,
-                  userId: true,
-                  elementType: true,
-                  itemId: true,
-                  itemStatus: true,
+                    id: true,
+                    userId: true,
+                    elementType: true,
+                    itemId: true,
+                    itemStatus: true,
                 },
-              })
-        
-              return updatedRecords
+            })
+
+            return updatedRecords
 
         } catch (error) {
             throw new Error("An error occurred while updating progress.")
         }
     }
-    
+
     async getStatus(userId: number, topicId: string) {
         try {
             const infoStatus = await prisma.progress.findMany({
@@ -105,26 +110,58 @@ export class ExerciseService {
         }
     }
 
-    async exerciseStatus(userId: number, itemId: string, topicId: string){
-        
+    async exerciseStatus(userId: number, itemId: string, topicId: string) {
         try {
             return await prisma.progress.findMany({
                 where: { userId, itemId, topicId },
                 select: { itemStatus: true, itemId: true }
             })
-            
+
         } catch (error) {
             throw new Error("Error fetching status progress from database")
         }
+    }
 
-}
-
-    async findTopicById(topicId: string){
+    async findTopicById(topicId: string) {
         try {
-            return await prisma.progress.findFirst({ where: { topicId } })
-            
+            return await prisma.progress.findFirstOrThrow({ where: { topicId } })
+
         } catch (error) {
             throw new Error("Error fetching topicId progress from database")
-        } 
+        }
+    }
+
+    async findItemById(itemId: string){
+        try{
+            return await prisma.progress.findMany({where: { itemId } })
+        } catch(error){
+            throw new Error("Error fetching itemId progress from database")
+        }
+    }
+
+    async formatDateTime(): Promise<Date> {
+        const offset = -3 * 60 * 60 * 1000
+        return new Date(Date.now() + offset)
+    }
+    
+    async saveStatus(itemId: string, elementType: ElementType, userId: number, itemStatus: ItemStatus, topicId: string) {
+        const dateTime = await this.formatDateTime() 
+        try {
+            const createdProgress = await prisma.progress.upsert({
+                where: { itemId, userId },
+                create: {
+                    itemId,
+                    elementType,
+                    userId,
+                    itemStatus,
+                    topicId,
+                    modifiedAt: dateTime
+                },
+                update: { itemStatus, modifiedAt: dateTime }
+            })  
+            return createdProgress
+        } catch(error){
+            throw new Error("Error saving progress status")
+        }
     }
 }
