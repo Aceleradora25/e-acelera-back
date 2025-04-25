@@ -30,7 +30,9 @@ export class ExerciseController {
           .json({ message: "User not found" });
       }
 
-      if (!(await this.exerciseService.validateStatus(itemStatus))) {
+      const isValidStatus = this.exerciseService.validateStatus(itemStatus);
+
+      if (!isValidStatus) {
         return res
           .status(STATUS_CODE.BAD_REQUEST)
           .json({ message: "Invalid or missing status value." });
@@ -117,6 +119,7 @@ export class ExerciseController {
         .json({ message: "Error processing the request" });
     }
   }
+
   async getExerciseStatus(req: Request, res: Response) {
     const { itemId, topicId } = req.params;
     const email = req.user?.email;
@@ -148,6 +151,7 @@ export class ExerciseController {
       }
 
       const topicExists = await this.exerciseService.findTopicById(topicId);
+
       if (!topicExists) {
         return res
           .status(STATUS_CODE.NOT_FOUND)
@@ -167,6 +171,73 @@ export class ExerciseController {
       }
       return res.status(STATUS_CODE.OK).json(exerciseStatus);
     } catch (error: any) {
+      return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({ message: "Error processing the request" });
+    }
+  }
+
+  async saveStatusElement(req: Request, res: Response) {
+    const { topicId, itemId } = req.params;
+    const { elementType, itemStatus } = req.body;
+    const email = req.user?.email;
+
+    try {
+      if (!email) {
+        return res
+          .status(STATUS_CODE.UNAUTHORIZED)
+          .json({ message: "User not authenticated" });
+      }
+
+      const user = await this.exerciseService.findUserByEmail(email);
+
+      if (!user) {
+        return res
+          .status(STATUS_CODE.NOT_FOUND)
+          .json({ message: "User not found" });
+      }
+
+      if (!itemId) {
+        return res.status(STATUS_CODE.NOT_FOUND).json({ message: "itemId not found" });
+      }
+
+      if (!topicId) {
+        return res
+          .status(STATUS_CODE.NOT_FOUND)
+          .json({ message: "topicId not found" });
+      }
+
+      const isValidElementType =
+        this.exerciseService.validateElementType(elementType);
+
+      if (!isValidElementType) {
+        return res
+          .status(STATUS_CODE.BAD_REQUEST)
+          .json({ message: "Invalid or missing element type." });
+      }
+
+      const isValidStatus = this.exerciseService.validateStatus(itemStatus);
+
+      if (!isValidStatus) {
+        return res
+          .status(STATUS_CODE.BAD_REQUEST)
+          .json({ message: "Invalid or missing status value." });
+      }
+
+      const findExercise = await this.exerciseService.findItemById(itemId);
+
+      const saveProgressStatusCode = findExercise.length
+        ? STATUS_CODE.OK
+        : STATUS_CODE.CREATED;
+
+      const savedStatus = await this.exerciseService.saveStatus(
+        itemId,
+        elementType,
+        user.id,
+        itemStatus,
+        topicId
+      );
+
+      return res.status(saveProgressStatusCode).json(savedStatus);
+    } catch (error) {
       return res
         .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
         .json({ message: "Error processing the request" });
