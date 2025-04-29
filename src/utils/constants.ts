@@ -12,6 +12,6 @@ export enum STATUS_CODE {
 
 export const ALLOWED_ORIGINS = [
   "http://localhost:3000",
-  "https://main--e-acelera-homologacao.netlify.app/",
+  "https://main--e-acelera-homologacao.netlify.app",
   "https://aceleradora-agil.com.br"
 ]
