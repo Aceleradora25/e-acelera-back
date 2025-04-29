@@ -1,25 +1,27 @@
 import { Response, NextFunction } from "express"
-import { ALLOWED_ORIGINS, STATUS_CODE } from "./constants"
+import { ALLOWED_HOSTS, isProduction, STATUS_CODE } from "./constants"
 
 export function isString(value: string | undefined): value is string {
   return typeof value === "string"
 }
 
-export function isAllowedOrigin(requestOrigin: string): boolean {
-  return ALLOWED_ORIGINS.includes(requestOrigin)
+export function isAllowedHost(requestHost: string): boolean {
+  return ALLOWED_HOSTS.includes(requestHost);
 }
 
 export function sendCorsResponse({
-  origin,
+  host,
   allowed,
   res,
   next
 }: {
-  origin: string | undefined
+  host: string | undefined
   allowed: boolean
   res: Response
   next: NextFunction
 }) {
+  const origin = isProduction ? `https://${host}/` : `http://${host}/`;
+
   if (!allowed) {
     res.status(STATUS_CODE.FORBIDDEN).json({ message: "NOT ALLOWED" })
     return
