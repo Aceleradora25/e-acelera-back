@@ -9,8 +9,6 @@ export function corsMiddleware(
 ): void {
   const host = req?.headers.host;
 
-  console.log(host, origin)
-
   if (!isProduction) {
     sendCorsResponse({ host, res, next, allowed: true })
     return
