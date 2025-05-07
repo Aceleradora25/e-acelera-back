@@ -10,13 +10,7 @@ export function corsMiddleware(
   const origin = req?.headers.origin
 
   if (!origin) {
-    const authHeader = req.headers.authorization
-    if (authHeader && authHeader.startsWith("Bearer ")) {
-      next()
-      return
-    }
-    res.status(STATUS_CODE.FORBIDDEN).json({ message: "NOT ALLOWED" })
-    return
+    return next()
   }
 
   if (isString(origin) && isAllowedOrigin(origin)) {
