@@ -9,7 +9,7 @@ export function corsMiddleware(
   const origin = req?.headers.origin
 
   if (!origin) {
-    return next()
+    return
   }
 
   if (isString(origin) && isAllowedOrigin(origin)) {
@@ -17,5 +17,4 @@ export function corsMiddleware(
     return
   }
 
-  sendCorsResponse({ origin: undefined, res, next, allowed: false })
 }
