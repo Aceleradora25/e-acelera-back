@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express"
 import {isString, isAllowedOrigin, sendCorsResponse} from "../utils/corsUtils"
-import { STATUS_CODE } from "../utils/constants"
 
 export function corsMiddleware(
   req: Request,

@@ -6,7 +6,7 @@ export function isString(value: string | undefined): value is string {
 }
 
 export function isAllowedOrigin(requestOrigin: string): boolean {
-  return ALLOWED_ORIGINS.includes(requestOrigin)
+  return ALLOWED_ORIGINS.includes(requestOrigin);
 }
 
 export function sendCorsResponse({
@@ -20,6 +20,7 @@ export function sendCorsResponse({
   res: Response
   next: NextFunction
 }) {
+
   if (!allowed) {
     res.status(STATUS_CODE.FORBIDDEN).json({ message: "NOT ALLOWED" })
     return
