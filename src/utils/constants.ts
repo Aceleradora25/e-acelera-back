@@ -10,9 +10,10 @@ export enum STATUS_CODE {
   INTERNAL_SERVER_ERROR = 500
 }
 
-export const ALLOWED_HOSTS = [
-  "staging--e-acelera-homologacao.netlify.app",
-  "aceleradora-agil.com.br",
+export const ALLOWED_ORIGINS = [
+  "https://staging--e-acelera-homologacao.netlify.app",
+  "https://aceleradora-agil.com.br",
+  "http://localhost:3000"
 ]
 
-export const isProduction = process.env.NODE_ENV !== "development";
+export const isProduction = process.env.NODE_ENV !== "development"
