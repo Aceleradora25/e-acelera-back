@@ -26,9 +26,7 @@ export function sendCorsResponse({
     return
   }
 
-  if (origin) {
-    res.setHeader("Access-Control-Allow-Origin", origin)
-  }
+  res.setHeader("Access-Control-Allow-Origin", "*")
 
   res.setHeader(
     "Access-Control-Allow-Methods",
