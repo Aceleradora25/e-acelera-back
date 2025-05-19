@@ -25,7 +25,7 @@ export class ExerciseService {
         return validateStatus.includes(value)
     }
 
-    async findProgress(userId: number, itemId: string, topicId: string) {
+    async findProgress(userId: number, itemId: string, topicId: string, elementType: ElementType) {
         try {
             const count = await prisma.progress.count({
                 where: { userId, itemId, topicId },
@@ -35,19 +35,24 @@ export class ExerciseService {
                 throw new Error("Multiple progress records found. Expected only one.")
             }
 
-            const response = await prisma.progress.findFirst({
+            const progress = await prisma.progress.findFirst({
                 where: { userId, itemId, topicId },
             })
 
-            if (!response) {
-                throw new Error(`Progress record not found for user ${userId} and item ${itemId}, ${topicId}.`)
+            if (!progress) {
+                await prisma.progress.create({
+                    data: {
+                        itemId,
+                        userId,
+                        elementType,
+                        topicId,
+                        itemStatus: ItemStatus.NotStarted,
+                        modifiedAt: new Date(),
+                    }
+                })
             }
 
-            if (!this.validateStatus(response.itemStatus)) {
-                throw new Error("Invalid status in the progress record.")
-            }
-
-            return response
+            return progress
         } catch (error: any) {
             console.error(`Error fetching progress: ${error.message}`)
             throw new Error(`Failed to fetch progress: ${error.message}`)
@@ -55,7 +60,6 @@ export class ExerciseService {
     }
 
     async updatedProgress(userId: number, itemId: string, itemStatus: ItemStatus, topicId: string) {
-
         try {
             const updatedProgress = await prisma.progress.updateMany({
                 where: { userId, itemId, topicId },

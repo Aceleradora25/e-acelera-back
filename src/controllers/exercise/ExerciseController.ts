@@ -12,7 +12,7 @@ export class ExerciseController {
   async updateExerciseStatus(req: Request, res: Response) {
     const { itemId } = req.params;
     const { topicId } = req.params;
-    const { itemStatus } = req.body;
+    const { elementType, itemStatus } = req.body;
     const email = req.user?.email;
 
     try {
@@ -41,24 +41,18 @@ export class ExerciseController {
       const currentProgress = await this.exerciseService.findProgress(
         user.id,
         itemId,
-        topicId
+        topicId,
+        elementType
       );
 
       if (!currentProgress) {
-        return res
-          .status(STATUS_CODE.NOT_FOUND)
-          .json({ message: "Progress not found for the exercise" });
+        return 
       }
 
-      if (currentProgress.itemStatus === itemStatus) {
-        return res
-          .status(STATUS_CODE.OK)
-          .json({ message: "Status value is already being used" });
-      }
-
-      const updatedProgress = await this.exerciseService.updatedProgress(
-        user.id,
+      const updatedProgress = await this.exerciseService.saveStatus(
         itemId,
+        elementType,
+        user.id,
         itemStatus,
         topicId
       );
@@ -71,7 +65,7 @@ export class ExerciseController {
       ) {
         return res
           .status(STATUS_CODE.BAD_REQUEST)
-          .json({ message: error.message });
+          .json({ message: error.message, error });
       }
 
       return res
