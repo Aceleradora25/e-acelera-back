@@ -149,20 +149,24 @@ export class ExerciseService {
     }
     
     async saveStatus(itemId: string, elementType: ElementType, userId: number, itemStatus: ItemStatus, topicId: string) {
-        const dateTime = await this.formatDateTime() 
         try {
             const createdProgress = await prisma.progress.upsert({
-                where: { itemId, userId },
+                where: { 
+                    itemId_userId: {
+                        itemId,
+                        userId
+                    },
+                },
+                update: { itemStatus },
                 create: {
                     itemId,
                     elementType,
                     userId,
                     itemStatus,
-                    topicId,
-                    modifiedAt: dateTime
-                },
-                update: { itemStatus, modifiedAt: dateTime }
-            })  
+                    topicId
+                }
+            })
+
             return createdProgress
         } catch(error){
             throw new Error("Error saving progress status")

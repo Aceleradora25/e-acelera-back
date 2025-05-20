@@ -78,7 +78,7 @@ describe("ExerciseController - updateExerciseStatus", () => {
     });
   });
 
-  it('deve retornar "Progress record not found for user 1 and item 1, 1" se o progresso não for encontrado', async () => {
+  it("deve retornar o progresso atualizado ao mudar o status ou criar um novo registro", async () => {
     const date: Date = new Date(2025, 1, 24);
 
     mockExerciseService.findUserByEmail.mockResolvedValue({
@@ -90,81 +90,17 @@ describe("ExerciseController - updateExerciseStatus", () => {
 
     mockExerciseService.validateStatus.mockReturnValue(true);
 
-    mockExerciseService.findProgress.mockRejectedValue(
-      new Error("Progress record not found for user 1 and item 1, 1.")
-    );
-
-    await controller.updateExerciseStatus(req as Request, res as Response);
-
-    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
-    expect(res.json).toHaveBeenCalledWith({
-      message: "Progress record not found for user 1 and item 1, 1.",
-    });
-  });
-
-  it('deve retornar "The status is already up to date" se o status já estiver atualizado', async () => {
-    const date: Date = new Date(2025, 1, 24);
-
-    mockExerciseService.findUserByEmail.mockResolvedValue({
-      id: 1,
-      email: "teste@gmail.com",
-      provider: "google",
-      loginDate: date,
-    });
-
-    mockExerciseService.validateStatus.mockReturnValue(true);
-
-    mockExerciseService.findProgress.mockResolvedValue({
-      id: 1,
-      itemId: "rw12346789",
-      itemStatus: "NotStarted",
-      elementType: "Exercise",
-      topicId: "rw987654321",
-      userId: 1,
-      modifiedAt: new Date(),
-    });
-
-    await controller.updateExerciseStatus(req as Request, res as Response);
-
-    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
-    expect(res.json).toHaveBeenCalledWith({
-      message: "Status value is already being used",
-    });
-  });
-
-  it("deve retornar o progresso atualizado ao mudar o status", async () => {
-    const date: Date = new Date(2025, 1, 24);
-
-    mockExerciseService.findUserByEmail.mockResolvedValue({
-      id: 1,
-      email: "teste@gmail.com",
-      provider: "google",
-      loginDate: date,
-    });
-
-    mockExerciseService.validateStatus.mockReturnValue(true);
-
-    mockExerciseService.findProgress.mockResolvedValue({
-      id: 1,
-      itemId: "rw12346789",
-      itemStatus: "InProgress",
-      elementType: "Exercise",
-      topicId: "rw987654321",
-      userId: 1,
-      modifiedAt: new Date(),
-    });
-
-    const progress = [
-      {
+    const progress = {
         id: 1,
         itemId: "rw12346789",
-        itemStatus: ItemStatus.NotStarted,
+        itemStatus: ItemStatus.InProgress,
         elementType: ElementType.Exercise,
+        topicId: "rw987654321",
         userId: 1,
-      },
-    ];
+        modifiedAt: new Date(),
+      }
 
-    mockExerciseService.updatedProgress.mockResolvedValue(progress);
+    mockExerciseService.saveStatus.mockResolvedValue(progress);
 
     await controller.updateExerciseStatus(req as Request, res as Response);
 
@@ -183,7 +119,7 @@ describe("ExerciseController - updateExerciseStatus", () => {
     });
     mockExerciseService.validateStatus.mockReturnValue(true);
 
-    mockExerciseService.findProgress.mockRejectedValue(
+    mockExerciseService.saveStatus.mockRejectedValue(
       new Error("Internal server error")
     );
 
@@ -375,6 +311,7 @@ describe("ExerciseController - getExerciseStatus", () => {
       provider: "google",
       loginDate: date,
     });
+    // @ts-expect-error 
     mockExerciseService.findTopicById.mockResolvedValue(null);
 
     await controller.getExerciseStatus(req as Request, res as Response);

@@ -14,7 +14,7 @@ export class ExerciseController {
     const { topicId } = req.params;
     const { elementType, itemStatus } = req.body;
     const email = req.user?.email;
-
+    
     try {
       if (!email) {
         return res
@@ -36,17 +36,6 @@ export class ExerciseController {
         return res
           .status(400)
           .json({ message: "Invalid or missing status value." });
-      }
-
-      const currentProgress = await this.exerciseService.findProgress(
-        user.id,
-        itemId,
-        topicId,
-        elementType
-      );
-
-      if (!currentProgress) {
-        return 
       }
 
       const updatedProgress = await this.exerciseService.saveStatus(
