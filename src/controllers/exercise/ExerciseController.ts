@@ -10,11 +10,11 @@ export class ExerciseController {
   }
 
   async updateExerciseStatus(req: Request, res: Response) {
-    const { itemId } = req.params
-    const { topicId } = req.params
-    const { itemStatus } = req.body
-    const email = req.user?.email
-
+    const { itemId } = req.params;
+    const { topicId } = req.params;
+    const { elementType, itemStatus } = req.body;
+    const email = req.user?.email;
+    
     try {
       if (!email) {
         return res
@@ -38,27 +38,10 @@ export class ExerciseController {
           .json({ message: "Invalid or missing status value." })
       }
 
-      const currentProgress = await this.exerciseService.findProgress(
-        user.id,
+      const updatedProgress = await this.exerciseService.saveStatus(
         itemId,
-        topicId
-      )
-
-      if (!currentProgress) {
-        return res
-          .status(STATUS_CODE.NOT_FOUND)
-          .json({ message: "Progress not found for the exercise" })
-      }
-
-      if (currentProgress.itemStatus === itemStatus) {
-        return res
-          .status(STATUS_CODE.OK)
-          .json({ message: "Status value is already being used" })
-      }
-
-      const updatedProgress = await this.exerciseService.updatedProgress(
+        elementType,
         user.id,
-        itemId,
         itemStatus,
         topicId
       )
@@ -72,6 +55,7 @@ export class ExerciseController {
         return res
           .status(STATUS_CODE.BAD_REQUEST)
           .json({ message: error.message })
+
       }
 
       return res
