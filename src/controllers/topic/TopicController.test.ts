@@ -41,32 +41,32 @@ describe("TopicController - getTopicProgress", () => {
       message: "User not authenticated",
     });
   });
-  it('deve retornar "You must pass topicId as a regular param and totalItens type number greater than 0 as a query param." se não for passado o topicId', async () => {
+  it('deve retornar "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param." se não for passado o topicId', async () => {
     req.params = {};
     await controller.getTopicProgress(req as Request, res as Response);
     expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
     expect(res.json).toHaveBeenCalledWith({
-      message: "You must pass topicId as a regular param and totalItens type number greater than 0 as a query param.",
+      message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param.",
     });
   });
 
-  it('deve retornar "You must pass topicId as a regular param and totalItens type number greater than 0 as a query param." se não for passado o totalItens', async () => {
+  it('deve retornar "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param." se não for passado o totalItens', async () => {
     req.query = {};
     await controller.getTopicProgress(req as Request, res as Response);
     expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
     expect(res.json).toHaveBeenCalledWith({
-      message: "You must pass topicId as a regular param and totalItens type number greater than 0 as a query param.",
+      message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param.",
     });
   });
 
-  it('deve retornar "You must pass topicId as a regular param and totalItens type number greater than 0 as a query param." se o totalItens não for um número', async () => {
+  it('deve retornar "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param." se o totalItens não for um número', async () => {
     req.query = {
       totalItens: "1ab"
     };
     await controller.getTopicProgress(req as Request, res as Response);
     expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
     expect(res.json).toHaveBeenCalledWith({
-      message: "You must pass topicId as a regular param and totalItens type number greater than 0 as a query param.",
+      message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param.",
     });
   });
 
@@ -107,17 +107,6 @@ describe("TopicController - getTopicProgress", () => {
     expect(res.json).toHaveBeenCalledWith({ progress: 50 });
   });
 
-  it('deve retornar 400 se totalItens for zero', async () => {
-    req.params = { topicId: "1" };
-    req.query = { totalItens: "0" };
-    await controller.getTopicProgress(req as Request, res as Response);
-
-    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
-    expect(res.json).toHaveBeenCalledWith({
-      message: "You must pass topicId as a regular param and totalItens type number greater than 0 as a query param.",
-    });
-  });
-
   it('deve retornar 400 se totalItens for negativo', async () => {
     req.params = { topicId: "1" };
     req.query = { totalItens: "-5" };
@@ -125,7 +114,7 @@ describe("TopicController - getTopicProgress", () => {
 
     expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
     expect(res.json).toHaveBeenCalledWith({
-      message: "You must pass topicId as a regular param and totalItens type number greater than 0 as a query param.",
+      message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param.",
     });
   });
 
