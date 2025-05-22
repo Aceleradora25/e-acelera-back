@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { ItemStatus, PrismaClient } from "@prisma/client";
 import { UserService } from "./UserService";
 
 const prisma = new PrismaClient()
@@ -18,9 +18,16 @@ export class TopicService {
   async getTopicProgress ({ email, topicId, totalItens }: TopicProgress) {
     try {
       const user = await this.userService.findUserByEmail(email);
-      const userItens = await prisma.progress.findMany({ where: { userId: user.id, topicId } });      
+
+      const userItens = await prisma.progress.findMany({ 
+        where: { 
+          userId: user.id, 
+          topicId,
+          itemStatus: ItemStatus.Completed
+        } });
+
       return {
-        progress: userItens ? Math.round(userItens.length/totalItens * 100): 0
+        progress: userItens && totalItens > 0 ? Math.floor(userItens.length/totalItens * 100) : 0
       }
     } catch (error) {
       throw new Error("Error fetching user from database");
