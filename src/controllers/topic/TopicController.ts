@@ -13,7 +13,7 @@ export class TopicController {
       const totalItens = Number(req.query.totalItens); 
       const email = req.user?.email;
 
-      if(!topicId || !totalItens || totalItens < 0 || isNaN(Number(totalItens))) {
+      if(!topicId || totalItens < 0 || isNaN(totalItens)) {
         return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param." });
       }
 
