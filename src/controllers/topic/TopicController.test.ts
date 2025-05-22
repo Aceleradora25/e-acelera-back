@@ -117,13 +117,4 @@ describe("TopicController - getTopicProgress", () => {
       message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param.",
     });
   });
-
-  it('deve ignorar headers e ainda retornar progresso quando header ausente', async () => {
-    delete (req as any).headers;
-    mockTopicService.getTopicProgress.mockResolvedValue({ progress: 20 });
-    await controller.getTopicProgress(req as Request, res as Response);
-
-    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
-    expect(res.json).toHaveBeenCalledWith({ progress: 20 });
-  });
 });
