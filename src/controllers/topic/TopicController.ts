@@ -13,8 +13,8 @@ export class TopicController {
       const totalItens = Number(req.query.totalItens); 
       const email = req.user?.email;
 
-      if(!topicId || !totalItens || isNaN(Number(totalItens))) {
-        return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "You must pass topicId as a regular param and totalItens type number as a query param." });
+      if(!topicId || !totalItens || totalItens <= 0 || isNaN(Number(totalItens))) {
+        return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "You must pass topicId as a regular param and totalItens type number greater than 0 as a query param." });
       }
 
       if (!email) {
@@ -24,6 +24,7 @@ export class TopicController {
       }
       try {
         const topicProgress = await this.topicService.getTopicProgress({ email, topicId, totalItens });
+
         return res.status(STATUS_CODE.OK).json(topicProgress);
       } catch (error: any) {
         return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({ message: "Error processing the request" });
