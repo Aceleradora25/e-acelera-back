@@ -8,22 +8,24 @@ datasource db {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  email    String     @unique
-  provider String     
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  provider  String
   loginDate DateTime
-  Progress Progress[]
+  Progress  Progress[]
 }
 
 model Progress {
   id          Int         @id @default(autoincrement())
-  itemId      String      @unique
+  itemId      String
   itemStatus  ItemStatus
   elementType ElementType
   topicId     String      @default("default-topic-id")
-  modifiedAt  DateTime
+  modifiedAt  DateTime    @updatedAt
   userId      Int
   user        User        @relation(fields: [userId], references: [id])
+
+  @@unique([itemId, userId])
 }
 
 enum ItemStatus {
