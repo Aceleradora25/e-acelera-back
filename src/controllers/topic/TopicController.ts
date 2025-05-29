@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
-import { TopicService } from "../../services/TopicService";
+import { TopicService } from "../../services/topic/TopicService";
 import { STATUS_CODE } from "../../utils/constants";
+import { UserService } from "../../services/UserService";
 
 export class TopicController {
-  private topicService: TopicService;
+  private topicService: TopicService
+  private userService: UserService
   constructor() {
-    this.topicService = new TopicService();
+    this.topicService = new TopicService(),
+    this.userService = new UserService()
   }
 
     async getTopicProgress(req: Request, res: Response) {
@@ -23,7 +26,9 @@ export class TopicController {
           .json({ message: "User not authenticated" });
       }
       try {
-        const topicProgress = await this.topicService.getTopicProgress({ email, topicId, totalItens });
+        const user = await this.userService.findUserByEmail(email);
+
+        const topicProgress = await this.topicService.getTopicProgress({ id: user.id, topicId, totalItens });
 
         return res.status(STATUS_CODE.OK).json(topicProgress);
       } catch (error: any) {
