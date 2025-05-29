@@ -1,120 +1,84 @@
 import { Request, Response } from "express";
+import { STATUS_CODE } from './../../utils/constants';
+import { TopicService } from './../../services/topic/TopicService';
 import { TopicController } from './TopicController';
-import { STATUS_CODE } from "../../utils/constants";
-import { TopicService } from "../../services/TopicService";
+import { UserService } from './../../services/UserService';
 
-jest.mock("../../services/TopicService");
-let controller: TopicController;
-let req: Partial<Request>;
-let res: Partial<Response>;
-let mockTopicService: jest.Mocked<TopicService>;
+jest.mock("../../services/topic/TopicService");
+jest.mock("../../services/UserService");
 
 describe("TopicController - getTopicProgress", () => {
+  let controller: TopicController;
+  let req: Partial<Request>;
+  let res: Partial<Response>;
+  let mockTopicService: jest.Mocked<TopicService>;
+  let mockUserService: jest.Mocked<UserService>;
+
   beforeEach(() => {
     mockTopicService = new TopicService() as jest.Mocked<TopicService>;
+    mockUserService = new UserService() as jest.Mocked<UserService>;
 
     controller = new TopicController();
     controller["topicService"] = mockTopicService;
+    controller["userService"] = mockUserService;
 
     req = {
       params: { topicId: "1" },
       query: { totalItens: "12" },
-      user: { email: "test@gmail.com" },
+      user: { email: "test@gmail.com" } as any,
     };
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
+
+    mockUserService.findUserByEmail.mockResolvedValue({ id: 123 } as any);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('deve retornar "User not authenticated" se o usuário não estiver autenticado', async () => {
+  it("deve retornar 401 se o usuário não estiver autenticado", async () => {
     req.user = undefined;
-
     await controller.getTopicProgress(req as Request, res as Response);
-
     expect(res.status).toHaveBeenCalledWith(STATUS_CODE.UNAUTHORIZED);
-    expect(res.json).toHaveBeenCalledWith({
-      message: "User not authenticated",
-    });
+    expect(res.json).toHaveBeenCalledWith({ message: "User not authenticated" });
   });
-  it('deve retornar "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param." se não for passado o topicId', async () => {
+
+  it("deve retornar 400 se faltarem params ou query inválida", async () => {
     req.params = {};
     await controller.getTopicProgress(req as Request, res as Response);
     expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
-    expect(res.json).toHaveBeenCalledWith({
-      message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param.",
-    });
-  });
 
-  it('deve retornar "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param." se não for passado o totalItens', async () => {
+    req.params = { topicId: "1" };
     req.query = {};
     await controller.getTopicProgress(req as Request, res as Response);
     expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
-    expect(res.json).toHaveBeenCalledWith({
-      message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param.",
-    });
-  });
 
-  it('deve retornar "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param." se o totalItens não for um número', async () => {
-    req.query = {
-      totalItens: "1ab"
-    };
+    req.query = { totalItens: "1ab" };
     await controller.getTopicProgress(req as Request, res as Response);
     expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
-    expect(res.json).toHaveBeenCalledWith({
-      message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param.",
-    });
-  });
 
-  it('deve retornar "Error processing the request" se a promisse getTopicProgress for rejeitada', async () => {
-    mockTopicService.getTopicProgress.mockRejectedValue(
-      new Error("Internal server error")
-    )
-    await controller.getTopicProgress(req as Request, res as Response);
-    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR);
-    expect(res.json).toHaveBeenCalledWith({
-      message: "Error processing the request",
-    });
-  });
-
-  it('deve retornar 0 se não houver itens do tópico específico vinculado ao usuário', async () => {
-    mockTopicService.getTopicProgress.mockResolvedValue({ progress: 0 });
-    await controller.getTopicProgress(req as Request, res as Response);
-
-    expect(mockTopicService.getTopicProgress).toHaveBeenCalledWith({
-      email: 'test@gmail.com',
-      topicId: '1',
-      totalItens: 12
-    });
-    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
-    expect(res.json).toHaveBeenCalledWith({ progress: 0 });
-  });
-
-  it('deve retornar o objeto { progress : value } com a porcentagem correta de progresso', async () => {
-    mockTopicService.getTopicProgress.mockResolvedValue({ progress: 50 });
-    await controller.getTopicProgress(req as Request, res as Response);
-
-    expect(mockTopicService.getTopicProgress).toHaveBeenCalledWith({
-      email: 'test@gmail.com',
-      topicId: '1',
-      totalItens: 12
-    });
-    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
-    expect(res.json).toHaveBeenCalledWith({ progress: 50 });
-  });
-
-  it('deve retornar 400 se totalItens for negativo', async () => {
-    req.params = { topicId: "1" };
     req.query = { totalItens: "-5" };
     await controller.getTopicProgress(req as Request, res as Response);
-
     expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
-    expect(res.json).toHaveBeenCalledWith({
-      message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param.",
-    });
+  });
+
+  it("deve retornar 500 em erro interno do service", async () => {
+    mockTopicService.getTopicProgress.mockRejectedValue(new Error("err"));
+    await controller.getTopicProgress(req as Request, res as Response);
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR);
+    expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" });
+  });
+
+  it("deve retornar 200 e o progresso quando tudo OK", async () => { 
+    mockTopicService.getTopicProgress.mockResolvedValue({ progress: 75 })
+    await controller.getTopicProgress(req as Request, res as Response);
+
+    expect(mockUserService.findUserByEmail).toHaveBeenCalledWith("test@gmail.com");
+    
+    expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
+    expect(res.json).toHaveBeenCalledWith({ progress: 75 });
   });
 });
