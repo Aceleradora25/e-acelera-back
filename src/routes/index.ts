@@ -3,6 +3,7 @@ import { ExerciseController } from '../controllers/exercise/ExerciseController'
 import { validateTokenMiddleware } from '../middleware/validateTokenMiddleware'
 import { LoginController } from '../controllers/login/LoginController'
 import { TopicController } from '../controllers/topic/TopicController'
+import { ThemeController } from '../controllers/theme/ThemeController'
 
 const router = express.Router()
 
@@ -20,6 +21,6 @@ router.get('/topic/:topicId/item', (req, res) => new ExerciseController().getTop
 router.get('/topic/:topicId/item/:itemId', (req, res) => new ExerciseController().getExerciseStatus(req, res))
 
 router.get('/topic/:topicId/progress', (req, res) => new TopicController().getTopicProgress(req, res))
-
+router.get('/theme/:themeId/progress', (req, res) => new ThemeController().getThemeProgress(req, res))
 
 export default router
