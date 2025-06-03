@@ -10,9 +10,8 @@ export class ExerciseController {
   }
 
   async updateExerciseStatus(req: Request, res: Response) {
-    const { itemId } = req.params;
-    const { topicId } = req.params;
-    const { elementType, itemStatus } = req.body;
+    const { topicId, itemId } = req.params;
+    const { themeId, elementType, itemStatus } = req.body;
     const email = req.user?.email;
     
     try {
@@ -38,13 +37,14 @@ export class ExerciseController {
           .json({ message: "Invalid or missing status value." });
       }
 
-      const updatedProgress = await this.exerciseService.saveStatus(
+      const updatedProgress = await this.exerciseService.saveStatus({
         itemId,
         elementType,
-        user.id,
+        userId: user.id,
         itemStatus,
+        themeId,
         topicId
-      );
+      });
 
       return res.status(STATUS_CODE.OK).json(updatedProgress);
     } catch (error: any) {
@@ -160,7 +160,7 @@ export class ExerciseController {
 
   async saveStatusElement(req: Request, res: Response) {
     const { topicId, itemId } = req.params;
-    const { elementType, itemStatus } = req.body;
+    const { themeId, elementType, itemStatus } = req.body;
     const email = req.user?.email;
 
     try {
@@ -211,13 +211,14 @@ export class ExerciseController {
         ? STATUS_CODE.OK
         : STATUS_CODE.CREATED;
 
-      const savedStatus = await this.exerciseService.saveStatus(
+      const savedStatus = await this.exerciseService.saveStatus({
         itemId,
         elementType,
-        user.id,
+        userId: user.id,
         itemStatus,
-        topicId
-      );
+        topicId,
+        themeId
+      });
 
       return res.status(saveProgressStatusCode).json(savedStatus);
     } catch (error) {

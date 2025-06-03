@@ -5,6 +5,16 @@ dotenv.config()
 
 const prisma = new PrismaClient()
 
+interface TopicProgress {
+    itemId: string, 
+    elementType: ElementType, 
+    userId: number, 
+    itemStatus: ItemStatus, 
+    topicId: string, 
+    themeId: string
+}
+
+
 export class ExerciseService {
     async findUserByEmail(email: string) {
         try {
@@ -25,7 +35,12 @@ export class ExerciseService {
         return validateStatus.includes(value)
     }
 
-    async findProgress(userId: number, itemId: string, topicId: string, elementType: ElementType) {
+    formatDateTime(): Date {
+        const offset = -3 * 60 * 60 * 1000
+        return new Date(Date.now() + offset)
+    }
+
+    async findProgress({ itemId, themeId, topicId, userId, elementType } : Omit<TopicProgress, 'itemStatus'>) {
         try {
             const count = await prisma.progress.count({
                 where: { userId, itemId, topicId },
@@ -36,7 +51,10 @@ export class ExerciseService {
             }
 
             const progress = await prisma.progress.findFirst({
-                where: { userId, itemId, topicId },
+                where: {
+                    userId,
+                    itemId
+                },
             })
 
             if (!progress) {
@@ -44,6 +62,7 @@ export class ExerciseService {
                     data: {
                         itemId,
                         userId,
+                        themeId,
                         elementType,
                         topicId,
                         itemStatus: ItemStatus.NotStarted,
@@ -142,13 +161,8 @@ export class ExerciseService {
             throw new Error("Error fetching itemId progress from database")
         }
     }
-
-    async formatDateTime(): Promise<Date> {
-        const offset = -3 * 60 * 60 * 1000
-        return new Date(Date.now() + offset)
-    }
     
-    async saveStatus(itemId: string, elementType: ElementType, userId: number, itemStatus: ItemStatus, topicId: string) {
+    async saveStatus({ elementType, itemId, itemStatus, themeId, topicId, userId }: TopicProgress) {
         try {
             const createdProgress = await prisma.progress.upsert({
                 where: { 
@@ -163,7 +177,8 @@ export class ExerciseService {
                     elementType,
                     userId,
                     itemStatus,
-                    topicId
+                    topicId,
+                    themeId,
                 }
             })
 

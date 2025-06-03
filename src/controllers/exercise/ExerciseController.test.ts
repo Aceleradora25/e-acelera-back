@@ -96,6 +96,7 @@ describe("ExerciseController - updateExerciseStatus", () => {
         itemStatus: ItemStatus.InProgress,
         elementType: ElementType.Exercise,
         topicId: "rw987654321",
+        themeId: "1",
         userId: 1,
         modifiedAt: new Date(),
       }
@@ -328,6 +329,7 @@ describe("ExerciseController - getExerciseStatus", () => {
       userId: number;
       itemStatus: ItemStatus;
       topicId: string;
+      themeId: string,
       modifiedAt: Date;
     } = {
       id: 1,
@@ -336,6 +338,7 @@ describe("ExerciseController - getExerciseStatus", () => {
       userId: 1,
       itemStatus: ItemStatus.Completed,
       topicId: "rw17212367802520ba251",
+      themeId: "1",
       modifiedAt: new Date(),
     };
 
@@ -377,6 +380,7 @@ describe("ExerciseController - getExerciseStatus", () => {
       userId: number;
       itemStatus: ItemStatus;
       topicId: string;
+      themeId: string;
       modifiedAt: Date;
     } = {
       id: 1,
@@ -385,6 +389,7 @@ describe("ExerciseController - getExerciseStatus", () => {
       userId: 1,
       itemStatus: ItemStatus.Completed,
       topicId: "rw17212367802520ba251",
+      themeId: "1",
       modifiedAt: new Date(),
     };
 
@@ -555,6 +560,7 @@ describe("ExerciseController - saveStatusElement", () => {
       itemStatus: ItemStatus.NotStarted,
       elementType: ElementType.Exercise,
       topicId: "rw1716904108731aca962",
+      themeId: "1",
       modifiedAt: date,
       userId: 1,
     };
@@ -565,6 +571,7 @@ describe("ExerciseController - saveStatusElement", () => {
       itemStatus: ItemStatus.InProgress,
       elementType: ElementType.Exercise,
       topicId: "rw1716904108731aca962",
+      themeId: "1",
       modifiedAt: updatedDate,
       userId: 1,
     };
@@ -595,6 +602,7 @@ describe("ExerciseController - saveStatusElement", () => {
       itemStatus: ItemStatus.Completed,
       elementType: ElementType.Video,
       topicId: "rw1716904108731aca962",
+      themeId: "1",
       modifiedAt: date,
       userId: 1,
     };
