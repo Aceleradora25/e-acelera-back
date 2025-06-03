@@ -25,14 +25,19 @@ describe("TopicController - getTopicProgress", () => {
     req = {
       params: { topicId: "1" },
       query: { totalItens: "12" },
-      user: { email: "test@gmail.com" } as any,
+      user: { email: "test@gmail.com" },
     };
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
 
-    mockUserService.findUserByEmail.mockResolvedValue({ id: 123 } as any);
+    mockUserService.findUserByEmail.mockResolvedValue({ 
+      id: 123,
+      email: "test@gmail.com",
+      provider: "google",
+      loginDate: new Date(),
+    });
   });
 
   afterEach(() => {
