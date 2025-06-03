@@ -24,15 +24,17 @@ model Topic {
 }
 
 model Progress {
-  id          Int         @id @default(autoincrement())
-  itemId      String
+  id      Int    @id @default(autoincrement())
+  itemId  String
+  topicId String
+  themeId String
+
   itemStatus  ItemStatus
   elementType ElementType
-  topicId     String      @default("default-topic-id")
   modifiedAt  DateTime    @updatedAt
-  userId      Int
-  user        User        @relation(fields: [userId], references: [id])
-  topic       Topic       @relation(fields: [topicId], references: [id])
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
 
   @@unique([itemId, userId])
 }
