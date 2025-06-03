@@ -9,9 +9,6 @@
     "build": "npx prisma migrate deploy",
     "test": "jest"
   },
-  "prisma": {
-    "seed": "npx tsx prisma/seed.ts"
-  },
   "author": "daniellemadrid, barbaraanger, aceleradora-TW/teams/turma-25",
   "license": "ISC",
   "dependencies": {
