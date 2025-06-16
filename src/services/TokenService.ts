@@ -1,12 +1,11 @@
 import * as dotenv from "dotenv"
 import * as jose from "jose"
 import * as crypto from "crypto"
-import { PrismaClient } from "@prisma/client"
-import { UserToken } from "../utils/types"
+import { UserToken } from "../types/types"
+import prisma from "../../client"
 
 dotenv.config()
 
-const prisma = new PrismaClient()
 export class TokenService {
   private secretKey = process.env.NEXTAUTH_SECRET || ""
 
@@ -40,9 +39,9 @@ export class TokenService {
         console.error("Invalid token")
         return null
       }
-  
+
       return decodedToken
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error decrypting token:", error)
       return null
     }
@@ -88,7 +87,6 @@ export class TokenService {
         where: { email: extractToken.email },
         data: { loginDate, provider: extractToken.provider },
       })
-     
       return updateUser
     } catch {
       return null
