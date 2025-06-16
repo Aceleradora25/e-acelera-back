@@ -16,7 +16,6 @@ model User {
 }
 
 model Progress {
-  id      Int    @id @default(autoincrement())
   itemId  String
   topicId String
   themeId String
