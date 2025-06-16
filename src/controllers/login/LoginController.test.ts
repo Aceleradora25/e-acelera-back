@@ -17,7 +17,10 @@ describe("LoginController - registerUser", () => {
     controller["tokenService"] = mockTokenService;
 
     req = {
-      user: { email: "test@gmail.com" },
+      user: { 
+        email: "test@gmail.com",
+        id: 1
+      },
       headers: { authorization: "Bearer eysncskwnsopmcsabuwsa" },
     };
     res = {
