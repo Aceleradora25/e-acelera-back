@@ -6,13 +6,13 @@ const app = express()
 const port = 5002
 
 app.use(cors({
-    origin: 'http://localhost:3000', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }));
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`)
+  console.log(`Server is running on port ${port}`)
 })
 app.use(express.json())
 
