@@ -10,9 +10,6 @@
     "test": "jest",
     "postinstall": "npx prisma generate"
   },
-  "prisma": {
-    "seed": "npx tsx prisma/seed.ts"
-  },
   "author": "daniellemadrid, barbaraanger, aceleradora-TW/teams/turma-25",
   "license": "ISC",
   "dependencies": {
