@@ -7,4 +7,5 @@ module.exports = {
       '^.+\.ts$': 'ts-jest',
     },
     testPathIgnorePatterns: ['/node_modules/', '/.next/'],
+    setupFilesAfterEnv: ["<rootDir>/singleton.ts"]
   };

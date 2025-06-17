@@ -9,11 +9,3 @@ export enum STATUS_CODE {
   TOKEN_EXPIRED = 498,
   INTERNAL_SERVER_ERROR = 500
 }
-
-export const ALLOWED_ORIGINS = [
-  "https://staging--e-acelera-homologacao.netlify.app",
-  "https://aceleradora-agil.com.br",
-  "http://localhost:3000"
-]
-
-export const isProduction = process.env.NODE_ENV !== "development"
