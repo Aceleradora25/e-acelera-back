@@ -9,11 +9,11 @@ router.get('/', (req, res) => {
     res.send('Welcome to the homepage')
 })
 
+router.post('/login', (req, res) => new LoginController().registerUser(req, res))
+
 router.use(validateTokenMiddleware)
 
-router.post('/login', (req, res) => new LoginController().registerUser(req, res))
 router.put('/topic/:topicId/item/:itemId/status', (req, res) => new ProgressController().saveStatusProgress(req, res))
-
 router.get('/topic/:topicId/item', (req, res) => new ProgressController().getTopicExercisesStatus(req, res))
 router.get('/topic/:topicId/item/:itemId', (req, res) => new ProgressController().getExerciseStatus(req, res))
 
