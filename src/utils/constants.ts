@@ -9,3 +9,6 @@ export enum STATUS_CODE {
   TOKEN_EXPIRED = 498,
   INTERNAL_SERVER_ERROR = 500
 }
+
+export const STACKBY_SECRET_KEY= process.env.STACKBY_SECRET_KEY
+export const STACKBY_BASE_URL= process.env.STACKBY_BASE_URL

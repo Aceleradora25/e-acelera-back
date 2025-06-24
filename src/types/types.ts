@@ -1,5 +1,4 @@
 import { ElementType, ItemStatus } from "@prisma/client"
-import { NextFunction, Request, Response } from "express"
 
 export interface UserToken {
   name: string
@@ -32,11 +31,8 @@ export interface SingleProgressResponse extends Progress {
   modifiedAt: Date
 }
 
-export interface RequestWithUser extends Request {
-  user: {
-    email: string
-    id: number
-  }
+export enum StackByEndpoint {
+  EXERCISES = "Exercises",
+  TOPICS = "Topics",
+  THEMES = "Themes"
 }
-
-export interface IExpressParams { req: RequestWithUser, res: Response, next?: NextFunction }
