@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ProgressService } from "../../services/progress/ProgressService";
 import { STATUS_CODE } from "../../utils/constants";
-import { ProgressDTO } from "./Progress.dto";
+import { ProgressDTO } from "../../dtos/Progress.dto";
 import { plainToClass } from "class-transformer";
 
 export class ProgressController {
