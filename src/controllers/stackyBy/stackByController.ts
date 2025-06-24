@@ -5,14 +5,14 @@ import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { StackByParamsDto } from "../../dtos/StackByEndpoint.dto";
 
-export class StackyByController {
+export class StackByController {
   private stackyByService: StackByService;
 
   constructor() {
     this.stackyByService = new StackByService();
   }
 
-  async getStackyByData( req: Request, res: Response ) {
+  async getStackByData( req: Request, res: Response ) {
     const dto = plainToInstance(StackByParamsDto, req.params);
     const errors = await validate(dto);
 

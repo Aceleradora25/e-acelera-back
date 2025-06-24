@@ -2,7 +2,7 @@ import express from 'express'
 import { validateTokenMiddleware } from '../middleware/validateTokenMiddleware'
 import { LoginController } from '../controllers/login/LoginController'
 import { ProgressController } from '../controllers/progress/ProgressController'
-import { StackyByController } from '../controllers/stackyBy/stackyByController'
+import { StackByController } from '../controllers/stackyBy/stackByController'
 
 const router = express.Router()
 
@@ -20,6 +20,6 @@ router.get('/topic/:topicId/item/:itemId', (req, res) => new ProgressController(
 
 router.get('/topic/:topicId/progress', (req, res) => new ProgressController().getTopicProgress(req, res))
 
-router.get('/stackyBy/:endpoint', (req, res) => new StackyByController().getStackyByData(req, res))
+router.get('/stackBy/:endpoint', (req, res) => new StackByController().getStackByData(req, res))
 
 export default router
