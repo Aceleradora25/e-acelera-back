@@ -46,7 +46,7 @@ export class LoginController {
       return res
         .status(STATUS_CODE.OK)
         .json({ message: "User created successfully!" });
-    } catch (error: any) {
+    } catch (error) {
       return res
         .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
         .json({ message: "Error processing the created user" });
