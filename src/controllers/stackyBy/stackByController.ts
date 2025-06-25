@@ -15,18 +15,19 @@ export class StackByController {
   async getStackByData( req: Request, res: Response ) {
     const dto = plainToInstance(StackByParamsDto, req.params);
     const errors = await validate(dto);
+    const { endpoint } = dto;
 
     if (errors.length > 0) {
       const messages = errors.map(err => Object.values(err.constraints || {})).flat();
       return res.status(STATUS_CODE.BAD_REQUEST).json({ message: messages.join(", ") });
     }
 
-    if(!dto.endpoint) {
+    if(!endpoint) {
       return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "An endpoint is required. Must be 'Exercises', 'Topics' or 'Themes'." });
     }
 
     try {
-      const data = await this.stackyByService.fetchStackByData( dto.endpoint );
+      const data = await this.stackyByService.fetchStackByData(endpoint);
       return res.status(STATUS_CODE.OK).json(data);
     } catch (error) {
       return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({ message: "Error processing the request" });
