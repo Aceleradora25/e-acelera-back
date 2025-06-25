@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ProgressService } from "../../services/progress/ProgressService";
 import { STATUS_CODE } from "../../utils/constants";
 import { ProgressDTO } from "../../dtos/Progress.dto";
-import { plainToClass } from "class-transformer";
+import { plainToClass, plainToInstance } from "class-transformer";
 
 export class ProgressController {
   private progressService: ProgressService
@@ -29,14 +29,12 @@ export class ProgressController {
   }
 
   async saveStatusProgress(req: Request, res: Response) {
-    console.log(req.user);
-    
     const { topicId, itemId } = req.params;
     const {
       themeId,
       elementType,
       itemStatus
-    } = plainToClass(ProgressDTO, req.body);
+    } = plainToInstance(ProgressDTO, req.body);
     const id = req.user?.id!;
 
     try {

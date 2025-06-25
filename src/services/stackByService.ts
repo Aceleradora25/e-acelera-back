@@ -17,14 +17,14 @@ export class StackByService {
 
         if(!response.ok) {
           return {
-            error: "Não foi possível recuperar os dados do stackyBy."
+            error: "Failed to fetch data from the API. Please try again later."
           }
         }
 
         return response.json();
     } catch (error) {
         return {
-            error: `Erro interno de servidor: ${error}`
+            error: `Internal server error: ${error}`
         };
     }
   }
