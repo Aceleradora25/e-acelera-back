@@ -3,7 +3,7 @@ import { STATUS_CODE } from '../../utils/constants';
 import { ProgressService } from '../../services/progress/ProgressService';
 import { ProgressController } from './ProgressController';
 import { ElementType, ItemStatus } from "@prisma/client";
-import { ProgressDTO } from "./Progress.dto";
+import { ProgressDTO } from "../../dtos/Progress.dto";
 import { validateSync } from "class-validator";
 import { plainToClass } from "class-transformer";
 import { Progress, SingleProgressResponse } from "../../types/types";
