@@ -1,7 +1,9 @@
+import { DataItem, StackbyEndpoint } from './../types/types';
 import { STACKBY_BASE_URL, STACKBY_SECRET_KEY } from "../utils/constants";
+import { PROGRESS_CALCULATION_BY_ENTITY } from '../utils/progressCalculationByEntity';
 
-export class StackByService {
-  async fetchStackByData(endpoint: string) {
+export class StackbyService {
+  async fetchStackbyData(endpoint: string) {
     try {
         const apiKey: string = STACKBY_SECRET_KEY || "";
         const uniqueParam: string = `nocache=${Date.now()}`;
@@ -27,5 +29,10 @@ export class StackByService {
             error: `Internal server error: ${error}`
         };
     }
+  }
+
+  async calculateTotalItems(id: string, endpoint: StackbyEndpoint) {
+      const { data } = await this.fetchStackbyData(endpoint);
+      return PROGRESS_CALCULATION_BY_ENTITY[endpoint](id, data as DataItem[]);
   }
 }

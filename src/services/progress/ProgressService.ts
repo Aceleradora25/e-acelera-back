@@ -1,58 +1,61 @@
 import { ItemStatus } from "@prisma/client";
-import { GetTopicProgress, Progress } from "../../types/types";
+import { GetProgress, SaveStatusProgress } from "../../types/types";
 import prisma from "../../../client"
 
 
 export class ProgressService {
-  calculateProgress(totalUserItens: number, totalTopicItens: number): { progress: number } {
+  calculateProgressPercentage(totalUserItens: number, totalTopicItens: number): { progress: number } {
     return {
       progress: totalUserItens && totalTopicItens ? Math.floor(totalUserItens / totalTopicItens * 100) : 0
     }
   }
 
-  async getAllProgressByTopic(userId: number, topicId: string) {
+  async getProgressPercentage(
+    { userId, id, idType }: GetProgress,
+    totalItems: number
+  ) {
     try {
-      return await prisma.progress.findMany({
+      const completedCount = await prisma.progress.count({
         where: {
           userId,
-          topicId
-        }
-      })
-    } catch (error) {
-      throw new Error("Error fetching user progress from database")
-    }
-  }
-
-  async getTopicProgress({ userId, topicId, totalItens }: GetTopicProgress) {
-    try {
-      const userItens = await prisma.progress.findMany({
-        where: {
-          userId,
-          topicId,
+          [idType]: id,
           itemStatus: ItemStatus.Completed
         }
       });
 
-      return this.calculateProgress(userItens.length, totalItens);
+      return this.calculateProgressPercentage(completedCount, totalItems);
     } catch (error) {
       throw new Error("Error fetching user progress from database");
     }
   }
 
-  async getProgressByExerciseId(userId: number, itemId: string) {
+  async getSingleStatusProgressByItemId(itemId: string, userId: number) {
     try {
-      return await prisma.progress.findFirstOrThrow({
-        where: {
-          userId,
-          itemId
-        }
-      })
+      return await prisma.progress.findFirst({
+      where: {
+        userId,
+        itemId
+      }
+    });
     } catch (error) {
       throw new Error("Error fetching user progress from database")
     }
   }
 
-  async saveStatusProgress({ elementType, itemId, itemStatus, themeId, topicId, userId }: Progress) {
+    async getAllStatusProgressById({ id, idType, userId } : GetProgress) {
+    try {
+      return await prisma.progress.findMany({
+      where: {
+        userId,
+        [idType]: id
+      }
+    });
+    } catch (error) {
+      throw new Error("Error fetching user progress from database")
+    }
+  }
+
+  async saveStatusProgress({ elementType, itemId, itemStatus, themeId, topicId, userId }: SaveStatusProgress) {
     try {
       const createdProgress = await prisma.progress.upsert({
         where: {
@@ -78,5 +81,4 @@ export class ProgressService {
       throw new Error("Error saving progress status")
     }
   }
-
 }

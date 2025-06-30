@@ -2,7 +2,7 @@ import express from 'express'
 import { validateTokenMiddleware } from '../middleware/validateTokenMiddleware'
 import { LoginController } from '../controllers/login/LoginController'
 import { ProgressController } from '../controllers/progress/ProgressController'
-import { StackByController } from '../controllers/stackyBy/stackByController'
+import { StackbyController } from '../controllers/stackyby/stackbyController'
 
 const router = express.Router()
 
@@ -14,12 +14,12 @@ router.post('/login', (req, res) => new LoginController().registerUser(req, res)
 
 router.use(validateTokenMiddleware)
 
-router.put('/topic/:topicId/item/:itemId/status', (req, res) => new ProgressController().saveStatusProgress(req, res))
-router.get('/topic/:topicId/item', (req, res) => new ProgressController().getTopicExercisesStatus(req, res))
-router.get('/topic/:topicId/item/:itemId', (req, res) => new ProgressController().getExerciseStatus(req, res))
+router.get('/status/:id/:idType', (req, res) => new ProgressController().getTopicExercisesStatusProgress(req, res))
+router.put('/status/:topicId/item/:itemId', (req, res) => new ProgressController().saveStatusProgress(req, res))
+router.get('/status/:topicId/item/:itemId', (req, res) => new ProgressController().getExerciseStatusProgress(req, res))
 
-router.get('/topic/:topicId/progress', (req, res) => new ProgressController().getTopicProgress(req, res))
+router.get('/progress/:id/:idType', (req, res) => new ProgressController().getProgressPercentageById(req, res))
 
-router.get('/stackBy/:endpoint', (req, res) => new StackByController().getStackByData(req, res))
+router.get('/stackBy/:endpoint', (req, res) => new StackbyController().getStackbyData(req, res))
 
 export default router

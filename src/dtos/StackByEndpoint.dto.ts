@@ -1,7 +1,7 @@
 import { IsEnum } from "class-validator";
-import { StackByEndpoint } from "../types/types";
+import { StackbyEndpoint } from "../types/types";
 
-export class StackByParamsDto {
-  @IsEnum(StackByEndpoint, { message: 'Endpoint must be one of: Exercises, Topics, Themes' })
-  endpoint: StackByEndpoint | undefined;
+export class StackbyParamsDto {
+  @IsEnum(StackbyEndpoint, { message: 'Endpoint must be one of: Exercises, Topics, Themes' })
+  endpoint: StackbyEndpoint | undefined;
 }

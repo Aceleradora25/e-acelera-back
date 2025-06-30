@@ -1,16 +1,11 @@
-import { ElementType, ItemStatus } from "@prisma/client";
 import { IsEnum } from "class-validator";
+import { IdType } from "../types/types";
 
 export class ProgressDTO {
-  themeId!: string;
+  id!: string;
 
-  @IsEnum(ElementType, {
-    message: "Invalid or missing element type."
+  @IsEnum(IdType, {
+    message: "Invalid or missing element idType."
   })
-  elementType!: ElementType;
-
-  @IsEnum(ItemStatus, {
-    message: "Invalid or missing status value."
-  })
-  itemStatus!: ItemStatus;
+  idType!: IdType;
 }
