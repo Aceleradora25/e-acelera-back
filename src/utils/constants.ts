@@ -10,10 +10,5 @@ export enum STATUS_CODE {
   INTERNAL_SERVER_ERROR = 500
 }
 
-export const ALLOWED_ORIGINS = [
-  "https://staging--e-acelera-homologacao.netlify.app",
-  "https://aceleradora-agil.com.br",
-  "http://localhost:3000"
-]
-
-export const isProduction = process.env.NODE_ENV !== "development"
+export const STACKBY_SECRET_KEY= process.env.STACKBY_SECRET_KEY
+export const STACKBY_BASE_URL= process.env.STACKBY_BASE_URL

@@ -1,8 +1,8 @@
 import express from 'express'
-import { ExerciseController } from '../controllers/exercise/ExerciseController'
 import { validateTokenMiddleware } from '../middleware/validateTokenMiddleware'
 import { LoginController } from '../controllers/login/LoginController'
-import { TopicController } from '../controllers/topic/TopicController'
+import { ProgressController } from '../controllers/progress/ProgressController'
+import { StackByController } from '../controllers/stackyBy/stackByController'
 
 const router = express.Router()
 
@@ -10,16 +10,16 @@ router.get('/', (req, res) => {
     res.send('Welcome to the homepage')
 })
 
+router.post('/login', (req, res) => new LoginController().registerUser(req, res))
+
 router.use(validateTokenMiddleware)
 
-router.post('/login', (req, res) => new LoginController().registerUser(req, res))
-router.post('/topic/:topicId/item/:itemId', (req, res) => new ExerciseController().saveStatusElement(req, res))
-router.put('/topic/:topicId/item/:itemId/status', (req, res) => new ExerciseController().updateExerciseStatus(req, res))
+router.put('/topic/:topicId/item/:itemId/status', (req, res) => new ProgressController().saveStatusProgress(req, res))
+router.get('/topic/:topicId/item', (req, res) => new ProgressController().getTopicExercisesStatus(req, res))
+router.get('/topic/:topicId/item/:itemId', (req, res) => new ProgressController().getExerciseStatus(req, res))
 
-router.get('/topic/:topicId/item', (req, res) => new ExerciseController().getTopicExercisesStatus(req, res))
-router.get('/topic/:topicId/item/:itemId', (req, res) => new ExerciseController().getExerciseStatus(req, res))
+router.get('/topic/:topicId/progress', (req, res) => new ProgressController().getTopicProgress(req, res))
 
-router.get('/topic/:topicId/progress', (req, res) => new TopicController().getTopicProgress(req, res))
-
+router.get('/stackBy/:endpoint', (req, res) => new StackByController().getStackByData(req, res))
 
 export default router
