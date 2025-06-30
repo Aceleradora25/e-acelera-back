@@ -1,26 +1,44 @@
 import { Request, Response } from "express";
 import { ProgressService } from "../../services/progress/ProgressService";
-import { STATUS_CODE } from "../../utils/constants";
+import { STACKBY_ENDPOINTS_HASHTABLE, STATUS_CODE } from "../../utils/constants";
+import { SaveStatusProgressDTO } from "../../dtos/SaveStatusProgress.dto";
+import { plainToInstance } from "class-transformer";
+import { StackbyService } from "../../services/stackbyService";
+import { IdType } from "../../types/types";
 import { ProgressDTO } from "../../dtos/Progress.dto";
-import { plainToClass, plainToInstance } from "class-transformer";
 
 export class ProgressController {
   private progressService: ProgressService
+  private stackbyService: StackbyService
+
   constructor() {
     this.progressService = new ProgressService()
+    this.stackbyService = new StackbyService()
   }
 
-  async getTopicProgress(req: Request, res: Response) {
-    const { topicId } = req.params;
-    const totalItens = Number(req.query.totalItens);
-    const id = req.user?.id!;
+  async getProgressPercentageById(req: Request, res: Response) {
+    const { id, idType } = plainToInstance(ProgressDTO, req.params);
+    const userId = req.user?.id!;
 
-    if (!topicId || totalItens < 0 || isNaN(totalItens)) {
-      return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "You must pass topicId as a regular param and totalItens type number greater than or equal 0 as a query param." });
+    if (!idType || !id) {
+      return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "You must pass an id and an idType as params." });
     }
+    const endpoint = STACKBY_ENDPOINTS_HASHTABLE[idType as IdType]!;
 
     try {
-      const topicProgress = await this.progressService.getTopicProgress({ userId: id, topicId, totalItens });
+      const totalItems = await this.stackbyService.calculateTotalItems(id, endpoint)
+      
+      if (!totalItems) {
+        return res.status(STATUS_CODE.NOT_FOUND).json({ message: "No items found for the given id and idType." });
+      }
+
+      const topicProgress = await this.progressService.getProgressPercentage({
+          userId,
+          id,
+          idType
+        },
+        totalItems
+      );
 
       return res.status(STATUS_CODE.OK).json(topicProgress);
     } catch (error) {
@@ -34,7 +52,7 @@ export class ProgressController {
       themeId,
       elementType,
       itemStatus
-    } = plainToInstance(ProgressDTO, req.body);
+    } = plainToInstance(SaveStatusProgressDTO, req.body);
     const id = req.user?.id!;
 
     try {
@@ -46,8 +64,7 @@ export class ProgressController {
         themeId,
         topicId,
       });
-      console.log(updatedProgress);
-      
+
       return res.status(STATUS_CODE.OK).json(updatedProgress);
     } catch (error) {
       return res
@@ -58,15 +75,20 @@ export class ProgressController {
     }
   }
 
-  async getTopicExercisesStatus(req: Request, res: Response) {
-    const { topicId } = req.params;
-    const id = req.user?.id!;
+  async getTopicExercisesStatusProgress(req: Request, res: Response) {
+    const { id, idType } = plainToInstance(ProgressDTO, req.params);
+    const userId = req.user?.id!;
+
+    if (!idType || !id) {
+      return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "You must pass an id and an idType as params." });
+    }
 
     try {
-      const allProgressByTopic = await this.progressService.getAllProgressByTopic(
-        +id,
-        topicId
-      );
+      const allProgressByTopic = await this.progressService.getAllStatusProgressById({
+        id,
+        idType: IdType.TOPIC_ID,
+        userId
+      });
 
       if (allProgressByTopic.length === 0) {
         return res
@@ -82,21 +104,16 @@ export class ProgressController {
     }
   }
 
-  async getExerciseStatus(req: Request, res: Response) {
-    const { itemId } = req.params;
-    const id = req.user?.id!;
+  async getExerciseStatusProgress(req: Request, res: Response) {
+    const { itemId } =  req.params;
+    const userId = req.user?.id!;
+
+    if (!itemId) {
+      return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "You must pass an itemId and a topicId as params." });
+    }
 
     try {
-      if (!itemId) {
-        return res
-          .status(STATUS_CODE.BAD_REQUEST)
-          .json({ message: "itemId is required" });
-      }
-
-      const exerciseStatus = await this.progressService.getProgressByExerciseId(
-        +id,
-        itemId
-      );
+      const exerciseStatus = await this.progressService.getSingleStatusProgressByItemId(itemId, userId);
 
       if (!exerciseStatus) {
         return res

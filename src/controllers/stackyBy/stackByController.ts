@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
-import { StackByService } from "../../services/stackByService"
+import { StackbyService } from "../../services/stackbyService"
 import { STATUS_CODE } from "../../utils/constants";
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
-import { StackByParamsDto } from "../../dtos/StackByEndpoint.dto";
+import { StackbyParamsDto } from "../../dtos/StackbyEndpoint.dto";
 
-export class StackByController {
-  private stackyByService: StackByService;
+export class StackbyController {
+  private stackyByService: StackbyService;
 
   constructor() {
-    this.stackyByService = new StackByService();
+    this.stackyByService = new StackbyService();
   }
 
-  async getStackByData( req: Request, res: Response ) {
-    const dto = plainToInstance(StackByParamsDto, req.params);
+  async getStackbyData( req: Request, res: Response ) {
+    const dto = plainToInstance(StackbyParamsDto, req.params);
     const errors = await validate(dto);
     const { endpoint } = dto;
 
@@ -27,7 +27,7 @@ export class StackByController {
     }
 
     try {
-      const data = await this.stackyByService.fetchStackByData(endpoint);
+      const data = await this.stackyByService.fetchStackbyData(endpoint);
       return res.status(STATUS_CODE.OK).json(data);
     } catch (error) {
       return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({ message: "Error processing the request" });

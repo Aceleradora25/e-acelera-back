@@ -3,13 +3,15 @@ import { STATUS_CODE } from '../../utils/constants';
 import { ProgressService } from '../../services/progress/ProgressService';
 import { ProgressController } from './ProgressController';
 import { ElementType, ItemStatus } from "@prisma/client";
-import { ProgressDTO } from "../../dtos/Progress.dto";
+import { SaveStatusProgressDTO } from "../../dtos/SaveStatusProgress.dto";
 import { validateSync } from "class-validator";
 import { plainToClass } from "class-transformer";
-import { Progress, SingleProgressResponse } from "../../types/types";
+import { GetProgress, SingleProgressResponse } from "../../types/types";
+import { StackbyService } from "../../services/stackbyService";
 
 jest.mock("../../services/Progress/ProgressService")
 jest.mock("../../services/UserService")
+jest.mock("../../services/StackbyService")
 jest.mock('../../middleware/validateTokenMiddleware.ts', () => ({
   validateTokenMiddleware: jest.fn(),
 }));
@@ -18,6 +20,7 @@ let controller: ProgressController;
 let req: Partial<Request>;
 let res: Partial<Response>;
 let mockProgressService: jest.Mocked<ProgressService>;
+let mockStackbyService: jest.Mocked<StackbyService>;
 
 describe("Progress Controller Unit Tests", () => {
   describe("ProgressController - getTopicProgress", () => {
@@ -27,11 +30,13 @@ describe("Progress Controller Unit Tests", () => {
 
     beforeEach(() => {
       mockProgressService = new ProgressService() as jest.Mocked<ProgressService>;
+      mockStackbyService = new StackbyService() as jest.Mocked<StackbyService>;
       controller = new ProgressController();
       controller["progressService"] = mockProgressService;
+      controller["stackbyService"] = mockStackbyService;
 
       req = {
-        params: { topicId: "1" },
+        params: { id: "1", idType: "topicId" },
         query: { totalItens: "12" },
         user: {
           email: "test@gmail.com",
@@ -50,33 +55,36 @@ describe("Progress Controller Unit Tests", () => {
 
     it("deve retornar 400 se faltarem params ou query inválida", async () => {
       req.params = {};
-      await controller.getTopicProgress(req as Request, res as Response);
+      await controller.getTopicExercisesStatusProgress(req as Request, res as Response);
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
 
       req.params = { topicId: "1" };
       req.query = {};
-      await controller.getTopicProgress(req as Request, res as Response);
+      await controller.getTopicExercisesStatusProgress(req as Request, res as Response);
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
 
       req.query = { totalItens: "1ab" };
-      await controller.getTopicProgress(req as Request, res as Response);
+      await controller.getTopicExercisesStatusProgress(req as Request, res as Response);
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
 
       req.query = { totalItens: "-5" };
-      await controller.getTopicProgress(req as Request, res as Response);
+      await controller.getTopicExercisesStatusProgress(req as Request, res as Response);
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
     });
 
     it("deve retornar 500 em erro interno do service", async () => {
-      mockProgressService.getTopicProgress.mockRejectedValue(new Error("err"));
-      await controller.getTopicProgress(req as Request, res as Response);
+      mockStackbyService.calculateTotalItems.mockResolvedValue(10)
+      mockProgressService.getProgressPercentage.mockRejectedValue(new Error("err"));
+      await controller.getProgressPercentageById(req as Request, res as Response);
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR);
       expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" });
     });
 
     it("deve retornar 200 e o progresso quando tudo OK", async () => {
-      mockProgressService.getTopicProgress.mockResolvedValue({ progress: 75 })
-      await controller.getTopicProgress(req as Request, res as Response);
+      mockStackbyService.calculateTotalItems.mockResolvedValue(10);
+      mockProgressService.getProgressPercentage.mockResolvedValue({ progress: 75 });
+
+      await controller.getProgressPercentageById(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
       expect(res.json).toHaveBeenCalledWith({ progress: 75 });
@@ -86,7 +94,7 @@ describe("Progress Controller Unit Tests", () => {
 
   describe('UpdateStatusDto', () => {
     it('é válido para um itemStatus Enum correto', () => {
-      const dto = plainToClass(ProgressDTO, {
+      const dto = plainToClass(SaveStatusProgressDTO, {
         themeId: '1',
         elementType: ElementType.Exercise,
         itemStatus: ItemStatus.Completed,
@@ -96,7 +104,7 @@ describe("Progress Controller Unit Tests", () => {
     });
 
     it('é inválido para um itemStatus inválido', () => {
-      const dto = plainToClass(ProgressDTO, {
+      const dto = plainToClass(SaveStatusProgressDTO, {
         themeId: '1',
         elementType: ElementType.Exercise,
         itemStatus: 'Finished' as ItemStatus,
@@ -171,7 +179,11 @@ describe("Progress Controller Unit Tests", () => {
       controller["progressService"] = mockProgressService;
 
       req = {
-        params: { topicId: "1", itemId: "1" }, user: {
+        params: { 
+          id: '1', 
+          idType: 'topicId'
+        },
+        user: {
           email: "test@gmail.com",
           id: 1
         },
@@ -183,26 +195,30 @@ describe("Progress Controller Unit Tests", () => {
     });
 
     it("deve retornar 'topicId não encontrado' se o topicId não existir", async () => {
-      req.params = { ...req.params, topicId: "" };
-      mockProgressService.getAllProgressByTopic.mockResolvedValue([]);
+      mockProgressService.getAllStatusProgressById.mockResolvedValue([])
 
-      await controller.getTopicExercisesStatus(req as Request, res as Response);
+      await controller.getTopicExercisesStatusProgress(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND);
-      expect(res.json).toHaveBeenCalledWith({ message: "Progress not found" });
+      expect(res.json).toHaveBeenCalledWith({ message: "Progress not found" })
     });
 
     it("deve retornar 'Progresso não encontrado' se o status do exercício não for encontrado", async () => {
-      mockProgressService.getAllProgressByTopic.mockResolvedValue([]);
+      req.params = {
+        itemId: "1"
+      }
 
-      await controller.getTopicExercisesStatus(req as Request, res as Response);
+      mockProgressService.getAllStatusProgressById.mockResolvedValue([]);
+
+      await controller.getExerciseStatusProgress(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND);
-      expect(res.json).toHaveBeenCalledWith({ message: "Progress not found" });
+      expect(res.json).toHaveBeenCalledWith({ message: "Status not found" });
     });
 
     it("deve retornar 'Erro ao processar a solicitação' se ocorrer um erro", async () => {
-      await controller.getTopicExercisesStatus(req as Request, res as Response);
+      mockProgressService.getAllStatusProgressById.mockRejectedValue(new Error("err"));
+      await controller.getTopicExercisesStatusProgress(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR);
       expect(res.json).toHaveBeenCalledWith({
@@ -223,9 +239,9 @@ describe("Progress Controller Unit Tests", () => {
         },
       ];
 
-      mockProgressService.getAllProgressByTopic.mockResolvedValue(statusList);
+      mockProgressService.getAllStatusProgressById.mockResolvedValue(statusList);
 
-      await controller.getTopicExercisesStatus(req as Request, res as Response);
+      await controller.getTopicExercisesStatusProgress(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
       expect(res.json).toHaveBeenCalledWith(statusList);
@@ -254,26 +270,26 @@ describe("Progress Controller Unit Tests", () => {
 
     it("deve retornar 'itemId não encontrado' se o itemId não existir", async () => {
       req.params = { ...req.params, itemId: "" };
-      mockProgressService.getAllProgressByTopic.mockResolvedValue([]);
+      mockProgressService.getAllStatusProgressById.mockResolvedValue([]);
 
-      await controller.getExerciseStatus(req as Request, res as Response);
+      await controller.getExerciseStatusProgress(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.BAD_REQUEST);
-      expect(res.json).toHaveBeenCalledWith({ message: "itemId is required" });
+      expect(res.json).toHaveBeenCalledWith({ message: "You must pass an itemId and a topicId as params." });
     });
     it("deve retornar 'status não encontrado' se o status não for encontrado", async () => {
-      mockProgressService.getAllProgressByTopic.mockResolvedValue([]);
+      mockProgressService.getAllStatusProgressById.mockResolvedValue([]);
 
-      await controller.getExerciseStatus(req as Request, res as Response);
+      await controller.getExerciseStatusProgress(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.NOT_FOUND);
       expect(res.json).toHaveBeenCalledWith({ message: "Status not found" });
     });
 
     it("deve retornar 'Erro ao processar a solicitação' se ocorrer um erro", async () => {
-      mockProgressService.getProgressByExerciseId.mockRejectedValue(new Error("INTERNAL_SERVER_ERROR"));
+      mockProgressService.getSingleStatusProgressByItemId.mockRejectedValue(new Error("INTERNAL_SERVER_ERROR"));
 
-      await controller.getExerciseStatus(req as Request, res as Response);
+      await controller.getExerciseStatusProgress(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR);
       expect(res.json).toHaveBeenCalledWith({
@@ -282,20 +298,19 @@ describe("Progress Controller Unit Tests", () => {
     });
 
     it("deve retornar um objeto com itemStatus e itemId quando disponível", async () => {
-      const exerciseSuccess: SingleProgressResponse =
-      {
-        itemId: "rw1726148766181e6dab5",
-        topicId: "q",
-        themeId: "q",
-        itemStatus: ItemStatus.InProgress,
-        elementType: ElementType.Exercise,
-        modifiedAt: new Date(),
-        userId: 1,
-      };
+      const exerciseSuccess: SingleProgressResponse = {
+          userId: 1,
+          itemId: "rw1726148766181e6dab5",
+          topicId: "q",
+          themeId: "q",
+          itemStatus: ItemStatus.InProgress,
+          elementType: ElementType.Exercise,
+          modifiedAt: new Date()
+        }
 
-      mockProgressService.getProgressByExerciseId.mockResolvedValue(exerciseSuccess);
+      mockProgressService.getSingleStatusProgressByItemId.mockResolvedValue(exerciseSuccess);
 
-      await controller.getExerciseStatus(req as Request, res as Response);
+      await controller.getExerciseStatusProgress(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
       expect(res.json).toHaveBeenCalledWith(exerciseSuccess);
