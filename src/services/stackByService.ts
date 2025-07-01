@@ -33,7 +33,6 @@ export class StackbyService {
 
   async calculateTotalItems(id: string, endpoint: StackbyEndpoint) {
     const items = await this.fetchStackbyData(endpoint);
-    console.log(items);
     if (endpoint === StackbyEndpoint.THEMES) {
       const topics = await this.fetchStackbyData(StackbyEndpoint.TOPICS);
       return PROGRESS_CALCULATION_BY_ENTITY[endpoint](id, items, topics);

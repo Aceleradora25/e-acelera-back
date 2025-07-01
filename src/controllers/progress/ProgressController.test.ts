@@ -74,7 +74,7 @@ describe("Progress Controller Unit Tests", () => {
 
     it("deve retornar 500 em erro interno do service", async () => {
       mockStackbyService.calculateTotalItems.mockResolvedValue(10)
-      mockProgressService.getProgressPercentage.mockRejectedValue(new Error("err"));
+      mockProgressService.getProgressPercentageById.mockRejectedValue(new Error("err"));
       await controller.getProgressPercentageById(req as Request, res as Response);
       expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR);
       expect(res.json).toHaveBeenCalledWith({ message: "Error processing the request" });
@@ -82,7 +82,7 @@ describe("Progress Controller Unit Tests", () => {
 
     it("deve retornar 200 e o progresso quando tudo OK", async () => {
       mockStackbyService.calculateTotalItems.mockResolvedValue(10);
-      mockProgressService.getProgressPercentage.mockResolvedValue({ progress: 75 });
+      mockProgressService.getProgressPercentageById.mockResolvedValue({ progress: 75 });
 
       await controller.getProgressPercentageById(req as Request, res as Response);
 
