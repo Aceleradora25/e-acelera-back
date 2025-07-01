@@ -1,28 +1,47 @@
-import { DataItem, StackbyEndpoint, ThemeField, TopicField } from "../types/types";
+import { DataItem, StackbyDataResponse, StackbyEndpoint, ThemeField, TopicField } from "../types/types";
 
-export const PROGRESS_CALCULATION_BY_ENTITY: Record<StackbyEndpoint, (id: string, data: DataItem[]) => number> = {
-  [StackbyEndpoint.THEMES]: (id, data) => {
-    const theme = data.find(dataItem => dataItem.id === id);
-    if (!theme) return 0;
-    const topicsInfo = (theme.field as ThemeField).topicsInfo;
-    const topicsCount = topicsInfo ? topicsInfo.split(",").length : 0;
-    return topicsCount;
-  },
-  [StackbyEndpoint.TOPICS]: (id, data) => {
-    let exercisesCount
-    const topic = data.find(dataItem => dataItem.id === id);
-    
-    if (!topic) return 0;
-    const exercisesInfo = (topic.field as TopicField).exercisesInfo;
+export function countTopicItems(
+  id: string,
+  topics: StackbyDataResponse
+): number {
+  const topic = topics.data.find((topic) => topic.id === id);
+  if (!topic) return 0;
 
-    if(exercisesInfo !== "Untitle") {
-      exercisesCount = exercisesInfo ? exercisesInfo.split(",").length : 0;
-    } else {
-      exercisesCount = 0
-    }
+  const field = topic.field as TopicField;
+  const { exercisesInfo, videoInfo } = field;
 
-    const videoCount = (topic.field as TopicField).videoInfo ? 1 : 0;
-    return exercisesCount + videoCount;
-  },
-  [StackbyEndpoint.EXERCISES]: (_id, _data) => 0,
+  const exerciseIds =
+    exercisesInfo && exercisesInfo !== "Untitle"
+      ? exercisesInfo.split(",").filter(Boolean)
+      : [];
+
+  return exerciseIds.length + (videoInfo ? 1 : 0);
 }
+
+export function countThemeItems(
+  id: string,
+  themes: StackbyDataResponse,
+  topics: StackbyDataResponse
+): number {
+  const theme = themes.data.find((theme) => {
+    return theme.id === id
+    
+  });
+  if (!theme) return 0;
+  
+  const field = theme.field as ThemeField;
+  if (!field.topicsInfo) return 0;
+  
+  const topicIds = field.topicsInfo.split(",").filter(Boolean);
+  if (topicIds.length === 0) return 0;
+  
+  return topicIds.reduce((acc, topicId) => acc + countTopicItems(topicId, topics), 0);
+}
+
+export const PROGRESS_CALCULATION_BY_ENTITY = {
+  [StackbyEndpoint.TOPICS]: countTopicItems,
+  [StackbyEndpoint.THEMES]: countThemeItems,
+  [StackbyEndpoint.EXERCISES]: () => 0,
+};
+
+export type ProgressCalculator = typeof PROGRESS_CALCULATION_BY_ENTITY;
