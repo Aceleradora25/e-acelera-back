@@ -4,13 +4,13 @@ import prisma from "../../../client"
 
 
 export class ProgressService {
-  calculateProgressPercentage(totalUserItens: number, totalTopicItens: number): { progress: number } {
+  calculateProgressPercentage(totalUserItens: number, totalItens: number): { progress: number } {
     return {
-      progress: totalUserItens && totalTopicItens ? Math.floor(totalUserItens / totalTopicItens * 100) : 0
+      progress: totalUserItens && totalItens ? Math.floor(totalUserItens / totalItens * 100) : 0
     }
   }
 
-  async getProgressPercentage(
+  async getProgressPercentageById(
     { userId, id, idType }: GetProgress,
     totalItems: number
   ) {

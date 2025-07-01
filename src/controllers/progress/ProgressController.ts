@@ -20,19 +20,20 @@ export class ProgressController {
     const { id, idType } = plainToInstance(ProgressDTO, req.params);
     const userId = req.user?.id!;
 
-    if (!idType || !id) {
-      return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "You must pass an id and an idType as params." });
-    }
     const endpoint = STACKBY_ENDPOINTS_HASHTABLE[idType as IdType]!;
+    if (!endpoint) {
+      return res.status(STATUS_CODE.BAD_REQUEST).json({ message: "You must pass a valid id and an idType as params." });
+    }
 
     try {
       const totalItems = await this.stackbyService.calculateTotalItems(id, endpoint)
+      console.log(totalItems);
       
-      if (!totalItems) {
+      if (totalItems === 0) {
         return res.status(STATUS_CODE.NOT_FOUND).json({ message: "No items found for the given id and idType." });
       }
 
-      const topicProgress = await this.progressService.getProgressPercentage({
+      const topicProgress = await this.progressService.getProgressPercentageById({
           userId,
           id,
           idType
