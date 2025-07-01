@@ -1,6 +1,7 @@
 import { ProgressService } from './ProgressService';
 import { ItemStatus, ElementType } from '@prisma/client';
 import { prismaMock } from "../../../singleton"
+import { IdType } from '../../types/types';
 
 let progressService: ProgressService;
 beforeEach(() => {
@@ -14,19 +15,19 @@ describe("progressService - Unit Tests", () => {
 
   describe("calculateProgress - Unit Tests", () => {
     it("deve retornar 0 quando totalTopicItens for 0 ou totalUserItens for 0", () => {
-      expect(progressService.calculateProgress(0, 0)).toEqual({ progress: 0 });
-      expect(progressService.calculateProgress(5, 0)).toEqual({ progress: 0 });
-      expect(progressService.calculateProgress(0, 10)).toEqual({ progress: 0 });
+      expect(progressService.calculateProgressPercentage(0, 0)).toEqual({ progress: 0 });
+      expect(progressService.calculateProgressPercentage(5, 0)).toEqual({ progress: 0 });
+      expect(progressService.calculateProgressPercentage(0, 10)).toEqual({ progress: 0 });
     });
 
     it("deve calcular corretamente e arredondar para baixo", () => {
-      expect(progressService.calculateProgress(6, 12)).toEqual({ progress: 50 });
-      expect(progressService.calculateProgress(1, 3)).toEqual({ progress: 33 });
-      expect(progressService.calculateProgress(2, 5)).toEqual({ progress: 40 });
+      expect(progressService.calculateProgressPercentage(6, 12)).toEqual({ progress: 50 });
+      expect(progressService.calculateProgressPercentage(1, 3)).toEqual({ progress: 33 });
+      expect(progressService.calculateProgressPercentage(2, 5)).toEqual({ progress: 40 });
     });
 
     it("deve lidar com totalUserItens > totalTopicItens sem crash", () => {
-      expect(progressService.calculateProgress(10, 2)).toEqual({ progress: 500 });
+      expect(progressService.calculateProgressPercentage(10, 2)).toEqual({ progress: 500 });
     });
   })
 
@@ -35,7 +36,7 @@ describe("progressService - Unit Tests", () => {
       prismaMock.progress.findMany.mockResolvedValue([
         { itemId: 'x', itemStatus: 'Completed', elementType: 'Video', topicId: 't', modifiedAt: new Date(), userId: 1, themeId: "t1" }
       ]);
-      const result = await progressService.getTopicProgress({ userId: 1, topicId: 't', totalItens: 0 });
+      const result = await progressService.getProgressPercentageById({ userId: 1, id: '1', idType: IdType.TOPIC_ID },  0);
 
       expect(result).toEqual({ progress: 0 });
     });
@@ -47,14 +48,14 @@ describe("progressService - Unit Tests", () => {
       ]
       prismaMock.progress.findMany.mockResolvedValue(userItensMock);
 
-      const result = await progressService.getTopicProgress({ userId: 1, topicId: 't1', totalItens: 10 });
+      const result = await progressService.getProgressPercentageById({ userId: 1, id: '1', idType: IdType.TOPIC_ID },  10);
       expect(result).toEqual({ progress: 20 });
     });
 
     it('lança erro se o findMany falhar', async () => {
       prismaMock.progress.findMany.mockRejectedValue(() => new Error('DB fail'));
       await expect(
-        progressService.getTopicProgress({ userId: 1, topicId: 't1', totalItens: 5 })
+       progressService.getProgressPercentageById({ userId: 1, id: '1', idType: IdType.TOPIC_ID },  5)
       ).rejects.toThrow('Error fetching user progress from database');
     });
   })

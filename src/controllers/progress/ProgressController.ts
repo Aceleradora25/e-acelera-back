@@ -27,7 +27,6 @@ export class ProgressController {
 
     try {
       const totalItems = await this.stackbyService.calculateTotalItems(id, endpoint)
-      console.log(totalItems);
       
       if (totalItems === 0) {
         return res.status(STATUS_CODE.NOT_FOUND).json({ message: "No items found for the given id and idType." });
