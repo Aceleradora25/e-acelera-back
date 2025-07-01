@@ -1,4 +1,10 @@
-import { DataItem, StackbyDataResponse, StackbyEndpoint, ThemeField, TopicField } from "../types/types";
+import {
+  DataItem,
+  StackbyDataResponse,
+  StackbyEndpoint,
+  ThemeField,
+  TopicField,
+} from "../types/types";
 
 export function countTopicItems(
   id: string,
@@ -24,18 +30,20 @@ export function countThemeItems(
   topics: StackbyDataResponse
 ): number {
   const theme = themes.data.find((theme) => {
-    return theme.id === id
-    
+    return theme.id === id;
   });
   if (!theme) return 0;
-  
+
   const field = theme.field as ThemeField;
   if (!field.topicsInfo) return 0;
-  
+
   const topicIds = field.topicsInfo.split(",").filter(Boolean);
   if (topicIds.length === 0) return 0;
-  
-  return topicIds.reduce((acc, topicId) => acc + countTopicItems(topicId, topics), 0);
+
+  return topicIds.reduce(
+    (acc, topicId) => acc + countTopicItems(topicId, topics),
+    0
+  );
 }
 
 export const PROGRESS_CALCULATION_BY_ENTITY = {

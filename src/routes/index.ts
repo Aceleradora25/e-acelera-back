@@ -1,25 +1,37 @@
-import express from 'express'
-import { validateTokenMiddleware } from '../middleware/validateTokenMiddleware'
-import { LoginController } from '../controllers/login/LoginController'
-import { ProgressController } from '../controllers/progress/ProgressController'
-import { StackbyController } from '../controllers/stackyby/stackbyController'
+import express from "express";
+import { validateTokenMiddleware } from "../middleware/validateTokenMiddleware";
+import { LoginController } from "../controllers/login/LoginController";
+import { ProgressController } from "../controllers/progress/ProgressController";
+import { StackbyController } from "../controllers/stackby/StackbyController";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('Welcome to the homepage')
-})
+router.get("/", (req, res) => {
+  res.send("Welcome to the homepage");
+});
 
-router.post('/login', (req, res) => new LoginController().registerUser(req, res))
+router.post("/login", (req, res) =>
+  new LoginController().registerUser(req, res)
+);
 
-router.use(validateTokenMiddleware)
+router.use(validateTokenMiddleware);
 
-router.get('/status/:id/:idType', (req, res) => new ProgressController().getTopicExercisesStatusProgress(req, res))
-router.put('/status/:topicId/item/:itemId', (req, res) => new ProgressController().saveStatusProgress(req, res))
-router.get('/status/:topicId/item/:itemId', (req, res) => new ProgressController().getExerciseStatusProgress(req, res))
+router.get("/status/:id/:idType", (req, res) =>
+  new ProgressController().getTopicExercisesStatusProgress(req, res)
+);
+router.put("/status/:topicId/item/:itemId", (req, res) =>
+  new ProgressController().saveStatusProgress(req, res)
+);
+router.get("/status/:topicId/item/:itemId", (req, res) =>
+  new ProgressController().getExerciseStatusProgress(req, res)
+);
 
-router.get('/progress/:id/:idType', (req, res) => new ProgressController().getProgressPercentageById(req, res))
+router.get("/progress/:id/:idType", (req, res) =>
+  new ProgressController().getProgressPercentageById(req, res)
+);
 
-router.get('/stackBy/:endpoint', (req, res) => new StackbyController().getStackbyData(req, res))
+router.get("/stackBy/:endpoint", (req, res) =>
+  new StackbyController().getStackbyData(req, res)
+);
 
-export default router
+export default router;
