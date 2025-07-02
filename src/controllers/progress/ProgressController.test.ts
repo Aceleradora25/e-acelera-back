@@ -23,7 +23,7 @@ let mockProgressService: jest.Mocked<ProgressService>;
 let mockStackbyService: jest.Mocked<StackbyService>;
 
 describe("Progress Controller Unit Tests", () => {
-  describe("ProgressController - getTopicProgress", () => {
+  describe("getTopicProgress", () => {
     let controller: ProgressController;
     let req: Partial<Request>;
     let res: Partial<Response>;
@@ -141,7 +141,7 @@ describe("Progress Controller Unit Tests", () => {
     });
   });
 
-  describe("ExerciseController - updateExerciseStatus", () => {
+  describe("saveStatusProgress", () => {
     beforeEach(() => {
       mockProgressService =
         new ProgressService() as jest.Mocked<ProgressService>;
@@ -200,7 +200,7 @@ describe("Progress Controller Unit Tests", () => {
     });
   });
 
-  describe("ExerciseController - getTopicExercisesStatus", () => {
+  describe("getTopicExercisesStatusProgress", () => {
     beforeEach(() => {
       mockProgressService =
         new ProgressService() as jest.Mocked<ProgressService>;
@@ -296,7 +296,7 @@ describe("Progress Controller Unit Tests", () => {
     });
   });
 
-  describe("ProgressController - getExerciseStatus", () => {
+  describe("getExerciseStatusProgress", () => {
     beforeEach(() => {
       mockProgressService =
         new ProgressService() as jest.Mocked<ProgressService>;

@@ -7,7 +7,7 @@ import {
 import { SaveStatusProgressDTO } from "../../dtos/SaveStatusProgress.dto";
 import { plainToInstance } from "class-transformer";
 import { StackbyService } from "../../services/StackbyService";
-import { IdType } from "../../types/types";
+import { IdType, StackbyEndpoint } from "../../types/types";
 import { ProgressDTO } from "../../dtos/Progress.dto";
 
 export class ProgressController {
@@ -31,19 +31,20 @@ export class ProgressController {
     }
 
     try {
-      const totalItems = await this.stackbyService.calculateTotalItems(
-        id,
-        endpoint
-      );
-
-      if (totalItems === 0) {
-        return res
-          .status(STATUS_CODE.NOT_FOUND)
-          .json({ message: "No items found for the given id and idType." });
-      }
-
-      const topicProgress =
-        await this.progressService.getProgressPercentageById(
+      if (idType === IdType.THEME_ID) {
+        const themes = await this.stackbyService.fetchStackbyData(endpoint);
+        const topics = await this.stackbyService.fetchStackbyData(StackbyEndpoint.TOPICS);
+        const totalItems = await this.stackbyService.calculateTotalItems(id, endpoint);
+        const result = await this.progressService.getProgressPercentageById(
+          { userId, id, idType },
+          totalItems,
+          themes,
+          topics
+        );
+        return res.status(STATUS_CODE.OK).json(result);
+      } else {
+        const totalItems = await this.stackbyService.calculateTotalItems(id, endpoint);
+        const topicProgress = await this.progressService.getProgressPercentageById(
           {
             userId,
             id,
@@ -51,8 +52,8 @@ export class ProgressController {
           },
           totalItems
         );
-
-      return res.status(STATUS_CODE.OK).json(topicProgress);
+        return res.status(STATUS_CODE.OK).json(topicProgress);
+      }
     } catch (error) {
       return res
         .status(STATUS_CODE.INTERNAL_SERVER_ERROR)

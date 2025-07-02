@@ -38,7 +38,6 @@ export function countThemeItems(
   if (!field.topicsInfo) return 0;
 
   const topicIds = field.topicsInfo.split(",").filter(Boolean);
-  if (topicIds.length === 0) return 0;
 
   return topicIds.reduce(
     (acc, topicId) => acc + countTopicItems(topicId, topics),
