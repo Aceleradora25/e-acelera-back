@@ -1,34 +1,38 @@
+import { cacheOrFetch } from "../utils/cache";
 import { StackbyEndpoint } from "../types/types";
-import { STACKBY_BASE_URL, STACKBY_SECRET_KEY } from "../utils/constants";
+import {
+  REDIS_STACKBY_KEYS,
+  STACKBY_BASE_URL,
+  STACKBY_SECRET_KEY,
+} from "../utils/constants";
 import { PROGRESS_CALCULATION_BY_ENTITY } from "../utils/progressCalculationByEntity";
 
 export class StackbyService {
   async fetchStackbyData(endpoint: string) {
-    try {
-      const apiKey: string = STACKBY_SECRET_KEY || "";
-      const uniqueParam: string = `nocache=${Date.now()}`;
-      const url: string = `${STACKBY_BASE_URL}/${endpoint}?${uniqueParam}`;
+    const apiKey: string = STACKBY_SECRET_KEY || "";
+    const uniqueParam: string = `nocache=${Date.now()}`;
+    const url: string = `${STACKBY_BASE_URL}/${endpoint}?${uniqueParam}`;
 
-      const response: Response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "x-api-key": apiKey,
-          "Content-Type": "application/json",
-        },
-      });
+    return cacheOrFetch(
+      REDIS_STACKBY_KEYS[endpoint as keyof typeof REDIS_STACKBY_KEYS],
+      async () => {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "x-api-key": apiKey,
+            "Content-Type": "application/json",
+          },
+        });
 
-      if (!response.ok) {
-        return {
-          error: "Failed to fetch data from the API. Please try again later.",
-        };
-      }
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(`Stackby API error: ${text}`);
+        }
 
-      return response.json();
-    } catch (error) {
-      return {
-        error: `Internal server error: ${error}`,
-      };
-    }
+        return response.json();
+      },
+      60 * 60 * 24
+    );
   }
 
   async calculateTotalItems(id: string, endpoint: StackbyEndpoint) {
