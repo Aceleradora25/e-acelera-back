@@ -29,3 +29,7 @@ export const REDIS_STACKBY_KEYS = {
   Themes: makeRedisKey("stackby", StackbyEndpoint.THEMES),
   Topics: makeRedisKey("stackby", StackbyEndpoint.TOPICS),
 };
+export const REDIS_PROGRESS_CALCULATION_BY_ENTITY_KEYS = {
+  Themes: makeRedisKey("progressCalculation", StackbyEndpoint.THEMES),
+  Topics: makeRedisKey("progressCalculation", StackbyEndpoint.TOPICS),
+}
