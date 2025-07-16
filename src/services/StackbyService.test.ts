@@ -52,7 +52,7 @@ describe('StackbyService', () => {
   });
 
   describe('calculateTotalItems', () => {
-    it('calcula corretamente para THEMES', async () => {
+    it('calcula corretamente para THEMES', () => {
       const mockThemes: StackbyDataResponse = {
         data: [
           {
@@ -144,18 +144,16 @@ describe('StackbyService', () => {
           },
         ],
       };
-      jest
-        .spyOn(service, 'fetchStackbyData')
-        .mockResolvedValueOnce(mockThemes)
-        .mockResolvedValueOnce(mockTopics);
-      const result = await service.calculateTotalItems(
+      const result = service.calculateTotalItems(
         'theme1',
-        StackbyEndpoint.THEMES
+        StackbyEndpoint.THEMES,
+        mockThemes,
+        mockTopics
       );
       expect(result).toBe(6);
     });
 
-    it('calcula corretamente para TOPICS', async () => {
+    it('calcula corretamente para TOPICS', () => {
       const mockTopics: StackbyDataResponse = {
         data: [
           {
@@ -189,12 +187,10 @@ describe('StackbyService', () => {
           },
         ],
       };
-      jest
-        .spyOn(service, 'fetchStackbyData')
-        .mockResolvedValueOnce(mockTopics);
-      const result = await service.calculateTotalItems(
+      const result = service.calculateTotalItems(
         'topic1',
-        StackbyEndpoint.TOPICS
+        StackbyEndpoint.TOPICS,
+        mockTopics
       );
       expect(result).toBe(4);
     });

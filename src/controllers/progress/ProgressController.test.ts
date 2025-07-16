@@ -86,7 +86,7 @@ describe("Progress Controller Unit Tests", () => {
     });
 
     it("deve retornar 500 em erro interno do service", async () => {
-      mockStackbyService.calculateTotalItems.mockResolvedValue(10);
+      mockStackbyService.calculateTotalItems.mockReturnValue(10);
       mockProgressService.getProgressPercentageById.mockRejectedValue(
         new Error("err")
       );
@@ -103,7 +103,7 @@ describe("Progress Controller Unit Tests", () => {
     });
 
     it("deve retornar 200 e o progresso quando tudo OK", async () => {
-      mockStackbyService.calculateTotalItems.mockResolvedValue(10);
+      mockStackbyService.calculateTotalItems.mockReturnValue(10);
       mockProgressService.getProgressPercentageById.mockResolvedValue({
         progress: 75,
       });

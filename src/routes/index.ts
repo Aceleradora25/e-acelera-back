@@ -14,6 +14,10 @@ router.post("/login", (req, res) =>
   new LoginController().registerUser(req, res)
 );
 
+router.get("/stackBy/:endpoint", (req, res) =>
+  new StackbyController().getStackbyData(req, res)
+);
+
 router.use(validateTokenMiddleware);
 
 router.get("/status/:id/:idType", (req, res) =>
@@ -28,10 +32,6 @@ router.get("/status/:topicId/item/:itemId", (req, res) =>
 
 router.get("/progress/:id/:idType", (req, res) =>
   new ProgressController().getProgressPercentageById(req, res)
-);
-
-router.get("/stackBy/:endpoint", (req, res) =>
-  new StackbyController().getStackbyData(req, res)
 );
 
 export default router;

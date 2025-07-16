@@ -1,5 +1,4 @@
 import {
-  DataItem,
   StackbyDataResponse,
   StackbyEndpoint,
   ThemeField,
@@ -42,7 +41,7 @@ export function countThemeItems(
   return topicIds.reduce(
     (acc, topicId) => acc + countTopicItems(topicId, topics),
     0
-  );
+  );  
 }
 
 export const PROGRESS_CALCULATION_BY_ENTITY = {
