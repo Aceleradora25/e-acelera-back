@@ -1,5 +1,5 @@
 import { cacheOrFetch } from "../utils/cache";
-import { StackbyEndpoint } from "../types/types";
+import { StackbyEndpoint, StackbyDataResponse } from "../types/types";
 import {
   REDIS_STACKBY_KEYS,
   STACKBY_BASE_URL,
@@ -35,11 +35,9 @@ export class StackbyService {
     );
   }
 
-  async calculateTotalItems(id: string, endpoint: StackbyEndpoint) {
-    const items = await this.fetchStackbyData(endpoint);
+  calculateTotalItems(id: string, endpoint: StackbyEndpoint, items: StackbyDataResponse, topics?: StackbyDataResponse) {
     if (endpoint === StackbyEndpoint.THEMES) {
-      const topics = await this.fetchStackbyData(StackbyEndpoint.TOPICS);
-      return PROGRESS_CALCULATION_BY_ENTITY[endpoint](id, items, topics);
+      return PROGRESS_CALCULATION_BY_ENTITY[endpoint](id, items, topics as StackbyDataResponse);
     }
     return PROGRESS_CALCULATION_BY_ENTITY[endpoint](id, items);
   }

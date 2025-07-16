@@ -34,7 +34,7 @@ export class ProgressController {
       if (idType === IdType.THEME_ID) {
         const themes = await this.stackbyService.fetchStackbyData(endpoint);
         const topics = await this.stackbyService.fetchStackbyData(StackbyEndpoint.TOPICS);
-        const totalItems = await this.stackbyService.calculateTotalItems(id, endpoint);
+        const totalItems = this.stackbyService.calculateTotalItems(id, endpoint, themes, topics);
         const result = await this.progressService.getProgressPercentageById(
           { userId, id, idType },
           totalItems,
@@ -43,7 +43,8 @@ export class ProgressController {
         );
         return res.status(STATUS_CODE.OK).json(result);
       } else {
-        const totalItems = await this.stackbyService.calculateTotalItems(id, endpoint);
+        const items = await this.stackbyService.fetchStackbyData(endpoint);
+        const totalItems = this.stackbyService.calculateTotalItems(id, endpoint, items);
         const topicProgress = await this.progressService.getProgressPercentageById(
           {
             userId,
