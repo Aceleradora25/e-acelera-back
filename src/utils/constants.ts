@@ -1,4 +1,4 @@
-import { IdType, StackbyEndpoint } from "../types/types"
+import { IdType, StackbyEndpoint } from "../types/types";
 
 export enum STATUS_CODE {
   OK = 200,
@@ -9,13 +9,27 @@ export enum STATUS_CODE {
   FORBIDDEN = 403,
   NOT_FOUND = 404,
   TOKEN_EXPIRED = 498,
-  INTERNAL_SERVER_ERROR = 500
+  INTERNAL_SERVER_ERROR = 500,
 }
 
-export const STACKBY_ENDPOINTS_HASHTABLE: Partial<Record<IdType, StackbyEndpoint>> = {
+export const STACKBY_ENDPOINTS_HASHTABLE: Partial<
+  Record<IdType, StackbyEndpoint>
+> = {
   [IdType.TOPIC_ID]: StackbyEndpoint.TOPICS,
-  [IdType.THEME_ID]: StackbyEndpoint.THEMES
-}
+  [IdType.THEME_ID]: StackbyEndpoint.THEMES,
+};
 
-export const STACKBY_SECRET_KEY = process.env.STACKBY_SECRET_KEY
-export const STACKBY_BASE_URL = process.env.STACKBY_BASE_URL
+export const STACKBY_SECRET_KEY = process.env.STACKBY_SECRET_KEY;
+export const STACKBY_BASE_URL = process.env.STACKBY_BASE_URL;
+
+export const makeRedisKey = (prefix: string, key: string): string =>
+  `${prefix}:${key}`;
+
+export const REDIS_STACKBY_KEYS = {
+  Themes: makeRedisKey("stackby", StackbyEndpoint.THEMES),
+  Topics: makeRedisKey("stackby", StackbyEndpoint.TOPICS),
+};
+export const REDIS_PROGRESS_CALCULATION_BY_ENTITY_KEYS = {
+  Themes: makeRedisKey("progressCalculation", StackbyEndpoint.THEMES),
+  Topics: makeRedisKey("progressCalculation", StackbyEndpoint.TOPICS),
+}
