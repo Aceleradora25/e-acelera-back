@@ -28,6 +28,7 @@ export const makeRedisKey = (prefix: string, key: string): string =>
 export const REDIS_STACKBY_KEYS = {
   Themes: makeRedisKey("stackby", StackbyEndpoint.THEMES),
   Topics: makeRedisKey("stackby", StackbyEndpoint.TOPICS),
+  Exercises: makeRedisKey("stackby", StackbyEndpoint.EXERCISES),
 };
 export const REDIS_PROGRESS_CALCULATION_BY_ENTITY_KEYS = {
   Themes: makeRedisKey("progressCalculation", StackbyEndpoint.THEMES),
