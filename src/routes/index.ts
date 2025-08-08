@@ -19,32 +19,32 @@ router.get("/stackBy/:endpoint", (req, res) =>
   new StackbyController().getStackbyData(req, res)
 );
 
-router.get(
-  "/status/:id/:idType",
+router.get("/status/:id/:idType",
   validateTokenMiddleware,
   (req, res) =>
     new ProgressController().getTopicExercisesStatusProgress(req, res)
 );
 
-router.put(
-  "/status/:topicId/item/:itemId",
+router.put("/status/:topicId/item/:itemId",
   validateTokenMiddleware,
   (req, res) =>
     new ProgressController().saveStatusProgress(req, res)
 );
 
-router.get(
-  "/status/:topicId/item/:itemId",
+router.get("/status/:topicId/item/:itemId",
   validateTokenMiddleware,
   (req, res) =>
     new ProgressController().getExerciseStatusProgress(req, res)
 );
 
-router.get(
-  "/progress/:id/:idType",
-  validateTokenMiddleware,
+router.get("/progress/:id/:idType",
+validateTokenMiddleware,
   (req, res) =>
     new ProgressController().getProgressPercentageById(req, res)
+);
+
+router.get("/themes", (req, res) =>
+new StackbyController().getFilteredThemes(req, res)
 );
 
 export default router;
