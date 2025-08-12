@@ -8,7 +8,7 @@ import {
 import { PROGRESS_CALCULATION_BY_ENTITY } from "../utils/progressCalculationByEntity";
 
 export class StackbyService {
-  async fetchStackbyData(endpoint: string) {
+  async fetchStackbyData(endpoint: string): Promise<StackbyDataResponse> {
     const apiKey: string = STACKBY_SECRET_KEY || "";
     const uniqueParam: string = `nocache=${Date.now()}`;
     const url: string = `${STACKBY_BASE_URL}/${endpoint}?${uniqueParam}`;

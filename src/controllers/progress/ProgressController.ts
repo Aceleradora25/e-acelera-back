@@ -7,8 +7,9 @@ import {
 import { SaveStatusProgressDTO } from "../../dtos/SaveStatusProgress.dto";
 import { plainToInstance } from "class-transformer";
 import { StackbyService } from "../../services/StackbyService";
-import { IdType, StackbyEndpoint } from "../../types/types";
+import { IdType, StackbyEndpoint, DataItem, StackbyDataResponse } from "../../types/types";
 import { ProgressDTO } from "../../dtos/Progress.dto";
+import { D } from "@upstash/redis/zmscore-BshEAkn7";
 
 export class ProgressController {
   private progressService: ProgressService;
@@ -144,6 +145,53 @@ export class ProgressController {
 
       return res.status(STATUS_CODE.OK).json(exerciseStatus);
     } catch (error) {
+      return res
+        .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
+        .json({ message: "Error processing the request" });
+    }
+  }
+
+  async getThemeProgress(req: Request, res: Response) {
+    const userId = req.user?.id!;
+    const ids = req.query.ids as string[] | undefined;
+
+    try {
+      const themes = await this.stackbyService.fetchStackbyData(StackbyEndpoint.THEMES);
+      const topics = await this.stackbyService.fetchStackbyData(StackbyEndpoint.TOPICS);
+
+      const filteredThemes = ids
+        ? themes.data.filter((theme) => ids.includes(theme.id))
+        : themes.data;
+
+      console.log("themas filtrados:", filteredThemes);
+
+      const progressList = await Promise.all(
+        filteredThemes.map(async (theme) => {
+
+          const totalItems = this.stackbyService.calculateTotalItems(
+            theme.id,
+            StackbyEndpoint.THEMES,
+            themes,
+            topics
+          );
+
+          const resultTheme = await this.progressService.getProgressPercentageById(
+            { userId, id: theme.id, idType: IdType.THEME_ID },
+            totalItems,
+            themes,
+            topics
+          );
+          
+          return { id: theme.id, progress: resultTheme.progress };
+        }
+      ));
+
+      console.log(progressList);
+      
+      return res.status(STATUS_CODE.OK).json(progressList);
+
+    } catch (error) {
+      console.error("Erro ao processar getThemeProgress:", error);
       return res
         .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
         .json({ message: "Error processing the request" });

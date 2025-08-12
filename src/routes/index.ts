@@ -47,5 +47,12 @@ router.get(
     new ProgressController().getProgressPercentageById(req, res)
 );
 
+router.get(
+  "/themes/progress",
+  validateTokenMiddleware,
+  (req, res) =>
+    new ProgressController().getThemeProgress(req, res)
+);
+
 export default router;
 
