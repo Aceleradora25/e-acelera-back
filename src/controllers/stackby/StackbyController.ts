@@ -48,7 +48,7 @@ export class StackbyController {
     const dto = plainToInstance(GetThemesDTO, req.query);
     const errors = await validate(dto);
     const { themeType } = dto;
-    console.log("Received themeType:", themeType);
+   
     if (errors.length > 0) {
       const messages = errors
         .map((err) => Object.values(err.constraints || {}))
