@@ -7,9 +7,8 @@ import {
 import { SaveStatusProgressDTO } from "../../dtos/SaveStatusProgress.dto";
 import { plainToInstance } from "class-transformer";
 import { StackbyService } from "../../services/StackbyService";
-import { IdType, StackbyEndpoint, DataItem, StackbyDataResponse } from "../../types/types";
+import { IdType, StackbyEndpoint} from "../../types/types";
 import { ProgressDTO } from "../../dtos/Progress.dto";
-import { D } from "@upstash/redis/zmscore-BshEAkn7";
 
 export class ProgressController {
   private progressService: ProgressService;
@@ -163,8 +162,6 @@ export class ProgressController {
         ? themes.data.filter((theme) => ids.includes(theme.id))
         : themes.data;
 
-      console.log("themas filtrados:", filteredThemes);
-
       const progressList = await Promise.all(
         filteredThemes.map(async (theme) => {
 
@@ -185,8 +182,6 @@ export class ProgressController {
           return { id: theme.id, progress: resultTheme.progress };
         }
       ));
-
-      console.log(progressList);
       
       return res.status(STATUS_CODE.OK).json(progressList);
 
