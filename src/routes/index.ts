@@ -48,4 +48,10 @@ router.get("/progress/:id/:idType",
     new ProgressController().getProgressPercentageById(req, res)
 );
 
+router.get(
+  "/themes/progress",
+  (req, res) =>
+    new ProgressController().getThemeProgress(req, res)
+);
+
 export default router;
