@@ -6,7 +6,7 @@ import { StackbyController } from "../controllers/stackby/StackbyController";
 
 const router = express.Router();
 
-router.get("/", 
+router.get("/",
   (req, res) => {
     res.send("Welcome to the homepage");
 });
@@ -16,7 +16,7 @@ router.post("/login",
     new LoginController().registerUser(req, res)
 );
 
-router.get("/stackBy/:endpoint", 
+router.get("/stackby/:endpoint",
   (req, res) =>
     new StackbyController().getStackbyData(req, res)
 );
