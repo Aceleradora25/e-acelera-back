@@ -22,6 +22,10 @@ export const STACKBY_ENDPOINTS_HASHTABLE: Partial<
 export const STACKBY_SECRET_KEY = process.env.STACKBY_SECRET_KEY;
 export const STACKBY_BASE_URL = process.env.STACKBY_BASE_URL;
 
+export const IS_CACHE_ENABLED = process.env.NODE_ENV === "production" || process.env.CACHE_ENABLED === "TRUE";
+export const DEFAULT_CACHE_TTL = 60 * 60 * 8;
+export const CACHE_TTL = process.env.CACHE_TTL ? parseInt(process.env.CACHE_TTL, 10) : DEFAULT_CACHE_TTL;
+
 export const makeRedisKey = (prefix: string, key: string): string =>
   `${prefix}:${key}`;
 

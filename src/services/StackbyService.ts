@@ -31,7 +31,6 @@ export class StackbyService {
 
         return response.json();
       },
-      60 * 60 * 24
     );
   }
 
