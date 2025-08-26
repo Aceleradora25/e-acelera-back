@@ -26,13 +26,13 @@ export const IS_CACHE_ENABLED = process.env.NODE_ENV === "production" || process
 export const DEFAULT_CACHE_TTL = 60 * 60 * 8;
 export const CACHE_TTL = process.env.CACHE_TTL ? parseInt(process.env.CACHE_TTL, 10) : DEFAULT_CACHE_TTL;
 
-export const makeRedisKey = (prefix: string, key: string): string =>
-  `${prefix}:${key}`;
+export const makeRedisKey = (prefix: string, key: string, filterKey?: string): string =>
+  `${prefix}:${key}${!!filterKey ? `:${filterKey}` : ""}`;
 
 export const REDIS_STACKBY_KEYS = {
-  Themes: makeRedisKey("stackby", StackbyEndpoint.THEMES),
-  Topics: makeRedisKey("stackby", StackbyEndpoint.TOPICS),
-  Exercises: makeRedisKey("stackby", StackbyEndpoint.EXERCISES),
+  Themes: (filterKey?: string) => makeRedisKey("stackby", StackbyEndpoint.THEMES, filterKey),
+  Topics: (filterKey?: string) => makeRedisKey("stackby", StackbyEndpoint.TOPICS, filterKey),
+  Exercises: (filterKey?: string) => makeRedisKey("stackby", StackbyEndpoint.EXERCISES, filterKey),
 };
 export const REDIS_PROGRESS_CALCULATION_BY_ENTITY_KEYS = {
   Themes: makeRedisKey("progressCalculation", StackbyEndpoint.THEMES),
