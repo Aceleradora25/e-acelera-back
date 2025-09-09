@@ -27,7 +27,7 @@ export const DEFAULT_CACHE_TTL = 60 * 60 * 8;
 export const CACHE_TTL = process.env.CACHE_TTL ? parseInt(process.env.CACHE_TTL, 10) : DEFAULT_CACHE_TTL;
 
 export const makeRedisKey = (prefix: string, key: string, filterKey?: string): string =>
-  `${prefix}:${key}${!!filterKey ? `:${filterKey}` : ""}`;
+  `${prefix}:${key}${filterKey ? `:${filterKey}` : ""}`;
 
 export const REDIS_STACKBY_KEYS = {
   Themes: (filterKey?: string) => makeRedisKey("stackby", StackbyEndpoint.THEMES, filterKey),
