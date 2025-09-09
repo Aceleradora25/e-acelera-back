@@ -13,6 +13,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
+      DATABASE_URL: ${{secrets.DATABASE_URL}}
+      NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET}}
+      STACKBY_SECRET_KEY: ${{secrets.STACKBY_SECRET_KEY}}
+      STACKBY_BASE_URL: ${{secrets.STACKBY_BASE_URL}}
       CACHE_ENABLED: ${{secrets.CACHE_ENABLED}}
       CACHE_TTL: ${{secrets.CACHE_TTL}}
       UPSTASH_REDIS_REST_URL: ${{secrets.UPSTASH_REDIS_REST_URL}}
