@@ -17,9 +17,13 @@ jobs:
       url: https://homolog-e-acelera-back.vercel.app/
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Deploy to Homolog
         run: |
           echo "Commit from main being deployed: $(git rev-parse origin/main)"
           echo "Vercel will handle the build & deployment."
           echo "Check Vercel dashboard for deployment status at: https://vercel.com/aceleradora-agils-projects/e-acelera-back/deployments?environment=preview"
-
