@@ -1,0 +1,44 @@
+name: Production Deploy
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: prod
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync staging branch with main
+        run: |
+          git config user.name "eacelera-back-deploy-bot[bot]"
+          git config user.email "eacelera-back-deploy-bot[bot]@users.noreply.github.com"
+
+          git fetch origin
+
+          if git ls-remote --exit-code --heads origin staging; then
+            git checkout -B staging origin/staging
+          else
+            git checkout -B staging
+          fi
+
+          git reset --hard origin/main
+          git push origin staging --force
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to production
+        run: |
+          echo "Starting production deploy..."
+          echo "Commit from main being deployed: $(git rev-parse origin/main)"
+          echo "Vercel will handle the build & deployment."
+          echo "Check Vercel dashboard for deployment status at: https://vercel.com/aceleradora-agils-projects/e-acelera-back/deployments?environment=production"
+

@@ -1,0 +1,25 @@
+name: Homolog Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: homolog-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: homolog
+      url: https://homolog-e-acelera-back.vercel.app/
+
+    steps:
+      - name: Deploy to Homolog
+        run: |
+          echo "Commit from main being deployed: $(git rev-parse origin/main)"
+          echo "Vercel will handle the build & deployment."
+          echo "Check Vercel dashboard for deployment status at: https://vercel.com/aceleradora-agils-projects/e-acelera-back/deployments?environment=preview"
+
