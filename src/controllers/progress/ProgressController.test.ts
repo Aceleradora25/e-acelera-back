@@ -9,9 +9,9 @@ import { plainToClass } from "class-transformer";
 import { SingleProgressResponse } from "../../types/types";
 import { StackbyService } from "../../services/StackbyService";
 
-jest.mock("../../services/Progress/ProgressService");
-jest.mock("../../services/UserService");
-jest.mock("../../services/StackbyService");
+jest.mock("../../services/Progress/ProgressService.ts");
+jest.mock("../../services/UserService.ts");
+jest.mock("../../services/StackbyService.ts");
 jest.mock("../../middleware/validateTokenMiddleware.ts", () => ({
   validateTokenMiddleware: jest.fn(),
 }));
