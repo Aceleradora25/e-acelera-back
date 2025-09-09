@@ -14,9 +14,14 @@ export class StackbyController {
   }
 
   async getStackbyData(req: Request, res: Response) {
-    const dto = plainToInstance(StackbyParamsDto, req.params);
+    const dto = plainToInstance(StackbyParamsDto, {...req.params, ...req.query});
     const errors = await validate(dto);
-    const { endpoint } = dto;
+    const { endpoint, filterName, field, filterValue } = dto;
+    const sanitizedFilter = {
+      filterName,
+      field,
+      filterValue,
+    }
 
     if (errors.length > 0) {
       const messages = errors
@@ -35,7 +40,7 @@ export class StackbyController {
     }
 
     try {
-      const data = await this.stackyByService.fetchStackbyData(endpoint);
+      const data = await this.stackyByService.fetchStackbyData(endpoint, sanitizedFilter);
       return res.status(STATUS_CODE.OK).json(data);
     } catch (error) {
       return res
@@ -43,12 +48,12 @@ export class StackbyController {
         .json({ message: "Error processing the request" });
     }
   }
-
+// toDo: fizemos o filtro pelo stackby API, avaliar necessidade desse método
   async getFilteredThemes(req: Request, res: Response) {
     const dto = plainToInstance(GetThemesDTO, req.query);
     const errors = await validate(dto);
     const { themeType } = dto;
-   
+
     if (errors.length > 0) {
       const messages = errors
         .map((err) => Object.values(err.constraints || {}))
@@ -59,7 +64,7 @@ export class StackbyController {
     }
 
     try {
-     
+
       const response = await this.stackyByService.fetchStackbyData("Themes");
       const allThemes = response?.data || [];
       const filteredThemes = themeType

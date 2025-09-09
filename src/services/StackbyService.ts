@@ -8,13 +8,16 @@ import {
 import { PROGRESS_CALCULATION_BY_ENTITY } from "../utils/progressCalculationByEntity";
 
 export class StackbyService {
-  async fetchStackbyData(endpoint: string): Promise<StackbyDataResponse> {
+  async fetchStackbyData(endpoint: string, filter?: Record<string, any>): Promise<StackbyDataResponse> {
     const apiKey: string = STACKBY_SECRET_KEY || "";
     const uniqueParam: string = `nocache=${Date.now()}`;
-    const url: string = `${STACKBY_BASE_URL}/${endpoint}?${uniqueParam}`;
-
+    let url: string = `${STACKBY_BASE_URL}/${endpoint}?${uniqueParam}`;
+    const hasFilters = filter?.filterName && filter?.field && filter?.filterValue
+    if(hasFilters) {
+      url += `&filter=${`${filter.filterName}({${filter.field}},${filter.filterValue})`}`;
+    }
     return cacheOrFetch(
-      REDIS_STACKBY_KEYS[endpoint as keyof typeof REDIS_STACKBY_KEYS],
+      REDIS_STACKBY_KEYS[endpoint as keyof typeof REDIS_STACKBY_KEYS](hasFilters ? `${filter.filterName}-${filter.field}-${filter.filterValue}` : undefined),
       async () => {
         const response = await fetch(url, {
           method: "GET",
