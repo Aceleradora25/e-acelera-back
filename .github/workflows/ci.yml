@@ -12,6 +12,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CACHE_ENABLED: ${{secrets.CACHE_ENABLED}}
+      CACHE_TTL: ${{secrets.CACHE_TTL}}
+      UPSTASH_REDIS_REST_URL: ${{secrets.UPSTASH_REDIS_REST_URL}}
+      UPSTASH_REDIS_REST_TOKEN: ${{secrets.UPSTASH_REDIS_REST_TOKEN}}
 
     steps:
     - name: Checkout Repository
