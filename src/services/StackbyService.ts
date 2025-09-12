@@ -11,7 +11,7 @@ import { StackbyFilter, StackbyStandardFilter } from "../utils/stackby-filter";
 export class StackbyService {
   async fetchStackbyData(
     endpoint: string,
-    filter: StackbyFilter | null
+    filter?: StackbyFilter | null
   ): Promise<StackbyDataResponse> {
     const apiKey: string = STACKBY_SECRET_KEY || "";
     const uniqueParam: string = `nocache=${Date.now()}`;
