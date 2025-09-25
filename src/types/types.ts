@@ -27,6 +27,11 @@ export enum StackbyEndpoint {
   THEMES = "Themes"
 }
 
+export enum ThemeType {
+  LEVELING = "nivelamento",
+  SELFSTUDY = "autoestudo"
+}
+
 export enum IdType {
   TOPIC_ID = "topicId",
   THEME_ID = "themeId"
