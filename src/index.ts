@@ -7,8 +7,12 @@ import AdminJSExpress from "@adminjs/express";
 import Connect from 'connect-pg-simple'
 import session from 'express-session'
 
+import { Database, Resource, getModelByName } from '@adminjs/prisma'
+import { PrismaClient } from '@prisma/client'
 
 const PORT = 5002;
+const prisma = new PrismaClient()
+AdminJS.registerAdapter({ Database, Resource })
 
 const DEFAULT_ADMIN = {
   email: 'admin@example.com',
@@ -23,8 +27,21 @@ const authenticate = async (email: string, password: string) => {
 }
 
 const start = async () => {
+
+    const adminOptions = {
+    resources: [{
+      resource: { model: getModelByName('User'), client: prisma },
+      options: {},
+    }, {
+      resource: { model: getModelByName('Progress'), client: prisma },
+      options: {},
+    },
+    ],
+  }
+
+
   const app = express();
-  const admin = new AdminJS({});
+  const admin = new AdminJS(adminOptions);
 
   const ConnectSession = Connect(session)
   const sessionStore = new ConnectSession({

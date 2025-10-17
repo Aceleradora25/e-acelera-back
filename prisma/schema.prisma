@@ -30,6 +30,8 @@ model Progress {
   @@unique([itemId, userId])
 }
 
+
+
 enum ItemStatus {
   NotStarted
   InProgress
