@@ -6,7 +6,6 @@ import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
 import Connect from 'connect-pg-simple'
 import session from 'express-session'
-
 import { Database, Resource, getModelByName } from '@adminjs/prisma'
 import prisma from '../client';
 
@@ -34,8 +33,20 @@ const start = async () => {
     }, {
       resource: { model: getModelByName('Progress'), client: prisma },
       options: {},
+    }, {
+      resource: { model: getModelByName('Theme'), client: prisma },
+      options: {},
+    }, {
+      resource: { model: getModelByName('Topic'), client: prisma },
+      options: {},
+    }, {
+      resource: { model: getModelByName('Exercise'), client: prisma },
+      options: {},
+    }, {
+      resource: { model: getModelByName('Video'), client: prisma },
+      options: {},
     },
-    ],
+  ],
   }
 
   const app = express();
