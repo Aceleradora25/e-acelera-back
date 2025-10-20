@@ -10,13 +10,24 @@ router.get("/", (req, res) => {
   res.send("Welcome to the homepage");
 });
 
+router.get("/themes", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM themes ORDER BY sequence");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro ao buscar os temas" });
+  }
+});
+
 router.post("/login", (req, res) =>
   new LoginController().registerUser(req, res)
 );
 
-router.get("/stackby/:endpoint", (req, res, next) =>
+/* router.get("/stackby/:endpoint", (req, res, next) =>
   new StackbyController().getStackbyData(req, res, next)
 );
+*/
 
 // router.get("/themes",
 //   (req, res) =>

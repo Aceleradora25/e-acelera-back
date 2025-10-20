@@ -41,50 +41,51 @@ enum ElementType {
   Exercise
 }
 
-model Theme {
-  id              String   @id @default(cuid())
+model themes {
+  idThemes        String   @id @default(cuid())
   title           String   @unique
   description     String?
   cardDescription String?
   image           String?
   category        String?
-  sequence        Int      @default(0)
+  sequence        Int?      @default(0)
   alt             String?
 
-  topic           Topic[]
+  topic           topics[]
 }
 
-model Topic {
-  id              String   @id @default(cuid())
+model topics {
+  idTopics        String   @id @default(cuid())
   title           String   @unique
   cardDescription String?
   description     String?
   references      String?
 
-  themeId         String
-  theme           Theme     @relation(fields: [themeId], references:[id])
+  themeId         String?
+  theme           themes?  @relation(fields: [themeId], references:[idThemes])
 
-  exercises       Exercise[]
-  videos          Video[]
+  exercises       exercises[]
+  videos          videos[]
 }
 
-model Exercise {
-  id              String   @id @default(cuid())
+model exercises {
+  idExercises     String   @id @default(cuid())
   title           String   @unique
+  cardDescription String?
   description     String?
-  sequence        Int      @default(0)
+  sequence        Int?      @default(0)
 
-  topicId         String
-  topic           Topic    @relation(fields: [topicId], references: [id])
+  topicId         String?
+  topic           topics?   @relation(fields: [topicId], references: [idTopics])
 }
 
-model Video{
-  id              String   @id @default(cuid())
+model videos {
+  idVideos        String   @id @default(cuid())
   title           String   @unique
   description     String?
   references      String?
   link            String   @unique
 
-  topicId         String
-  topic           Topic    @relation(fields: [topicId], references:[id])
+  topicId         String?
+  topic           topics?    @relation(fields: [topicId], references:[idTopics])
 }

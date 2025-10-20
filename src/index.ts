@@ -34,16 +34,16 @@ const start = async () => {
       resource: { model: getModelByName('Progress'), client: prisma },
       options: {},
     }, {
-      resource: { model: getModelByName('Theme'), client: prisma },
+      resource: { model: getModelByName('themes'), client: prisma },
       options: {},
     }, {
-      resource: { model: getModelByName('Topic'), client: prisma },
+      resource: { model: getModelByName('topics'), client: prisma },
       options: {},
     }, {
-      resource: { model: getModelByName('Exercise'), client: prisma },
+      resource: { model: getModelByName('exercises'), client: prisma },
       options: {},
     }, {
-      resource: { model: getModelByName('Video'), client: prisma },
+      resource: { model: getModelByName('videos'), client: prisma },
       options: {},
     },
   ],
