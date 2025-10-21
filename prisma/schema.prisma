@@ -24,8 +24,8 @@ model Progress {
   elementType ElementType
   modifiedAt  DateTime    @updatedAt
 
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
 
   @@unique([itemId, userId])
 }
@@ -61,8 +61,8 @@ model topics {
   description     String?
   references      String?
 
-  themeId         String
-  theme           themes  @relation(fields: [themeId], references:[idThemes])
+  themeId         String?
+  theme           themes?  @relation(fields: [themeId], references:[idThemes])
 
   exercises       exercises[]
   videos          videos[]
@@ -75,8 +75,8 @@ model exercises {
   description     String?
   sequence        Int?      @default(0)
 
-  topicId         String
-  topic           topics   @relation(fields: [topicId], references: [idTopics])
+  topicId         String?
+  topic           topics?   @relation(fields: [topicId], references: [idTopics])
 }
 
 model videos {
@@ -86,6 +86,6 @@ model videos {
   references      String?
   link            String   @unique
 
-  topicId         String
-  topic           topics    @relation(fields: [topicId], references:[idTopics])
+  topicId         String?
+  topic           topics?    @relation(fields: [topicId], references:[idTopics])
 }
