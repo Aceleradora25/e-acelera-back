@@ -3,6 +3,7 @@ import { validateTokenMiddleware } from "../middleware/validateTokenMiddleware";
 import { LoginController } from "../controllers/login/LoginController";
 import { ProgressController } from "../controllers/progress/ProgressController";
 import { StackbyController } from "../controllers/stackby/StackbyController";
+import stackbyDebugRoutes from "./stackbyDebugRoutes";
 
 const router = express.Router();
 
@@ -17,6 +18,8 @@ router.post("/login", (req, res) =>
 router.get("/stackby/:endpoint", (req, res, next) =>
   new StackbyController().getStackbyData(req, res, next)
 );
+
+router.use("/debug/stackby", stackbyDebugRoutes);
 
 // router.get("/themes",
 //   (req, res) =>
