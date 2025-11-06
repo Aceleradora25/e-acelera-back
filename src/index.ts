@@ -9,52 +9,69 @@ import session from 'express-session'
 import { Database, Resource, getModelByName } from '@adminjs/prisma'
 import prisma from '../client';
 import cors from "cors";
-
+import bcrypt from "bcryptjs";
+import { ActionRequest as AdminJSActionRequest } from 'adminjs';
 
 const PORT = 5002;
 AdminJS.registerAdapter({ Database, Resource })
 
-const DEFAULT_ADMIN = {
-  email: 'admin@example.com',
-  password: 'password',
-}
+type ActionRequest = {
+  payload?: Record<string, any>;
+  [key: string]: any;
+};
 
 const authenticate = async (email: string, password: string) => {
-  if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) {
-    return Promise.resolve(DEFAULT_ADMIN)
+  const user = await prisma.adminUser.findUnique({ where: { email } });
+  if (user && (await bcrypt.compare(password, user.password))) {
+    return user;
   }
-  return null
-}
+  return null;
+};
 
 const start = async () => {
 
     const adminOptions = {
-    resources: [{
-      resource: { model: getModelByName('User'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('Progress'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('themes'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('topics'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('exercises'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('videos'), client: prisma },
-      options: {},
-    },
-  ],
+    resources: [
+      {
+        resource: { model: getModelByName('AdminUser'), client: prisma },
+        options: {
+          properties: {
+            password: { isVisible: { list: false, edit: true, filter: false, show: false } }
+          },
+          actions: {
+  new: {
+   before: async (request: ActionRequest) => {
+  if (request.payload?.password) {
+    request.payload.password = await bcrypt.hash(request.payload.password, 10);
   }
+  return request;
+}
+  },
+  edit: {
+   before: async (request: ActionRequest) => {
+  if (request.payload?.password) {
+    request.payload.password = await bcrypt.hash(request.payload.password, 10);
+  }
+  return request;
+}
+  }
+}
+        }
+      },
+      { resource: { model: getModelByName('User'), client: prisma }, options: {} },
+      { resource: { model: getModelByName('Progress'), client: prisma }, options: {} },
+      { resource: { model: getModelByName('themes'), client: prisma }, options: {} },
+      { resource: { model: getModelByName('topics'), client: prisma }, options: {} },
+      { resource: { model: getModelByName('exercises'), client: prisma }, options: {} },
+      { resource: { model: getModelByName('videos'), client: prisma }, options: {} },
+    ],
+    rootPath: '/admin',
+  };
 
   const app = express();
   const admin = new AdminJS(adminOptions);
 
-  const ConnectSession = Connect(session)
+  const ConnectSession = Connect(session);
   const sessionStore = new ConnectSession({
     conObject: {
       connectionString: process.env.DATABASE_URL,
@@ -62,16 +79,15 @@ const start = async () => {
     },
     tableName: 'session',
     createTableIfMissing: true,
-  })
+  });
 
   app.use(express.json());
-
   app.use(cors({
-  origin: "http://localhost:3000", // seu front
-  credentials: true,               // se estiver usando cookies/sessions
-}));
-  
-    const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
+    origin: "http://localhost:3000",
+    credentials: true,
+  }));
+
+  const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
     admin,
     {
       authenticate,
@@ -90,7 +106,8 @@ const start = async () => {
       },
       name: 'adminjs',
     }
-  )
+  );
+
   app.use(admin.options.rootPath, adminRouter);
   app.use(router);
   app.use(errorHandlerMiddleware);
@@ -109,3 +126,6 @@ const start = async () => {
 };
 
 start();
+
+
+//Roda no node - bcrypt.hash('123456', 10).then(hash => console.log(hash));
