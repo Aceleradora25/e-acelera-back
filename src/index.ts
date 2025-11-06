@@ -4,16 +4,15 @@ import router from "./routes/index";
 import { errorHandlerMiddleware } from "./middleware/errorHandlerMiddleware";
 import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
-import Connect from 'connect-pg-simple'
-import session from 'express-session'
-import { Database, Resource, getModelByName } from '@adminjs/prisma'
+import Connect from 'connect-pg-simple';
+import session from 'express-session';
+import { Database, Resource, getModelByName } from '@adminjs/prisma';
 import prisma from '../client';
 import cors from "cors";
 import bcrypt from "bcryptjs";
-import { ActionRequest as AdminJSActionRequest } from 'adminjs';
 
 const PORT = 5002;
-AdminJS.registerAdapter({ Database, Resource })
+AdminJS.registerAdapter({ Database, Resource });
 
 type ActionRequest = {
   payload?: Record<string, any>;
@@ -29,34 +28,43 @@ const authenticate = async (email: string, password: string) => {
 };
 
 const start = async () => {
-
-    const adminOptions = {
+  const adminOptions = {
     resources: [
       {
         resource: { model: getModelByName('AdminUser'), client: prisma },
         options: {
           properties: {
-            password: { isVisible: { list: false, edit: true, filter: false, show: false } }
+            password: { 
+              isVisible: { list: false, edit: true, filter: false, show: false },
+              type: 'password',
+            },
+            role: { 
+              availableValues: [
+                { value: 'ADMIN', label: 'Admin' },
+                { value: 'EDITOR', label: 'Editor' },
+                { value: 'VIEWER', label: 'Viewer' },
+              ],
+            },
           },
           actions: {
-  new: {
-   before: async (request: ActionRequest) => {
-  if (request.payload?.password) {
-    request.payload.password = await bcrypt.hash(request.payload.password, 10);
-  }
-  return request;
-}
-  },
-  edit: {
-   before: async (request: ActionRequest) => {
-  if (request.payload?.password) {
-    request.payload.password = await bcrypt.hash(request.payload.password, 10);
-  }
-  return request;
-}
-  }
-}
-        }
+            new: {
+              before: async (request: ActionRequest) => {
+                if (request.payload?.password) {
+                  request.payload.password = await bcrypt.hash(request.payload.password, 10);
+                }
+                return request;
+              },
+            },
+            edit: {
+              before: async (request: ActionRequest) => {
+                if (request.payload?.password) {
+                  request.payload.password = await bcrypt.hash(request.payload.password, 10);
+                }
+                return request;
+              },
+            },
+          },
+        },
       },
       { resource: { model: getModelByName('User'), client: prisma }, options: {} },
       { resource: { model: getModelByName('Progress'), client: prisma }, options: {} },
@@ -126,6 +134,3 @@ const start = async () => {
 };
 
 start();
-
-
-//Roda no node - bcrypt.hash('123456', 10).then(hash => console.log(hash));
