@@ -24,7 +24,7 @@
     "class-validator": "^0.14.2",
     "connect-pg-simple": "^10.0.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.6.1",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.18.2",
