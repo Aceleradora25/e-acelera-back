@@ -75,8 +75,8 @@ model exercises {
   description     String?
   sequence        Int?      @default(0)
 
-  topicId         String?
-  topic           topics?   @relation(fields: [topicId], references: [idTopics])
+  topicId          String?
+  topic            topics?   @relation(fields: [topicId], references: [idTopics])
 }
 
 model videos {

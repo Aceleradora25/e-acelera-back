@@ -10,6 +10,8 @@ import { Database, Resource, getModelByName } from '@adminjs/prisma';
 import prisma from '../client';
 import cors from "cors";
 import bcrypt from "bcryptjs";
+import MarkdownField from './adminjs/components/MarkdownField.js';
+
 
 const PORT = 5002;
 AdminJS.registerAdapter({ Database, Resource });
@@ -66,9 +68,35 @@ const start = async () => {
           },
         },
       },
-      { resource: { model: getModelByName('User'), client: prisma }, options: {} },
+  {resource: { model: getModelByName('User'), client: prisma },
+  options: {
+    properties: {
+      email: {
+        type: 'textarea', 
+        props: {
+          rows: 5, 
+        },
+      },
+      provider: {
+        type: 'textarea',
+        props: { rows: 3 },
+      }
+    }
+  }
+},
       { resource: { model: getModelByName('Progress'), client: prisma }, options: {} },
-      { resource: { model: getModelByName('themes'), client: prisma }, options: {} },
+      { resource: { model: getModelByName('themes'), client: prisma },
+      options: {
+        properties: {
+          description: { 
+            components: { edit: MarkdownField, show: MarkdownField } 
+          },
+          cardDescription: {
+            components: { edit: MarkdownField }
+          }
+        }
+      }
+            },
       { resource: { model: getModelByName('topics'), client: prisma }, options: {} },
       { resource: { model: getModelByName('exercises'), client: prisma }, options: {} },
       { resource: { model: getModelByName('videos'), client: prisma }, options: {} },
