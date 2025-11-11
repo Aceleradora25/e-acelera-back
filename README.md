@@ -17,6 +17,8 @@
    ```
    Substitua `{seu_usuario}` e `{sua_senha}` pelos seus dados de acesso ao banco no DBeaver ou PgAdmin.
 
+4.1 Lembrar de copiar as variáveis de ambiente do arquivo `env-example`.
+
 ---
 
 # Gerenciamento de Migrações
