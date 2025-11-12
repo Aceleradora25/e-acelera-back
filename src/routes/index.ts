@@ -68,14 +68,42 @@ router.get("/themes",
     new StackbyController().getFilteredThemes(req, res)
 );
 
+router.post('/user-preferences', async (req, res) => {
+  const flagsmithServerKey = process.env.FLAGSMITH_SERVER_KEY;
+  if (!flagsmithServerKey) {
+    return res.status(500).json({ error: "Configuração do servidor incompleta." });
+  }
 
+  const { identity, trait, value } = req.body;
+  if (!identity || !trait || value === undefined) {
+    console.log(identity, trait, value)
+    return res.status(400).json({ error: "Campos 'userId', 'key', e 'value' são obrigatórios." });
+  }
 
+  try {
+    const apiUrl = "https://edge.api.flagsmith.com/api/v1/identities";
+    console.log('aqui')
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-environment-key': flagsmithServerKey,
+      },
+      body: JSON.stringify({
+        identifier: identity,
+        traits: [{ trait_key: trait, trait_value: value }],
+      } ),
+    });
 
-
-
-
-
-
+    if (!response.ok) {
+      const errorData = await response.json();
+      return res.status(response.status).json({ error: "Falha ao salvar no serviço de preferências.", details: errorData });
+    }
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    return res.status(500).json({ error: 'Erro interno do servidor.' });
+  }
+});
 
 router.use(validateTokenMiddleware);
 
@@ -98,44 +126,6 @@ router.get("/progress/:id/:idType", (req, res) =>
 router.get("/themes/progress", (req, res) =>
   new ProgressController().getThemeProgress(req, res)
 );
-
-
-
-
-router.post('/user-preferences', async (req, res) => {
-  const flagsmithServerKey = process.env.FLAGSMITH_SERVER_KEY;
-  if (!flagsmithServerKey) {
-    return res.status(500).json({ error: "Configuração do servidor incompleta." });
-  }
-
-  const { key, value, userId } = req.body;
-  if (!userId || !key || value === undefined) {
-    return res.status(400).json({ error: "Campos 'userId', 'key', e 'value' são obrigatórios." });
-  }
-
-  try {
-    const apiUrl = "https://edge.api.flagsmith.com/api/v1/identities/";
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-environment-key': flagsmithServerKey,
-      },
-      body: JSON.stringify({
-        identifier: userId,
-        traits: [{ trait_key: key, trait_value: value }],
-      } ),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      return res.status(response.status).json({ error: "Falha ao salvar no serviço de preferências.", details: errorData });
-    }
-    return res.status(200).json({ success: true });
-  } catch (error) {
-    return res.status(500).json({ error: 'Erro interno do servidor.' });
-  }
-});
 
 
 export default router;

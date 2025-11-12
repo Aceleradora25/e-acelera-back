@@ -8,7 +8,7 @@ import Connect from 'connect-pg-simple'
 import session from 'express-session'
 import { Database, Resource, getModelByName } from '@adminjs/prisma'
 import prisma from '../client';
-import cors from "cors";
+// import cors from "cors";
 
 
 const PORT = 5002;
@@ -66,11 +66,11 @@ const start = async () => {
 
   app.use(express.json());
 
-  app.use(cors({
-  origin: "http://localhost:3000", // seu front
-  credentials: true,               // se estiver usando cookies/sessions
-}));
-  
+  // app.use(cors({
+  // origin: "http://localhost:3000", // seu front
+  // credentials: true,               // se estiver usando cookies/sessions
+// }));
+
     const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
     admin,
     {
