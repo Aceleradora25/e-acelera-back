@@ -31,16 +31,9 @@ router.get("/", (req, res) => {
 //   }
 // });
 
-// router.post("/login", (req, res) =>
-//   new LoginController().registerUser(req, res)
-// );
-
-
-
-
-
-
-
+router.post("/login", (req, res) =>
+  new LoginController().registerUser(req, res)
+);
 
 router.get("/themes", async (req, res) => {
   try{
@@ -57,15 +50,8 @@ router.get("/themes", async (req, res) => {
 });
 
 
-
-
  router.get("/stackby/:endpoint", (req, res, next) =>
   new StackbyController().getStackbyData(req, res, next)
-);
-
-router.get("/themes",
-  (req, res) =>
-    new StackbyController().getFilteredThemes(req, res)
 );
 
 router.post('/user-preferences', async (req, res) => {
@@ -92,7 +78,7 @@ router.post('/user-preferences', async (req, res) => {
       body: JSON.stringify({
         identifier: identity,
         traits: [{ trait_key: trait, trait_value: value }],
-      } ),
+      }),
     });
 
     if (!response.ok) {
