@@ -24,8 +24,8 @@ model Progress {
   elementType ElementType
   modifiedAt  DateTime    @updatedAt
 
-  userId Int?
-  user   User? @relation(fields: [userId], references: [id])
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
 
   @@unique([itemId, userId])
 }
