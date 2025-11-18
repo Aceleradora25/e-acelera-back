@@ -14,8 +14,8 @@
     "postinstall": "npx prisma generate"
   },
   "prisma": {
-  "seed": "node prisma/seed.js"
-},
+    "seed": "node prisma/seed.js"
+  },
   "author": "daniellemadrid, barbaraanger, aceleradora-TW/teams/turma-25",
   "license": "ISC",
   "dependencies": {
@@ -43,6 +43,7 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
     "@jest-mock/express": "^3.0.0",
     "@types/connect-pg-simple": "^7.0.3",
     "@types/cors": "^2.8.17",
