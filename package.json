@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
+    "db:seed": "prisma db seed",
     "start": "npx tsx src/index.ts",
     "dev": "nodemon --watch src --exec tsx src/index.ts",
     "build": "npx prisma migrate deploy",
@@ -12,6 +13,9 @@
     "test:coverage": "jest --coverage",
     "postinstall": "npx prisma generate"
   },
+  "prisma": {
+  "seed": "node prisma/seed.js"
+},
   "author": "daniellemadrid, barbaraanger, aceleradora-TW/teams/turma-25",
   "license": "ISC",
   "dependencies": {

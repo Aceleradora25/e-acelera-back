@@ -24,7 +24,7 @@ model Progress {
   elementType ElementType
   modifiedAt  DateTime    @updatedAt
 
-  userId Int?
+  userId Int
   user   User? @relation(fields: [userId], references: [id])
 
   @@unique([itemId, userId])
@@ -43,7 +43,7 @@ enum ElementType {
 
 model themes {
   idThemes        String   @id @default(cuid())
-  title           String   @unique
+  title           String   
   description     String?
   cardDescription String?
   image           String?
@@ -51,12 +51,12 @@ model themes {
   sequence        Int?      @default(0)
   alt             String?
 
-  topic           topics[]
+  topic          topics[]
 }
 
 model topics {
   idTopics        String   @id @default(cuid())
-  title           String   @unique
+  title           String   
   cardDescription String?
   description     String?
   references      String?
@@ -70,7 +70,7 @@ model topics {
 
 model exercises {
   idExercises     String   @id @default(cuid())
-  title           String   @unique
+  title           String   
   cardDescription String?
   description     String?
   sequence        Int?      @default(0)
@@ -81,7 +81,7 @@ model exercises {
 
 model videos {
   idVideos        String   @id @default(cuid())
-  title           String   @unique
+  title           String   
   description     String?
   references      String?
   link            String   @unique
