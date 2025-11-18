@@ -6,6 +6,9 @@ import { StackbyController } from "../controllers/stackby/StackbyController";
 import prisma from '../../client'
 import { Router } from 'express';
 import { Flagsmith } from 'flagsmith-nodejs';
+import { ThemeController } from "../controllers/theme/ThemeController.js";
+import { TopicController } from "../controllers/topic/TopicController.js";
+import { ExerciseController } from "../controllers/exercise/ExerciseController.js";
 
 if (!process.env.FLAGSMITH_SERVER_KEY) {
   throw new Error("FATAL: A variável de ambiente FLAGSMITH_SERVER_KEY não está definida.");
@@ -35,20 +38,31 @@ router.post("/login", (req, res) =>
   new LoginController().registerUser(req, res)
 );
 
+// router.get("/themes", async (req, res) => {
+//   try{
+//     const themes = await prisma.themes.findMany({
+//       orderBy:{
+//         sequence:'asc'
+//       },
+//     });
+//     res.json(themes);
+//   } catch(err){
+//     console.error("Erro ao buscar temas", err);
+//     res.status(500).json({error: "ocorreu erro."})
+//   }
+// });
+
 router.get("/themes", async (req, res) => {
-  try{
-    const themes = await prisma.themes.findMany({
-      orderBy:{
-        sequence:'asc'
-      },
-    });
-    res.json(themes);
-  } catch(err){
-    console.error("Erro ao buscar temas", err);
-    res.status(500).json({error: "ocorreu erro."})
-  }
+  new ThemeController().getAllThemes(req, res);
 });
 
+router.get("/topics", async (req, res) => {
+  new TopicController().getAllTopics(req, res);
+});
+
+router.get("/exercises", async (req, res) => {
+  new ExerciseController().getAllExercises(req, res);
+});
 
  router.get("/stackby/:endpoint", (req, res, next) =>
   new StackbyController().getStackbyData(req, res, next)
