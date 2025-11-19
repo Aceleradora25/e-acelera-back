@@ -24,16 +24,6 @@ router.get("/", (req, res) => {
   res.send("Welcome to the homepage");
 });
 
-// router.get("/themes", async (req, res) => {
-//   try {
-//     const result = await prisma.query("SELECT * FROM themes ORDER BY sequence");
-//     res.json(result.rows);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: "Erro ao buscar os temas" });
-//   }
-// });
-
 router.post("/login", (req, res) =>
   new LoginController().registerUser(req, res)
 );
@@ -53,15 +43,27 @@ router.post("/login", (req, res) =>
 // });
 
 router.get("/themes", async (req, res) => {
-  new ThemeController().getAllThemes(req, res);
+  new ThemeController().getThemesByCategory(req, res);
+});
+
+router.get("/themes/:id", async (req, res) => {
+  new ThemeController().getThemeById(req, res);
 });
 
 router.get("/topics", async (req, res) => {
-  new TopicController().getAllTopics(req, res);
+  new TopicController().getTopicsByThemeId(req, res);
+});
+
+router.get("/topics/:id", async (req, res) => {
+  new TopicController().getTopicById(req, res);
 });
 
 router.get("/exercises", async (req, res) => {
-  new ExerciseController().getAllExercises(req, res);
+  new ExerciseController().getExercisesByTopicId(req, res);
+});
+
+router.get("/exercises/:id", async (req, res) => {
+  new ExerciseController().getExerciseById(req, res);
 });
 
  router.get("/stackby/:endpoint", (req, res, next) =>

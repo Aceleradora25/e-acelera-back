@@ -1,4 +1,4 @@
-import prisma from "../../../client";
+import prisma from "../../../client.js";
 
 export class TopicService {
   async getAllTopics() {
@@ -17,7 +17,7 @@ export class TopicService {
 
   async getTopicById(id: string) {
     try {
-      return await prisma.topic.findUnique({
+      return await prisma.topics.findUnique({
         where: { id },
         include: {
           theme: true,
@@ -32,7 +32,7 @@ export class TopicService {
 
   async getTopicsByThemeId(themeId: string) {
     try {
-      return await prisma.topic.findMany({
+      return await prisma.topics.findMany({
         where: { themeId },
         include: {
           exercises: true,

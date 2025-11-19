@@ -1,40 +1,27 @@
 import { ThemeCategory } from "@prisma/client";
-import prisma from "../../../client";
+import prisma from "../../../client.js";
 
 export class ThemeService {
   async getAllThemes() {
-    try {
-      return await prisma.Theme.findMany({
+      return await prisma.theme.findMany({
         orderBy: {
           sequence: 'asc',
         },
       });
-    } catch (error) {
-      throw new Error("Error fetching themes from database");
-    }
   }
 
   async getThemeById(id: string) {
-    try {
-      return await prisma.Theme.findUnique({
+      return await prisma.theme.findUnique({
         where: { id },
       });
-    } catch (error) {
-      throw new Error("Error fetching theme by ID from database");
-    }
   }
 
   async getThemesByCategory(category: ThemeCategory) {
-    try {
-      return await prisma.Theme.findMany({
-        where: { category },
+      return await prisma.theme.findMany({
+        where: { category: ThemeCategory[category] },
         orderBy: {
           sequence: 'asc',
         },
       });
-    } catch (error) {
-      throw new Error("Error fetching themes by category from database");
-    }
   }
-
 }
