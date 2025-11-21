@@ -44,13 +44,13 @@ enum ElementType {
 }
 
 enum ThemeCategory {
-  Leveling 
+  Leveling
   SelfStudy
 }
 
 model Theme {
   id               String        @id @default(cuid())
-  title            String        @unique
+  title            String
   description      String
   shortDescription String
   image            String
@@ -65,43 +65,42 @@ model Theme {
 
 model Topic {
   id               String @id @default(cuid())
-  title            String @unique
+  title            String
   shortDescription String
   description      String
   references       String
 
-  themeId String
-  theme   Theme  @relation(fields: [themeId], references: [id])
+  themeId String?
+  theme   Theme?  @relation(fields: [themeId], references: [id])
 
   exercises Exercise[]
-
-  videoId String @unique
-  video   Video  @relation(fields: [videoId], references: [id])
+  video   Video?
 
   @@map("topics")
 }
 
 model Exercise {
   id               String @id @default(cuid())
-  title            String @unique
+  title            String
   shortDescription String
   description      String
   sequence         Int    @default(0)
 
-  topicId String
-  topic   Topic  @relation(fields: [topicId], references: [id])
+  topicId String?
+  topic Topic? @relation(fields: [topicId], references: [id])
 
   @@map("exercises")
 }
 
 model Video {
   id          String @id @default(cuid())
-  title       String @unique
+  title       String
   description String
   references  String
   link        String @unique
 
-  topic Topic?
+  topicId String? @unique
+  topic Topic? @relation(fields: [topicId], references: [id])
 
   @@map("videos")
 }
