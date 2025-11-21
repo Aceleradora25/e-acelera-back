@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { STATUS_CODE } from "../../utils/constants";
 import { ThemeService } from "../../services/theme/ThemeService";
-import { ThemeCategory } from "@prisma/client";
 import { plainToInstance } from "class-transformer";
 import { GetThemeByCategoryDTO } from "../../dtos/GetThemeByCategory.dto.js";
-import { validate, validateOrReject, ValidationError } from "class-validator";
+import { validateOrReject, ValidationError } from "class-validator";
+import { GetThemeByIdDTO } from "../../dtos/GetThemeById.dto.js";
 
 export class ThemeController {
   private themeService: ThemeService;
@@ -13,10 +13,16 @@ export class ThemeController {
     this.themeService = new ThemeService();
   }
 
-  async getAllThemes(req: Request, res: Response) {
+  async getThemes(req: Request, res: Response) {
+   const dto = plainToInstance(GetThemeByCategoryDTO, req.query, { enableImplicitConversion: true },
+);
     try {
-      const themes = await this.themeService.getAllThemes();
+      if(dto) {
+        await validateOrReject(dto);
+      } 
+      const themes = await this.themeService.getThemes(dto?.category);
       return res.status(STATUS_CODE.OK).json(themes);
+     
     } catch (error) {
       return res
         .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
@@ -25,16 +31,11 @@ export class ThemeController {
   }
 
   async getThemeById(req: Request, res: Response) {
-    const { id } = req.params;
-
-    if (!id) {
-      return res
-        .status(STATUS_CODE.BAD_REQUEST)
-        .json({ message: "Theme ID is required" });
-    }
+    const dto = plainToInstance(GetThemeByIdDTO, req.params, { enableImplicitConversion: true });
 
     try {
-      const theme = await this.themeService.getThemeById(id);
+       await validateOrReject(dto);
+      const theme = await this.themeService.getThemeById(dto.id);
 
       if (!theme) {
         return res
@@ -44,43 +45,17 @@ export class ThemeController {
 
       return res.status(STATUS_CODE.OK).json(theme);
     } catch (error) {
+      if (Array.isArray(error) && error.every((err) => err instanceof ValidationError)) {
       return res
-        .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-        .json({ message: "Error fetching theme" });
-    }
-  }
-
-  async getThemesByCategory(req: Request, res: Response) {
-    //const { category } = plainToInstance( GetThemeByCategoryDTO,req.params);
-    const dto = plainToInstance(GetThemeByCategoryDTO, req.query, { enableImplicitConversion: true },
-);
-
-    try {
-    await validateOrReject(dto);
-    console.log(dto.category);
-    // if (!category) {
-    //   return res
-    //     .status(STATUS_CODE.BAD_REQUEST)
-    //     .json({ message: "Category is required" });
-    // }
-    // const validCategory = category.toUpperCase() as ThemeCategory;
-    // if (!Object.values(ThemeCategory).includes(validCategory)) {
-    //     return res
-    //     .status(STATUS_CODE.BAD_REQUEST)
-    //     .json({ message: `Invalid category: ${category}. Must be one of ${Object.values(ThemeCategory).join(', ')}` });
-    // }
-
-      const themes = await this.themeService.getThemesByCategory(dto.category);
-      return res.status(STATUS_CODE.OK).json(themes);
-    } catch (error) {
-      if(Array.isArray(error) && error.every((err) => err instanceof ValidationError)) {
-        return res
         .status(STATUS_CODE.BAD_REQUEST)
-        .json({ message: error[0].constraints?.isEnum })
-      }
-      return res
+        .json({ message: error[0].constraints?.isNotEmpty || "Invalid Theme ID" });
+    }
+      
+        return res
         .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-        .json({ message: "Error fetching themes by category" });
+        .json({ message: "Error fetching theme", details: error });
     }
   }
+
+  
 }

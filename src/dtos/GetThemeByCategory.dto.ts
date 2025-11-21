@@ -1,6 +1,5 @@
 import { IsEnum } from "class-validator";
 import { ThemeCategory } from "@prisma/client";
-import { Type } from "class-transformer";
 
 export class GetThemeByCategoryDTO {
     @IsEnum(ThemeCategory, {

@@ -28,29 +28,21 @@ router.post("/login", (req, res) =>
   new LoginController().registerUser(req, res)
 );
 
-// router.get("/themes", async (req, res) => {
-//   try{
-//     const themes = await prisma.themes.findMany({
-//       orderBy:{
-//         sequence:'asc'
-//       },
-//     });
-//     res.json(themes);
-//   } catch(err){
-//     console.error("Erro ao buscar temas", err);
-//     res.status(500).json({error: "ocorreu erro."})
-//   }
-// });
 
-router.get("/themes", async (req, res) => {
-  new ThemeController().getThemesByCategory(req, res);
-});
 
 router.get("/themes/:id", async (req, res) => {
   new ThemeController().getThemeById(req, res);
 });
 
+router.get("/themes", async (req, res) => {
+  new ThemeController().getThemes(req, res);
+});
+
 router.get("/topics", async (req, res) => {
+  new TopicController().getAllTopics(req, res);
+});
+
+router.get("/themes/:themeId/topics", async (req, res) => {
   new TopicController().getTopicsByThemeId(req, res);
 });
 
@@ -59,6 +51,10 @@ router.get("/topics/:id", async (req, res) => {
 });
 
 router.get("/exercises", async (req, res) => {
+  new ExerciseController().getAllExercises(req, res);
+});
+
+router.get("/topics/:topicId/exercises", async (req, res) => {
   new ExerciseController().getExercisesByTopicId(req, res);
 });
 
