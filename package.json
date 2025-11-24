@@ -21,6 +21,7 @@
   "dependencies": {
     "@adminjs/express": "^6.1.1",
     "@adminjs/prisma": "^5.0.4",
+    "@fast-csv/parse": "^5.0.5",
     "@prisma/client": "^6.19.0",
     "@upstash/redis": "^1.35.1",
     "adminjs": "^7.8.17",
@@ -32,6 +33,7 @@
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.18.2",
+    "fast-csv": "^5.0.5",
     "flagsmith-nodejs": "^6.1.0",
     "husky": "^9.0.11",
     "jose": "^5.9.6",

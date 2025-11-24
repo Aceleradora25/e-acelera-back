@@ -1,120 +1,137 @@
-import { PrismaClient } from "@prisma/client";
-import { faker } from "@faker-js/faker";
+import { PrismaClient, ThemeCategory } from "@prisma/client";
+import * as fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import {parse} from "fast-csv"
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.join(path.dirname(__filename), "data");
+
+async function csvToJSON(filename) {
+    return new Promise((resolve, reject) => {
+        const parsedRows = [];
+
+        fs.createReadStream(`${__dirname}/${filename}.csv`)
+            .pipe(parse({ headers: true, ignoreEmpty: true, discardUnmappedColumns: true, trim: true}))
+            .on('error', error => {
+                console.error(error)
+                reject(error)
+            })
+            .on('data', row => parsedRows.push(row))
+            .on('end', () => resolve(parsedRows));
+        })
+}
 
 const prisma = new PrismaClient();
-const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-
-const themesIds = Array.from({ length: 20 }, () => faker.string.uuid());
-const topicsIds = Array.from({ length: 80 }, () => faker.string.uuid());
-const exercisesIds = Array.from({ length: 320 }, () => faker.string.uuid());
-const videosIds = Array.from({ length: 80 }, () => faker.string.uuid());
 
 async function main() {
-  for (const videoId of videosIds) {
-    const video = {
-      id: videoId,
-      title: capitalize(faker.book.title()),
-      description: faker.lorem.lines(),
-      references: faker.lorem.lines(),
-      link: faker.lorem.lines(),
-      // topic: "",
-    };
-    await prisma.video.create({
-      data: video,
+  console.log("Iniciando seed...");
+
+
+  await prisma.exercise.deleteMany();
+  await prisma.topic.deleteMany();
+  await prisma.video.deleteMany();
+  await prisma.theme.deleteMany();
+
+  const themesData = await csvToJSON("themes")
+  const topicsData = await csvToJSON("topics")
+  const exercisesData = await csvToJSON("exercises")
+  const videosData = await csvToJSON("videos")
+
+  const themeTitleToId = new Map();
+  const topicTitleToId = new Map();
+  const videoTitleToId = new Map();
+
+  let exerciseCount = 0;
+  let themeCount = 0;
+
+  const urlRegex = /\((https?:\/\/[^\s)]+)\)/;
+
+  for (const theme of themesData) {
+    const matchImageURL = theme.image.match(urlRegex);
+
+    const createdTheme = await prisma.theme.create({
+        data: {
+          title: theme.title,
+          description: theme.description,
+          shortDescription: theme.cardDescription,
+          image:  matchImageURL && matchImageURL.length > 1 ? matchImageURL[1] : "",
+          category: theme.category === "Nivelamento" ? ThemeCategory.Leveling : ThemeCategory.SelfStudy,
+          sequence: ++themeCount,
+          alt: theme.alt,
+        }
     });
-  }
-  for (const exerciseId of exercisesIds) {
-    const exercise = {
-      id: exerciseId,
-      title: capitalize(faker.book.title()),
-      shortDescription: faker.lorem.lines(),
-      description: faker.lorem.lines(),
-      // topic:"",
-    };
-    await prisma.exercise.create({
-      data: exercise,
-    });
-  }
-  for (const topicId of topicsIds) {
-    const topic = {
-      id: topicId,
-      title: capitalize(faker.book.title()),
-      references: faker.lorem.lines(),
-      shortDescription: faker.lorem.lines(),
-      description: faker.lorem.lines(),
-      //theme: "",
-      //exercises: "",
-      //video: null
-    };
-    await prisma.topic.create({
-      data: topic,
-    });
-  }
-  for (const themeId of themesIds) {
-    await prisma.theme.create({
-      data: {
-        id: themeId,
-        title: capitalize(faker.book.title()),
-        description: faker.lorem.lines(),
-        shortDescription: faker.lorem.lines(),
-        image: "",
-        category:
-          faker.number.int({ min: 0, max: 1 }) > 0 ? "Leveling" : "SelfStudy",
-        sequence: faker.number.int({ min: 0, max: 20 }),
-        alt: "",
-        //topic: "",
-      },
-    });
+    themeTitleToId.set(createdTheme.title, createdTheme.id);
   }
 
-  const themes = await prisma.theme.findMany();
-  const topics = await prisma.topic.findMany();
-  const exercises = await prisma.exercise.findMany();
-  const videos = await prisma.video.findMany();
+  for (const topic of topicsData) {
+    const themeId = themeTitleToId.get(topic.themes);
 
-  let topicIndex = 0;
-  let exerciseIndex = 0;
-  let videoIndex = 0
-
-  for (const theme of themes) {
-    const topicsForTheme = topics.slice(topicIndex, topicIndex + 4);
-    for (const topic of topicsForTheme) {
-      await prisma.topic.update({
-        where: { id: topic.id },
-        data: { themeId: theme.id },
-      });
+    if (!themeId) {
+      console.warn(`Tema não encontrado para tópico: ${topic.title}`);
+      continue;
     }
 
-    topicIndex += 4;
+    const createdTopic = await prisma.topic.create({
+        data: {
+          title: topic.title,
+          shortDescription: topic.cardDescription,
+          description: topic.description,
+          references: topic.references,
+          themeId,
+        }
+    });
+
+    topicTitleToId.set(createdTopic.title, createdTopic.id);
   }
 
-  for (const topic of topics) {
-    const exercisesForTopic = exercises.slice(exerciseIndex, exerciseIndex + 4);
-    for (const exercise of exercisesForTopic) {
-      await prisma.exercise.update({
-        where: { id: exercise.id },
-        data: { topicId: topic.id },
-      });
+  for (const video of videosData) {
+    const topicId = topicTitleToId.get(video.topics);
+    if (!topicId) {
+      console.warn(`Tópico não encontrado para vídeo: ${video.title}`);
+      continue;
+    }
+    const createdVideo = await prisma.video.create({
+        data: {
+          title: video.title,
+          description: video.description,
+          references: video.references,
+          link: video.link,
+          topicId,
+        }
+    });
+
+    videoTitleToId.set(createdVideo.title, createdVideo.id);
+  }
+
+  for (const exercise of exercisesData) {
+    const topicId = topicTitleToId.get(exercise.topics);
+    if (!topicId) {
+      console.warn(`Tópico não encontrado para exercício: ${exercise.title}`);
+      continue;
     }
 
-    exerciseIndex += 4;
-  }
-
-
-  for (const topic of topics) {
-    const videoForTopic = videos.slice(videoIndex, videoIndex + 1).pop();
-    await prisma.video.update({
-      where: { id:  videoForTopic.id},
-      data: { topicId: topic.id },
+   await prisma.exercise.create({
+        data: {
+          title: exercise.title,
+          shortDescription: exercise.cardDescription,
+          description: exercise.description,
+          sequence: ++exerciseCount,
+          topicId,
+        }
     });
-    videoIndex += 1
+
   }
+
+  console.log("Seed concluído com sucesso!");
 }
 
 main()
-  .then(() => prisma.$disconnect())
-  .catch((error) => {
-    console.error(error);
-    prisma.$disconnect();
+  .catch((e) => {
+    console.error("Erro no seed:", e);
     process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
   });
+

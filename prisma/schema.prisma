@@ -44,8 +44,8 @@ enum ElementType {
 }
 
 enum ThemeCategory {
-  Leveling
-  SelfStudy
+  Leveling @map("nivelamento")
+  SelfStudy @map("autoestudo")
 }
 
 model Theme {

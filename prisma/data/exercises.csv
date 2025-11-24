@@ -1,0 +1,3340 @@
+title,cardDescription,description,topics,idExercises
+Conversão de polegadas para centímetros,Quinto exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+
+
+Implemente o método `tabelaConversao`, que gera uma tabela de conversão de polegadas para centímetros de 1 a 20. Considere que 1 polegada é igual a 2.54 centímetros.
+
+
+
+- O método deve gerar e exibir uma tabela de conversão.
+
+
+
+## Exemplos:
+
+
+
+- A tabela gerada para polegadas de 1 a 3 seria:
+
+  - 1 pol = 2.54 cm
+
+  - 2 pol = 5.08 cm
+
+  - 3 pol = 7.62 cm
+
+- A tabela gerada para polegadas de 1 a 5 seria:
+
+  - 1 pol = 2.54 cm
+
+  - 2 pol = 5.08 cm
+
+  - 3 pol = 7.62 cm
+
+  - 4 pol = 10.16 cm
+
+  - 5 pol = 12.7 cm
+
+",Repetição (Typescript: Lógica de Programação),rw1751554485263b2fea7
+Divisibilidade entre dois números,Sexto exercício da lista com o objetivo de aprofundar o aprendizado," **O problema:**
+
+
+
+ Crie uma função chamada verificarDivisibilidade que receba dois números inteiros: a e b. A função deve verificar se o número a é divisível por b e retornar uma mensagem indicando o resultado.
+
+
+
+## Exemplos:
+
+
+
+verificarDivisibilidade(10, 2);
+
+
+
+Entrada: 10 e 2 → Saída: ""10 é divisível por 2""
+
+
+
+verificarDivisibilidade(10, 3);
+
+
+
+Entrada: 10 e 3 → Saída: ""10 não é divisível por 3""
+
+
+
+verificarDivisibilidade(20, 5);
+
+
+
+Entrada: 20 e 5 → Saída: ""20 é divisível por 5""
+
+
+
+",Condicionais (Typescript: Lógica de Programação),rw175155278352465b47e
+Exibir números ímpares entre M e N,Segundo exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+
+
+Implemente o método `mostrarImparesEntreMeN`, que recebe dois valores numéricos inteiros M e N e exibe apenas os números ímpares no intervalo de M a N.
+
+
+
+- O método deve iterar de M até N e exibir apenas os números ímpares.
+
+ 
+
+## Exemplos:
+
+
+
+- Para a entrada `M = 3` e `N = 10`, a saída deve ser: `3, 5, 7, 9`.
+
+- Para a entrada `M = 15` e `N = 20`, a saída deve ser: `15, 17, 19`.
+
+- Para a entrada `M = 1` e `N = 5`, a saída deve ser: `1, 3, 5`.
+
+
+
+",Repetição (Typescript: Lógica de Programação),rw17515539124722dfb74
+Ordem descendente,Nono exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+
+
+ Crie uma função chamada ordenarDescendente que receba três números inteiros. A função deve retornar os três valores em ordem decrescente.
+
+
+
+## Exemplos:
+
+
+
+ordenarDescendente(3, 1, 2);
+
+
+
+Entrada: 3, 1, 2 → Saída: ""3, 2, 1""
+
+ 
+
+ordenarDescendente(5, 8, 2);
+
+
+
+Entrada: 5, 8, 2 → Saída: ""8, 5, 2""
+
+",Condicionais (Typescript: Lógica de Programação),rw1751552876958039585
+Vetor pares dobro e impares triplo,Primeiro exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Implemente um método que leia um vetor de 30 números inteiros e gere um segundo vetor. As posições pares devem ser o dobro do vetor original, e as ímpares, o triplo.
+
+- O método deve percorrer os 30 números inteiros do vetor.
+- Se a posição for par, o valor será multiplicado por 2.
+- Se a posição for ímpar, o valor será multiplicado por 3.
+
+### Exemplo:
+
+- Quando a entrada for `[1, 2, 3, 4, 5]`, a saída deve ser `[3, 4, 9, 8, 15]`.
+
+",Array Simples,rw1727886436829261856
+Vetores positivos negativos,Primeiro exercício da lista com o objetivo de aprofundar o aprendizado," **O problema:**
+
+
+
+Crie um método que preencha um vetor com 8 números inteiros e, a partir dele, separe os números em dois novos vetores: um para positivos e outro para negativos. (Zero deve ser considerado positivo).
+
+
+
+- O método deve percorrer os 8 números do vetor original.
+
+- Positivos e zero devem ser adicionados a um vetor.
+
+- Números negativos devem ser adicionados a outro vetor.
+
+
+
+### Exemplo:
+
+
+
+- Quando a entrada for `[-1, 0, 2, -3, 4, -5]`, a saída deve ser:
+
+  - Positivos: `[0, 2, 4]`
+
+  - Negativos: `[-1, -3, -5]`.
+
+"," Array simples  (Typescript: Lógica de Programação)",rw1751553325597a32e1b
+Adicionando Elementos Multimídia,Adicione imagens e vídeos à sua página. Torne seu conteúdo mais interativo e envolvente,"**Objetivo**
+
+Nesse exercício, você irá aprimorar sua página profissional criada anteriormente, incorporando elementos multimídia como imagens e vídeos. O objetivo é aprender a adicionar conteúdo multimídia de forma acessível e responsiva, tornando a página mais rica e interativa para os usuários.
+
+**Instruções**
+
+1. **Inserir Imagens com Acessibilidade**
+
+   - Adicione imagens relevantes às diferentes seções da sua página, como:
+     - Uma foto de perfil na seção de biografia.
+     - Imagens de projetos na seção de portfólio.
+     - Gráficos ou ilustrações que complementem seu conteúdo.
+   - Certifique-se de que todas as imagens incluem uma descrição alternativa (atributo `alt`) que descreva o conteúdo da imagem de forma clara e concisa.
+   - Garanta que as imagens sejam responsivas, adaptando-se ao tamanho da tela do dispositivo usado pelo visitante.
+
+2. **Adicionar Vídeos**
+
+   - Incorpore um vídeo que seja relevante para sua área de atuação ou que destaque um projeto específico.
+   - Inclua controles de reprodução para que o usuário possa iniciar, pausar ou ajustar o volume do vídeo.
+   - Forneça legendas ou transcrições para tornar o vídeo acessível a todos os usuários (opcional).
+
+3. **Acessibilidade e Responsividade**
+
+   - Verifique se os elementos multimídia não comprometem a acessibilidade da sua página.
+   - Assegure-se de que o conteúdo multimídia seja responsivo e funcione bem em diferentes dispositivos e tamanhos de tela, como celulares, tablets e desktops.
+
+4. **Compatibilidade de Formatos**
+
+   - Utilize formatos de arquivo amplamente suportados pelos navegadores:
+     - Para imagens, prefira formatos como JPEG ou PNG.
+     - Para gráficos vetoriais, considere usar SVG.
+     - Para vídeos, utilize formatos compatíveis como MP4.
+   - Teste sua página em diferentes navegadores para garantir que todos os elementos multimídia sejam exibidos corretamente.
+
+**Ao finalizar este exercício, você terá:**
+
+- Uma página profissional enriquecida com imagens e vídeos relevantes.
+- Melhorado a experiência do usuário através de conteúdo interativo e visual.
+- Aplicado práticas de acessibilidade, garantindo que sua página seja inclusiva para todos os visitantes.
+
+**Observação**
+
+- O foco deste exercício é a incorporação correta e acessível de elementos multimídia, não se preocupe com estilos avançados de design.
+- Continue aprimorando sua página com base nos conhecimentos adquiridos, tornando-a cada vez mais completa e profissional.",Elementos Multimídia,rw1730914094155257784
+Adicionando Links,Neste exercício você adicionará links internos e externos para facilitar a navegação e tornar seu portfólio online mais completo,"Como já vimos no exercício anterior, você construiu a estrutura básica da sua página HTML e organizou as seções principais usando tags semânticas. Agora, vamos acrescentar links internos e externos para melhorar a navegação e tornar sua página mais completa.
+
+1. **Links Internos (Âncoras)**
+
+   Para facilitar a navegação entre as seções da página, adicione links internos na barra de navegação utilizando o atributo `href=""#id-da-secao""`. O `#` antes do nome do id indica um link âncora, direcionando o usuário para uma parte específica da página.  
+
+   Lembre-se de definir o atributo `id` em cada seção correspondente.
+
+2. **Links Externos**
+
+   Inclua links externos para suas redes sociais ou portfólios online na seção de contato. Utilize o atributo `target=""_blank""` para abrir o link em uma nova aba.
+
+3. **Validação dos Links**
+
+   Após incluir os links, teste a navegação interna e externa para garantir que todos funcionam corretamente.
+
+
+
+",Estrutura de Páginas Web e Links,rw173091287683887ea99
+Aplicando Design Responsivo na Página,Aprenda a adaptar sua página para qualquer dispositivo criando um design responsivo e intuitivo,"
+**Objetivo**
+
+Praticar o design responsivo, aplicando ajustes no layout, fontes e imagens para melhorar a visualização em diferentes dispositivos.
+
+**Instruções**
+
+1. **Configuração da Viewport**
+
+   Comece configurando o viewport no HTML para que o site se adapte ao tamanho da tela do dispositivo. Isso ajudará a ajustar o conteúdo e a melhorar a navegação em telas menores.
+
+2. **Uso de Media Queries**
+
+   Adicione media queries no CSS para definir estilos específicos para diferentes tamanhos de tela. Experimente ajustes em elementos como o tamanho das fontes, largura de contêineres e organização dos blocos de conteúdo. 
+
+3. **Imagens Adaptáveis**
+
+   Adapte as imagens da sua página para diferentes resoluções, configurando tamanhos flexíveis ou utilizando imagens de diferentes tamanhos conforme o dispositivo. Isso otimizará o carregamento e garantirá que as imagens se ajustem ao layout responsivo.
+
+4. **Unidades Flexíveis**
+
+   Experimente utilizar unidades flexíveis como `%`, `em`, e `vw/vh` em vez de valores fixos para largura, altura e espaçamento. Isso fará com que os elementos da página se ajustem automaticamente à tela do usuário, criando um layout fluido.
+
+**Resultado Esperado**
+
+Sua página deve se ajustar de forma harmoniosa a diferentes tamanhos de tela, com elementos reorganizados e adaptados para uma melhor usabilidade em qualquer dispositivo.
+
+**Dicas Adicionais**
+
+- Teste a página em diferentes dispositivos ou use as ferramentas do navegador para visualizar o layout responsivo.
+- Mantenha a consistência visual entre os dispositivos, mas aproveite para ajustar pequenos detalhes que melhorem a experiência em cada tamanho de tela.
+- Lembre-se de revisar o layout final para garantir uma navegação confortável e uma apresentação visual clara e organizada.",Design responsivo,rw1731004790634193480
+Aplicando diferentes tipos de CSS,Aprenda a aplicar diferentes tipos de CSS para transformar e organizar o visual da sua página de forma prática e fácil,"**Objetivo**
+
+Aplicar estilos CSS na sua página de portfólio ou currículo online, melhorando a aparência visual e a organização de elementos. O foco é entender e experimentar os diferentes tipos de CSS, usando cada um deles para situações específicas, conforme necessário. 
+
+**Instruções**
+
+1. **Aplicação do CSS Inline**
+
+   Comece aplicando estilos diretamente nos elementos da sua página com CSS Inline. Esse tipo de CSS é ótimo para ajustes rápidos e específicos, então escolha alguns elementos para estilizar diretamente. Por exemplo, altere a cor e o tamanho do texto de um título ou destaque uma frase especial aplicando uma cor diferente ou um estilo de fonte exclusivo. Lembre-se de usar o atributo `style` diretamente nos elementos HTML para definir essas propriedades.
+
+2. **Aplicação do CSS Interno**
+
+   Agora, vamos adicionar o CSS Interno. Insira o CSS no cabeçalho da página, dentro da tag `` no `` do seu documento HTML. Este tipo de CSS permite aplicar estilos a vários elementos da mesma página. 
+
+   Por exemplo, defina um estilo para todos os parágrafos da página, alterando a cor do texto, o tamanho da fonte ou o espaçamento entre as linhas. Adicione estilos também para títulos e seções, ajustando margens, alinhamentos ou cores para melhorar a estrutura visual da página.
+
+3. **Criação e Vinculação de um Arquivo CSS Externo**
+
+   Depois de experimentar os estilos Inline e Interno, é hora de criar um arquivo CSS externo. Crie um novo arquivo com a extensão `.css`, por exemplo, `styles.css`. Esse arquivo irá centralizar todos os estilos que você deseja aplicar em toda a sua página. Assim, o HTML ficará mais limpo e organizado, e você poderá reutilizar esses estilos em várias páginas no futuro.
+
+   No seu arquivo CSS externo, defina o estilo padrão para elementos como o corpo da página, títulos, parágrafos e botões. Você pode, por exemplo, definir a fonte padrão, a cor de fundo e o espaçamento dos elementos principais. Depois, vincule o arquivo CSS ao seu HTML usando a tag `` dentro da seção ``. Dessa forma, os estilos do arquivo externo serão aplicados automaticamente à sua página.
+
+4. **Prática de Consistência e Reutilização**
+
+   Após aplicar esses três tipos de CSS, compare e veja quais estilos se repetem ou são mais adequados para o CSS Externo. Lembre-se que o CSS Externo é ideal para manter estilos consistentes e reutilizáveis. Deixe no CSS Interno apenas estilos específicos para essa página, que não serão utilizados em outras. E utilize CSS Inline somente em casos muito pontuais, para ajustes de última hora ou para personalizações únicas.
+
+**Resultado Esperado**
+
+Com este exercício, sua página terá um visual mais organizado e profissional. Ao experimentar os três tipos de CSS, você terá uma noção prática de quando usar cada um deles e entenderá como aplicar estilos de forma eficiente e estratégica.
+
+**Dicas Adicionais**
+
+- Ao finalizar, revise sua página para garantir que todos os estilos foram aplicados corretamente.
+- Tente manter o CSS Externo bem organizado, agrupando estilos semelhantes, o que facilitará a manutenção no futuro.
+- Use sua criatividade para estilizar a página do jeito que preferir!
+- Embora manter os estilos em um arquivo externo seja uma boa prática, o objetivo aqui é explorar as diferentes formas de aplicar CSS.
+",Estilos.css,rw17309852666022c4de8
+Aplicando Flexbox e Grid no Layout do Projeto,Explore Flexbox e Grid para criar layouts dinâmicos e responsivos que valorizam seu conteúdo,"**O problema**
+​
+​
+Considerando que uma pessoa pode ter nome, sobrenome e/ou apelido, crie um código que imprima o nome da pessoa no console, seguindo esta ordem de prioridade:
+
+- Apelido: Se a variável apelido estiver preenchida, imprima apenas o seu valor.
+- Nome e Sobrenome: Se a variável apelido não estiver preenchida, verifique se o sobrenome existe.
+- Se o sobrenome estiver preenchido, imprima o primeiroNome seguido de um espaço e o sobrenome.
+- Se o sobrenome não estiver preenchido, imprima apenas o primeiroNome.
+
+Lembre-se que o primeiroNome é sempre obrigatório e estará preenchido.
+
+**Exemplos**
+
+    1. Apelido preenchido
+​```javascript
+    const primeiroNome = ""Mario"";
+    const sobrenome = """";
+    const apelido = ""Bros"";
+    // Saída esperada: Bros
+​​```
+    2. Sobrenome preenchido
+​```javascript
+    const primeiroNome = ""Mario"";
+    const sobrenome = ""Bros"";
+    const apelido = """";
+    // Saída esperada: Mario Bros
+​​```
+    3. Apenas o primeiro nome
+​```javascript
+    const primeiroNome = ""Mario"";
+    const sobrenome = """";
+    const apelido = """"; 
+    // Seu código aqui
+    // Saída esperada: Mario
+​​```
+",Flexbox e Grid,rw1731069503143b838b6
+Aplicando posicionamento no CSS,Explore o poder do CSS para posicionar elementos e criar layouts organizados e modernos em sua página!,"**Objetivo**
+
+Explorar as propriedades de posicionamento em CSS para ajustar a localização dos elementos da sua página de forma prática.
+
+**Instruções**
+
+1. **Posicionamento Estático**  
+   Aplique o posicionamento padrão para manter alguns elementos no fluxo natural da página.
+
+2. **Posicionamento Relativo**  
+   Desloque levemente alguns elementos, como um título ou imagem, em relação à sua posição original.
+
+3. **Posicionamento Absoluto**  
+   Posicione um elemento sobre outros, ajustando-o em relação ao contêiner mais próximo com um posicionamento específico.
+
+4. **Posicionamento Fixo**  
+   Fixe um cabeçalho ou rodapé para que permaneça visível enquanto a página é rolada.
+
+5. **Posicionamento Sticky**  
+   Aplique o posicionamento sticky a um menu de navegação ou título, fixando-o no topo ao rolar a página.
+
+**Resultado Esperado**
+
+Sua página deve refletir o uso correto de cada tipo de posicionamento, criando uma estrutura organizada e visualmente atraente.
+
+**Dicas Adicionais**
+
+- Fique a vontade para usar os posicionamentos que quiser, não é necessário utilizar todos obrigatoriamente, mas a intenção nesse exercício é usar a criatividade e testar os diferentes tipos.",Posicionamento,rw17309888120468a6f1a
+Aprendendo o Glossário do GitHub,Leia o glossário abaixo e procure entender cada um dos termos,"Este glossário abaixo apresenta os termos mais utilizados no Git, porque é fundamental entender o significado das palavras que fará uso no seu dia a dia, pois isso facilitará sua navegação e colaboração nos projetos.
+
+- **Repositório**: Local onde o código e os arquivos do projeto são armazenados.  
+
+- **Commit**: Registro de uma mudança no código, como um ponto de verificação no histórico do projeto.  
+
+- **Branch**: Ramificação do código onde novas funcionalidades podem ser desenvolvidas ou erros podem ser corrigidos, sem afetar a versão principal.  
+
+- **Pull Request**: Solicitação para mesclar as mudanças de uma branch no projeto principal, permitindo que outras pessoas revisem as alterações antes da integração.  
+
+- **Fork**: Cópia de um repositório, permitindo que você faça suas próprias modificações antes de sugerir melhorias ao projeto original.  
+
+- **Clone**: Cópia de um repositório em sua máquina local, permitindo que você trabalhe offline.  
+
+- **Merge**: Ato de combinar as mudanças de uma branch com outra, geralmente a branch principal.  
+
+- **Conflict**: Ocorre quando duas ou mais mudanças feitas em uma branch não podem ser automaticamente mescladas devido a alterações conflitantes.  
+
+- **Tag**: Um marcador usado para identificar versões específicas de um repositório, geralmente usado para releases.  
+
+- **Issue**: Um item ou tarefa a ser resolvida ou discutida, geralmente usado para rastrear bugs ou solicitar novas funcionalidades.  
+
+- **Wiki**: Um espaço no repositório onde a documentação do projeto pode ser escrita e editada de forma colaborativa.  
+
+- **Action**: Uma automação que executa um processo em resposta a eventos em um repositório, permitindo integração contínua e entrega contínua (CI/CD).  
+
+- **CI/CD**: Práticas de Integração Contínua e Entrega Contínua que automatizam o desenvolvimento e a implantação de software.  
+
+- **Collaborator**: Uma pessoa usuária que tem permissão para contribuir diretamente em um repositório.  
+
+- **Blame**: Comando que permite visualizar quem fez alterações específicas em uma linha de código e quando isso foi feito.  
+
+- **Pull**: Ato de baixar as mudanças mais recentes de um repositório remoto para sua máquina local.  
+
+- **Push**: Ato de enviar suas mudanças locais para o repositório remoto.  
+
+- **Upstream**: O repositório original do qual um fork foi criado.  
+
+- **Downstream**: Um repositório que foi feito a partir de um fork, que pode ter suas próprias alterações.  
+
+- **Marketplace**: Um lugar no GitHub onde você pode encontrar aplicativos e serviços que podem ser integrados aos seus repositórios.  
+
+- **Repository Template**: Um repositório configurado que pode ser usado como base para criar novos repositórios, já com estrutura e arquivos pré-definidos.  
+
+## Bons estudos!
+
+",Como utilizar o GitHub e Git,rw172796579826251b1dd
+Apurar Votação,Terceiro exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Implemente o método apuraVotacao, que recebe como argumento um array com os votos de uma certa eleição, em valores numéricos, podendo ser 1, 2 ou 3.
+
+- Caso haja mais votos 1, retorne a string Vencedor: 1.
+
+- Caso haja mais votos 2, retorne a string Vencedor: 2.
+
+- Caso haja mais votos 3, retorne a string Vencedor: 3.
+
+- Caso haja empate, retorne a string Empate.
+
+# Casos de teste
+
+- Quando a entrada for ""[1, 1, 1, 2, 3, 3, 2]"", a saida deve ser ""Vencedor: 1""
+- Quando a entrada for ""[2, 2, 2, 2, 1]"", a saida deve ser ""Vencedor: 2""
+- Quando a entrada for ""[2, 2, 3, 3, 3, 3]"", a saida deve ser ""Vencedor: 1""
+- Quando a entrada for ""[1, 2, 2, 2, 3, 3, 3]"", a saida deve ser ""Empate""",Fundamentos,rw172564217048038aaf4
+Backend - Construindo a Base de Dados,Configure o backend com Node.js TypeORM e PostgreSQL Teste a API e adicione um filme Explore migrations e prepare para produção no Heroku,"Olá, Aluna! Nesta atividade, você começará a trabalhar com Node.js e explorará as seguintes tecnologias: JavaScript / TypeScript, Express e TypeORM. O objetivo é aprender a configurar um ambiente de desenvolvimento backend, entender como criar e rodar uma aplicação utilizando essas tecnologias e também trabalhar com banco de dados e rotas RESTful.
+
+Durante a atividade, você terá a oportunidade de implementar funcionalidades práticas, consolidar seus conhecimentos em desenvolvimento backend e preparar uma base sólida para aplicações mais complexas no futuro.
+
+
+
+**Pré requisitos**
+
+  - [Entendendo linhas de comando](https://tutorial.djangogirls.org/pt/intro_to_command_line/) - É importante entender o que é um terminal e o que são linhas de comando.
+
+**Preparando o ambiente de desenvolvimento**
+
+
+- [Instalar o Git](https://git-scm.com/downloads)
+- [Instalar Oh my zsh](https://ohmyz.sh/)
+- [Instalar NodeJS](https://nodejs.org/en/)
+- Instalar o **Yarn**
+
+    Abra o terminal do seu sistema operacional e digite o seguinte comando:
+
+    ```bash
+    npm install -g yarn
+    ```
+
+- [Instalar Postgres](https://www.postgresql.org/download/)
+- [Instalar Beekeeper](https://www.beekeeperstudio.io/get)
+- [Instalar Visual Studio Code](https://code.visualstudio.com/)
+    - [Configuração do editor - Rocketseat](https://www.youtube.com/watch?v=c7P03kkrEG8) - *GraphQL e **Live Server** não são necessários serem instalados*
+- Clonar repositório
+
+    Abra o terminal do seu sistema operacional e digite o seguinte comando:
+
+    ```bash
+    git clone 
+    ```
+
+- Iniciando a aplicação
+
+    Após clonar esse repositório para sua maquina, ainda no terminal digite e aguarde a insstalação ser concluída:
+
+    ```bash
+    cd backend-nodejs
+    yarn install
+    ```
+
+    Após a instalação, digite o comando:
+
+    ```bash
+    yarn dev
+    ```
+
+    você deverá notar uma mensagem no terminal ao final:
+
+    ```bash
+    Server's running in http://localhost:9000
+    ```
+
+- Rodar testes End to End
+
+  
+  Subir aplicação após criar a modificação e o testes na pasta ./e2eTest
+
+    ```bash
+    yarn dev
+    ```
+
+  Rodar todos os testes e2e
+
+    ```bash
+    yarn run test:e2e
+    ```
+
+**TypeORM**
+
+- Criando Migration
+
+
+    ```bash
+    yarn typeorm migration:create -n 
+    ```
+
+**Preparando ambiente de teste**
+
+- Criar uma conta no [Heroku](https://signup.heroku.com/)
+- [Criar uma App no Heroku](https://www.youtube.com/watch?v=RNQ5XsGADdg)
+- Adicionar o **postgres** na App
+- Configurar as **variaveis de ambiente** na App
+- [Fazer deploy da branch main](https://www.youtube.com/watch?v=DMPJNe8PqnU)
+
+**Variáveis de ambiente**
+
+Essas são as variaveis de ambiente que essa aplicação precisa para funcionar em qualquer ambiente. 
+Os valores que devem ser atribuidos a elas vão depender dos ambientes.
+
+Para caso de ambiente **local** (sua máquina) deve ser criado um arquivo `.env` na raiz do projeto
+
+ ```bash
+NODE_ENV=
+PGSSLMODE=no-verify
+```
+
+**Objetivo Final**
+
+Backend funcional com pelo menos 1 filme cadastrado.
+Frontend integrado com o backend e estilizado de acordo com sua preferência.
+Deploy completo na Vercel e, opcionalmente, no Heroku para o backend.",Projeto Acelera Movies,rw173262818047403e05d
+Calculando o IMC,Crie uma função que calcule o IMC com base no peso e na altura e descubra a classificação correspondente,"**Crie uma função que calcule o Índice de Massa Corporal (IMC) e exiba o resultado na página Home, localizada em:**  
+`app &gt; page.tsx` (ou `app &gt; page.jsx` se estiver usando JavaScript).
+
+**Fórmula do IMC:**  
+`IMC = peso / (altura x altura)`
+
+**Classificações do IMC:**  
+- **Abaixo do peso:** IMC &lt; 18,5  
+- **Peso normal:** IMC entre 18,5 e 24,9  
+- **Sobrepeso:** IMC entre 25 e 29,9  
+- **Obesidade:** IMC &gt; 30  
+
+---
+
+**Instruções:**  
+1. No início do arquivo `page.tsx` ou `page.jsx`, crie uma função chamada `calcularIMC` que:  
+   - Receba dois parâmetros: **peso** e **altura**.  
+   - Retorne o valor do **IMC** (com duas casas decimais) e a sua **classificação**.  
+
+2. Na página:  
+   - Declare variáveis para o peso e a altura.  
+   - Use a função `calcularIMC` para calcular o IMC com os valores fornecidos.  
+   - Exiba o resultado do IMC dentro de uma tag HTML, como `
+`.  
+
+**Extra:**  
+Se preferir, adicione uma validação para evitar divisões por zero ou valores inválidos.",Variáveis e Constantes,rw1732544420430568ad9
+Calcular média de alunos,Quinto exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Implemente o método `mediaNotas`, que recebe as notas de 3 alunos diferentes, referente a 3 provas realizadas por eles. Calcule a média de cada aluno, retornando para cada um deles se o aluno foi aprovado, reprovado ou está em recuperação. Considere os seguintes parâmetros para as respectivas saídas:
+
+- Aprovado: nota maior ou igual a 7.
+- Recuperação: nota maior que 4 e menor que 7.
+- Reprovado: nota menor ou igual a 4.
+
+## Exemplos:
+
+- Para a entrada `[8, 7, 9], [5, 6, 5], [3, 4, 2]`, a saída deve ser:
+  - Aluno 1: Passou
+  - Aluno 2: Recuperação
+  - Aluno 3: Reprovado
+- Para a entrada `[9, 8, 7], [6, 5, 4], [2, 3, 2]`, a saída deve ser:
+  - Aluno 1: Passou
+  - Aluno 2: Recuperação
+  - Aluno 3: Reprovado
+- Para a entrada `[7, 7, 7], [4, 4, 4], [10, 9, 8]`, a saída deve ser:
+  - Aluno 1: Passou
+  - Aluno 2: Recuperação
+  - Aluno 3: Passou
+",Repetição,rw172788889829812e9e6
+Clonando um Repositório e Fazendo um Fork,Clonar um repositório existente e fazer um fork para praticar a colaboração,"1. **Escolha um repositório público no GitHub:**
+   - Navegue até o [GitHub](https://github.com/) e procure por um repositório de seu interesse. Pode ser um projeto de código aberto ou qualquer repositório que você gostaria de explorar.
+
+2. **Fazendo um Fork:**
+   - Na página do repositório escolhido, localize o botão “Fork” no canto superior direito da tela. Clique nele. Isso criará uma cópia do repositório em sua conta do GitHub.
+
+3. **Clonando o repositório:**
+   - Após fazer o fork, você será redirecionado para a sua cópia do repositório. Na parte superior da página, clique no botão verde ""Code"" e copie a URL do repositório.
+   - Abra o terminal no seu computador e navegue até o diretório onde você deseja clonar o repositório.
+   - Execute o comando:
+     ```bash
+     git clone [URL]
+     ```
+     Substitua `[URL]` pela URL que você copiou.
+
+4. **Navegando até o diretório:**
+   - Após o clone, navegue até o diretório do repositório usando:
+     ```bash
+     cd [nome-do-repositorio]
+     ```
+     Substitua `[nome-do-repositorio]` pelo nome do repositório clonado.
+
+## Bons Estudos!",Como utilizar o GitHub e Git,rw1727976078726bee9ab
+Compra com Desconto,Sexto exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+A Loja do Juninho está com uma super promoção. Na compra de qualquer produto você ganha desconto conforme a forma de pagamento seguindo a tabela seguinte.
+​
+| Forma de Pagamento | Desconto |
+|:-------------------:|:--------:|
+| Débito              | 5%       |
+| Crédito             | 3%       |
+| Pix ou Dinheiro     | 10%      |
+
+Faça um programa que verifica o tipo de desconto, calcule o valor do produto com o desconto e imprima o resultado. O valor final do produto após o desconto pode ser encontrado com a fórmula:
+
+```javascript
+​   valorFinal = valorDoProduto - (valorDoProduto * desconto)
+```
+
+​
+​Ao imprimir o valor, limite as casas decimais a apenas duas casas (ex: 12.50)
+
+```javascript
+//tipo de pagamento (dinheiro, credito, debito, pix)
+const tipoDePagamento = ""credito"";
+//valor da mercadoria (centavos)
+const valorDoProduto = 13000;
+```
+
+Para o exemplo acima, o valor final é:
+
+
+```javascript
+​valorFinal = 13000 - (13000\*0.05)
+valorFinal = 12350
+```
+
+O programa deve exibir na tela:
+​
+
+```javascript
+Valor a ser pago: R$123.50
+```
+
+Teste seu programa para outras entradas.
+",Condicionais,rw1755277654851e10ef1
+Compreendendo a Especificidade no CSS,Explore como a hierarquia de seletores no CSS afeta a aplicação de estilos e aprenda a usá-los de forma eficaz," **Objetivo:**
+Compreender como a hierarquia de seletores no CSS influencia a aplicação de estilos, e como aplicar diferentes tipos de seletores (ID, classes, e tags) de maneira eficaz, garantindo que o design de uma página seja coeso e sem conflitos.
+
+**Instruções:**
+
+1. **Entenda a Hierarquia de Especificidade no CSS:**
+- O CSS aplica estilos de acordo com a **especificidade** de seus seletores. Isso significa que, dependendo do tipo de seletor utilizado, alguns estilos podem ""sobrescrever"" outros.
+- Selecione um elemento em sua página e analise os diferentes tipos de seletores que podem ser aplicados. Pense sobre como os estilos se combinam para determinar qual será aplicado.
+
+2. **Ordem de Aplicação dos Estilos:**
+- Imagine que um mesmo elemento tenha múltiplos seletores aplicados, como uma tag, uma classe e um ID. Tente determinar a ordem de aplicação desses estilos.
+- Lembre-se de que os seletores **ID** têm mais peso que as **classes**, que por sua vez têm mais peso que as **tags**. Isso significa que, se você usar uma tag, uma classe e um ID no mesmo elemento, o estilo do **ID** será o que prevalecerá.
+
+3. **Examine o Impacto do Seletor Inline:**
+   
+   O estilo **inline** é geralmente o mais forte, pois é aplicado diretamente ao elemento HTML. Pense em um caso onde você aplica um estilo inline e também usa um seletor de ID ou classe para o mesmo elemento. Como isso afetará a renderização?
+
+4. **Use o `!important` com Cuidado:**
+
+   O `!important` pode ser utilizado para forçar um estilo, independentemente da hierarquia. Mas deve ser utilizado com cautela, pois pode dificultar a manutenção do código.
+
+
+5. **Reflexão sobre Pseudo-Elementos e Pseudo-Classes:**
+- Pense na diferença entre **pseudo-classes** (como `:hover`) e **pseudo-elementos** (como `::before` e `::after`).
+- Qual deles tem maior prioridade quando ambos são aplicados ao mesmo elemento? Como você pode usar essas ferramentas de maneira eficaz em seu código?
+
+6. **Aplicação Prática:**
+
+   Escolha um elemento da sua página para aplicar diferentes tipos de seletores e veja como a hierarquia de especificidade se reflete na prática. Aplique um estilo utilizando inline, um utilizando classe e outro com ID, e observe qual estilo prevalece.
+
+**Resultado Esperado:**
+
+Ao final deste exercício, você será capaz de:
+- Entender como a especificidade no CSS afeta a aplicação de estilos.
+- Aplicar seletivamente diferentes tipos de seletores para garantir a organização e a consistência visual da sua página.
+- Tomar decisões conscientes sobre quando usar o `!important` e como lidar com pseudo-elementos e pseudo-classes em seu CSS.
+
+**Observações:**
+
+- Não se preocupe com a sintaxe exata dos seletores neste momento; se concentre inicialmente nos conceitos fundamentais da hierarquia de especificidade no CSS.
+- Experimente o exercício em diferentes tipos de elementos e use o raciocínio para entender o comportamento dos estilos em diversos cenários.
+
+",Hierarquia no CSS,rw1730990599513cf847b
+Conectando a aplicação com o banco de dados,Utilizando Node.js com TyperORM e um banco da escolha da aluna,"Neste exercício, você irá criar uma aplicação Node.js que se conectará a um banco de dados usando TypeORM. A aplicação permitirá realizar operações básicas de CRUD (Create, Read, Update, Delete) em entidades que você definir.
+
+---
+
+**Objetivos**
+
+- Configurar uma conexão entre a aplicação Node.js e um banco de dados utilizando TypeORM.
+- Implementar operações CRUD para gerenciar entidades no banco de dados escolhido.
+- Compreender como o TypeORM facilita a interação com bancos de dados relacionais.
+
+**Pré-requisitos:**
+
+- Conhecimentos básicos de JavaScript e Node.js.
+- Instalar o Node.js e o npm em sua máquina.
+- Familiaridade com conceitos de bancos de dados e SQL.
+
+
+**Dicas:**
+
+- Utilize **TypeORM** para gerenciar a conexão e as operações no banco de dados.
+- Escolha um banco de dados que você já conheça, como MySQL, PostgreSQL ou SQLite, para facilitar a implementação.
+- Consulte a [documentação do TypeORM](https://typeorm.io) para entender as opções de configuração e uso.
+
+
+**Configuração Inicial**
+
+1. Inicie um projeto Node.js: Abra seu terminal e crie uma pasta para o projeto. Em seguida, execute:
+
+```bash
+npm init -y
+```
+
+- Isso criará um arquivo package.json com configurações padrão.
+
+2. Instale as dependências necessárias, incluindo **TypeORM** e um driver para o banco de dados que você escolheu. Por exemplo, para MySQL, execute:
+
+```bash
+npm install typeorm mysql
+```
+
+3. Configure a conexão com o banco de dados: Crie um arquivo de configuração ''ormconfig.json'' na raiz do projeto com as credenciais do seu banco de dados, como abaixo:
+
+```json
+{
+  ""type"": ""mysql"",
+  ""host"": ""localhost"",
+  ""port"": 3306,
+  ""username"": ""seu_usuario"",
+  ""password"": ""sua_senha"",
+  ""database"": ""nome_do_banco"",
+  ""synchronize"": true,
+  ""entities"": [""src/entity/*.ts""]
+}
+```
+
+- Certifique-se de substituir os valores pelos seus dados reais.
+
+
+Bom trabalho! 🚀",TypeORM,rw17304802690217eb318
+Construindo e Testando um Sistema de Carrinho de Compras,O desafio consiste em testar um sistema simples de carrinho de compras.,"**Primeiros passos**
+
+Para clonar o repositório base
+
+```bash
+git clone https://github.com/aceleradora-TW/exercicios-mocks-spies.git
+```
+
+Para instalar as dependências
+
+```bash
+npm install
+```
+
+Para rodar os testes uma única vez
+
+```bash
+npm run test
+```
+
+Para rodar os testes no modo observação
+
+```bash
+
+npm run test:watch
+
+```
+
+**Descrição**
+
+Este exercício propõe que você desenvolva testes unitários para uma classe de Carrinho de Compras (Cart) em TypeScript. O objetivo é que a pessoa desenvolvedora exercite a criação de mocks e o uso de spies no Jest, garantindo que o NotificationService seja chamado quando um produto for adicionado, que produtos possam ser removidos corretamente, que o cálculo de total utilize o método reduce e que o carrinho possa ser limpo.
+
+
+
+**O que você deve implementar**
+
+1. Testes para adicionar um produto ao carrinho:
+
+	- Validar se o produto foi adicionado corretamente
+
+	- Garantir que o serviço de notificação foi chamado ao adicionar o produto
+
+
+
+2. Testes para remover um produto do carrinho:
+
+	- Confirmar que o produto foi removido corretamente após a chamada ao método de remoção
+
+
+
+3. Testes para o cálculo do total de itens:
+
+	- Adicionar múltiplos produtos e verificar se o total calculado está correto
+
+	- Criar um spy para garantir que o método reduce foi utilizado no cálculo
+
+
+
+4. Testes para limpar o carrinho:
+
+	- Certificar-se de que ao limpar o carrinho não restem produtos na lista
+
+
+
+Para completar a atividade, é necessário criar mocks para o NotificationService e aplicar spies sobre métodos internos usando as funcionalidades do Jest.
+
+
+
+**Dica importante**
+
+Lembre-se de restaurar qualquer spy criado após a execução do teste evitando que ele afete outros testes no mesmo arquivo.
+https://github.com/aceleradora-TW/exercicios-mocks-spies.git",Mocking e Espiões,rw1732814508508e8129b
+Contador  ocorrência,Segundo exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+Implemente um algoritmo que receba duas entradas: texto e busca. Este algoritmo deve retornar quantas vezes o valor da busca aparece dentro do conteúdo de texto. Implemente esta lógica dentro do método contadorDeOcorrencia. Veja alguns exemplos de entrada e saída:
+
+# Cenários de teste
+- Ao receber o texto ""bolo"" e a busca ""o"", o contador deve retornar ""2""
+- Ao receber o texto ""batata"" e a busca ""a"", o contador deve retornar ""3""
+- Ao receber o texto ""Alejandro"" e a busca ""a"", o contador deve retornar ""1""
+- Ao receber o texto ""Uma Escola"" e a busca ""e"", o contador deve retornar ""0""
+
+
+
+",Fundamentos(typescript Fundamentos),rw1751550527376edcf02
+Contar múltiplos de 2 e 3 e múltiplos de 2 e 5,Quarto exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Implemente o método `analiseMultiplos`, que recebe vários números positivos até que o valor `-1` seja digitado e, ao final, informa quantos números são múltiplos de 2 e 5, e quantos são múltiplos de 2 e 3.
+
+- O método deve iterar sobre os números e contar os múltiplos de cada condição.
+
+## Exemplos:
+
+- Para a entrada `[10, 15, 30, -1]`, a saída deve ser:
+  - Múltiplos de 2 e 5: 2 (valores: 10, 30)
+  - Múltiplos de 2 e 3: 1 (valor: 30)
+- Para a entrada `[6, 12, 20, 25, -1]`, a saída deve ser:
+  - Múltiplos de 2 e 5: 1 (valor: 20)
+  - Múltiplos de 2 e 3: 2 (valores: 6, 12)
+- Para a entrada `[15, 30, -1]`, a saída deve ser:
+  - Múltiplos de 2 e 5: 1 (valor: 30)
+  - Múltiplos de 2 e 3: 1 (valor: 30)
+",Repetição,rw1727888842484d0b855
+Criando componente UserInfo com Props,Personalize o componente UserInfo para exibir informações de diferentes usuários utilizando props,"**Instruções:**  
+1. **No componente `UserInfo`:**  
+   - Ajuste a implementação para que ele receba as seguintes informações como **props**:
+     - **nome** (string).  
+     - **sobrenome** (string).  
+     - **idade** (número).  
+     - **estaNaFaculdade** (booleano).  
+   - Utilize **desestruturação** para acessar as props dentro do componente.  
+
+   Exemplo:  
+   ```javascript
+   function UserInfo({ nome, sobrenome, idade, estaNaFaculdade }) {
+     return (
+       
+         Nome: {nome}
+         Sobrenome: {sobrenome}
+         Idade: {idade}
+         Está na faculdade? {estaNaFaculdade ? ""Sim"" : ""Não""}
+       
+     );
+   }
+",Componentes + props,rw1732552610168bb1015
+Criando componentes,Organize seu projeto criando um componente para exibir informações pessoais e use-o na página Home,"**Instruções:**  
+1. **Crie um diretório chamado `components` dentro da pasta `app`.**  
+
+2. **Dentro de `components`, crie um arquivo chamado:**  
+   `UserInfo.tsx` (ou `UserInfo.jsx` se estiver usando JavaScript).  
+
+3. **Nesse arquivo:**  
+   - Utilize as variáveis criadas no exercício **""Criando Variáveis""**:
+     - **Seu nome** (string).  
+     - **Seu sobrenome** (string).  
+     - **Sua idade** (número).  
+     - **Se você está na faculdade** (booleano).  
+   - Retorne essas informações formatadas em tags HTML (como `` ou ``).  
+
+4. **Na página `app &gt; page.tsx` (ou `app &gt; page.jsx`):**  
+   - Importe o componente `UserInfo`.  
+   - Utilize o componente na **Home** para exibir as informações no navegador.  
+
+**Dica:**  
+- Para criar componentes reutilizáveis, utilize boas práticas de organização de arquivos, mantendo-os em uma pasta como **`components`**.  
+- Lembre-se de exportar o componente de `UserInfo.tsx` para poder utilizá-lo em outros arquivos.
+",Componentes + Next.js,rw173255101957441e7dd
+Criando minha primeira página,Este exercício ensina a criar a estrutura básica de uma página HTML5,"
+**Objetivo**
+
+Aprender a criar uma página HTML simples e profissional utilizando a estrutura básica do HTML5 e aplicando tags semânticas para organizar o conteúdo de forma clara e acessível. O propósito é desenvolver uma página profissional que possa servir como um portfólio ou currículo online, onde você pode apresentar sua biografia, formação, experiências, projetos e informações de contato.
+
+**Instruções**
+
+Siga os passos abaixo para criar sua página:
+
+**1. Estrutura Básica do Documento**
+
+- **Declaração do Tipo de Documento**: Comece seu arquivo com `` para indicar que está utilizando HTML5.
+- **Tag ``**: Envolva todo o conteúdo da sua página dentro da tag ``.
+
+**2. Seção ``**
+
+Dentro da tag ``, inclua:
+
+- **Metadados**:
+  - Utilize `` para definir a codificação de caracteres e garantir que caracteres especiais sejam exibidos corretamente.
+- **Título da Página**:
+  - Utilize `` para definir o título que aparecerá na aba do navegador.
+
+**3. Seção ``**
+
+Esta é a área onde o conteúdo visível da sua página será colocado.
+
+**a) Cabeçalho da Página**
+
+- Utilize a tag semântica `` para o cabeçalho.
+- Inclua um título principal com seu nome ou o nome da página.
+- Adicione uma frase que te inspira ou um slogan.
+
+**b) Barra de Navegação**
+
+- Se quiser adicionar links para diferentes partes da sua página, utilize a tag `` para criar uma barra de navegação.
+- Crie apenas a tag `` pois na próxima atividade iremos adicionar os links.
+
+**c) Conteúdo Principal**
+
+- Envolva o conteúdo principal dentro da tag ``.
+
+Dentro de ``, organize as seguintes seções:
+
+- **i) Biografia**
+  - Use a tag `` para esta parte.
+  - Inclua:
+    - Seu **nome**.
+    - Sua **área de interesse** (exemplo: Desenvolvimento Web, Design Gráfico).
+    - Uma breve descrição sobre você.
+
+- **ii) Formação**
+  - Crie outra `` para listar sua formação acadêmica ou cursos relevantes que você já fez.
+
+- **iii) Experiência**
+  - Utilize `` para detalhar suas experiências profissionais ou projetos nos quais você já trabalhou.
+
+- **iv) Portfólio**
+  - Outra `` onde você pode mostrar trabalhos ou projetos realizados.
+
+- **v) Hobbies**
+  - Use a tag `` se quiser destacar esta seção como conteúdo complementar.
+  - Liste seus hobbies ou atividades que gosta de fazer no tempo livre.
+
+**d) Contato**
+
+- Crie uma `` para informações de contato.
+- Inclua seu e-mail, telefone ou links para redes sociais.
+
+**e) Rodapé da Página**
+
+- Utilize a tag `` para o rodapé.
+- Adicione informações adicionais, como direitos autorais ou notas finais.
+
+**Dicas Adicionais**
+
+- **Organização Semântica**: O uso de tags semânticas como ``, ``, ``, ``, ``, `` e `` ajuda na acessibilidade e na otimização para motores de busca.
+- **Comentários**: Caso seja necessário utilize comentários `` para se orientar durante a construção da página.
+- **Validação**: Após terminar, valide seu código HTML para verificar se há erros de sintaxe.
+
+**Resultado Esperado**
+
+Ao finalizar este exercício, você terá:
+
+- Uma página HTML estruturada corretamente com a sintaxe básica do HTML5.
+- Utilizado tags semânticas para melhorar a organização e acessibilidade do conteúdo.
+- Praticado a criação de conteúdo pessoal que pode ser expandido para um portfólio ou currículo online.
+
+**Observação**
+
+- Não se preocupe com estilos ou design neste momento; o foco é compreender a estrutura HTML.
+- Este exercício é adequado para todos os níveis, então sinta-se à vontade para adicionar mais detalhes ou se manter no básico, conforme seu conforto.
+",Estrutura Básica,rw1730385185255d8d1fc
+Criando o primeiro CRUD com PrismaORM,"A partir de agora você vai aprenderá como realizar as quatro operações fundamentais de banco de dados  CRUD: Create (Criar), Read (Ler), Update (Atualizar) e Delete (Deletar) utilizando o Prisma ORM","Seguindo o exercício anterior, você criará um novo usuário no banco de dados. O Prisma torna isso incrivelmente poderoso, permitindo criar registros em tabelas relacionadas em uma única chamada.
+
+**Passo 1: Edite o arquivo  prisma/client: Criar o schema do banco de dados**
+```bash
+generator client {
+  provider = ""prisma-client-js""
+}
+
+datasource db {
+  provider = ""sqlite""
+  url      = ""file:./dev.db""
+}
+​
+model User {
+  id    Int      *id  *default(autoincrement())
+  name  String
+  email String   unique
+  posts Post[]
+  createdAt DateTime  *default(now())
+  updatedAt DateTime  *updatedAt
+}
+
+model Post {
+  id        Int       *id  *default(autoincrement())
+  title     String
+  content   String?
+  published Boolean   *default(false)
+  authorId  Int
+  author    User      relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt DateTime  *default(now())
+  updatedAt DateTime  *updatedAt
+}
+
+```
+
+---
+
+**Passo 2: Gerar o Prisma Client**
+
+```bash
+​npx prisma generate
+```
+
+---
+​
+**Passo 3:  Aplicar as mudanças no banco de dados**
+
+```bash
+npx prisma db push
+```
+
+---
+
+
+**Passo 4: ​Criar o script CRUD completo:**
+Crie crud-simple.ts na raiz
+
+
+
+```ts
+import prisma from './lib/prisma'
+
+async function main() {
+  console.log(' CRUD Simples com Prisma\n')
+
+  try {
+    // Limpar dados
+    await prisma.post.deleteMany()
+    await prisma.user.deleteMany()
+    console.log(' Dados limpos')
+
+    // CREATE
+    const user = await prisma.user.create({
+      data: {
+        name: 'João',
+        email: 'joao test.com',
+        posts: {
+          create: { title: 'Meu Post' }
+        }
+      },
+      include: { posts: true }
+    })
+    console.log(' Criado:', user.name)
+
+    // READ
+    const users = await prisma.user.findMany({
+      include: { posts: true }
+    })
+    console.log(' Total usuários:', users.length)
+
+    // UPDATE
+    const updated = await prisma.user.update({
+      where: { id: user.id },
+      data: { name: 'João Silva' }
+    })
+    console.log(' Atualizado:', updated.name)
+
+    // DELETE
+    await prisma.user.delete({
+      where: { id: user.id }
+    })
+    console.log(' Deletado com sucesso')
+
+  } catch (error) {
+    console.error(' Erro:', error)
+  } finally {
+    await prisma.$disconnect()
+    console.log(' Finalizado')
+  }
+}
+
+main()
+```
+
+
+​Execute o teste:
+
+
+```bash
+npx tsx crud-simple.ts
+```
+
+
+",PrismaORM,rw17507690657455f92cf
+Criando sua primeira API REST,Criando API REST com Node.js Express e bodyParser,"Neste exercício, você irá construir uma API RESTful simples usando Node.js e Express. A API será capaz de realizar operações de CRUD (Create, Read, Update, Delete) em um arquivo JSON que armazenará dados de usuários.
+
+---
+
+**Objetivos**
+
+- Criar uma API RESTful básica com operações CRUD.
+- Ler, escrever, atualizar e excluir dados de um arquivo JSON.
+- Compreender a estrutura de uma API e como ela se comunica usando métodos HTTP.
+
+**Pré-requisitos:**
+
+- Conhecimentos básicos de JavaScript e Node.js.
+- Instalar o Node.js e o npm em sua máquina.
+
+**Dicas:**
+
+- **Express** para criar o servidor e manipular rotas HTTP de maneira simplificada.
+- **fs(file system)** que é um módulo nativo do Node.js usado para manipular arquivos.
+- **bodyParser** que serve para analisar o corpo das requisições HTTP, permitindo que o servidor receba dados no formato JSON ou como dados de formulário.
+
+
+
+**Configuração Inicial**
+
+1. Inicie um projeto Node.js: Abra seu terminal e crie uma pasta para o projeto. Em seguida, execute:
+
+```bash
+npm init -y
+```
+
+- Isso criará um arquivo package.json com configurações padrão.
+
+2. Instale o **Express** e o **Body-Parser**: Execute o comando abaixo para instalar as dependências necessárias:
+
+```bash
+npm install express body-parser
+```
+
+3. Configuração do JSON de Dados: Crie um arquivo chamado users.json na raiz do projeto com o seguinte conteúdo:
+
+```json
+{
+   ""user1"": { ""id"": 1, ""name"": ""Alice"", ""age"": 28, ""email"": ""alice@example.com"" },
+   ""user2"": { ""id"": 2, ""name"": ""Bob"", ""age"": 34, ""email"": ""bob@example.com"" },
+   ""user3"": { ""id"": 3, ""name"": ""Charlie"", ""age"": 25, ""email"": ""charlie@example.com"" }
+}
+```
+
+- Esse arquivo armazenará dados dos usuários e será manipulado pelas rotas da API.
+
+Bom trabalho! 🚀",REST API,rw1730469197801db3259
+Criando tabelas e também formulários e listas,Neste exercício você aprenderá sobre formulários e também tabelas e listas,"**Objetivo**
+
+Neste exercício, você desenvolverá habilidades para criar e estruturar formulários, tabelas e listas em HTML, tornando sua página de portfólio mais completa e interativa. Essa prática permite coletar dados de visitantes e exibir informações de forma organizada, valorizando o design e a funcionalidade do seu portfólio online.
+
+**Instruções**
+
+1. **Formulários para Contato**
+
+   Adicione um formulário de contato para facilitar a comunicação com visitantes interessados em seu trabalho. Inclua campos como nome, e-mail e mensagem. Finalize com um botão de envio (obs: por hora o botão não irá funcionar).
+
+2. **Tabelas para Dados Estruturados**
+
+   Insira uma tabela para apresentar informações organizadas, como experiências de trabalho, qualificações ou dados relevantes sobre projetos. Estruture a tabela de forma a melhorar a legibilidade e tornar seu portfólio mais profissional.
+
+3. **Listas para Apresentação de Conteúdos**
+
+   Utilize listas ordenadas e não ordenadas para exibir tópicos como habilidades, interesses ou etapas de um processo de trabalho. As listas ajudam a destacar informações e tornam o portfólio visualmente mais dinâmico.
+
+**Resultado Esperado**
+
+Ao final deste exercício, sua página de portfólio terá formulários funcionais para coleta de dados, tabelas organizadas para exibição de informações e listas claras para destacar conteúdos importantes. Essa estrutura torna seu portfólio mais atrativo e útil para visitantes.
+
+**Observação**
+
+- Mantenha o foco na organização e estruturação dos elementos; o estilo e a lógica de programação será aprimorado em etapas futuras.",Formulários - Tabelas - Listas,rw17309152597892989ce
+Criando uma conta no GitHub,Nesta atividade você irá criar uma conta no GitHub para conseguir criar repositórios e contribuir em projetos,"## Passo 1: Acesse o Site do GitHub
+- Abra o seu navegador de internet.
+- Vá para o site oficial do GitHub: [github.com](https://github.com).
+
+## Passo 2: Inicie o Processo de Registro
+- Clique no botão **Sign up** (Cadastrar-se) no canto superior direito da página.
+
+## Passo 3: Preencha os Dados
+1. **Username** (Nome de Usuário):
+   - Escolha um nome de usuário que você deseja usar. Ele será visível para outros usuários.
+
+2. **Email Address** (Endereço de Email):
+   - Digite um endereço de email válido. Este será usado para a verificação da conta e para receber notificações.
+
+3. **Password** (Senha):
+   - Crie uma senha segura que tenha pelo menos 8 caracteres.
+
+## Passo 4: Complete o Captcha
+- Siga as instruções na tela para completar o CAPTCHA e provar que você não é um robô.
+
+## Passo 5: Clique em **Create Account** (Criar Conta)
+- Após preencher todos os campos e completar o CAPTCHA, clique no botão **Create Account**.
+
+## Passo 6: Verifique Seu Email
+- Acesse sua caixa de entrada e procure um email do GitHub.
+- Clique no link de verificação contido no email para ativar sua conta.
+
+## Passo 7: Personalize Sua Conta (Opcional)
+- Após a verificação, você pode ser solicitado a personalizar sua conta, adicionando informações adicionais ou seguindo alguns usuários. Isso é opcional.
+
+## Passo 8: Explore o GitHub
+- Após concluir a configuração, você pode começar a explorar repositórios, criar seus próprios projetos e colaborar com outros usuários.
+
+## Dicas Finais
+- Mantenha suas informações de login seguras.
+- Explore a documentação do GitHub para aprender mais sobre como usar a plataforma.
+
+**Pronto! Você agora tem uma conta no GitHub.**
+",GitHub,rw17279767069844c209b
+Criando Variáveis,Aprendendo a criar variáveis e exibir nas Tags,"**Crie uma variável para armazenar cada uma das seguintes informações:**
+- **Seu nome** (string)  
+- **Seu sobrenome** (string)  
+- **Sua idade** (número)  
+- **Se você está na faculdade** (booleano)  
+
+---
+
+**Essas variáveis devem ser criadas na página Home, localizada em:**  
+`app &gt; page.tsx` (ou `app &gt; page.jsx` se estiver usando JavaScript) no projeto Next.js.
+
+**Instruções:**  
+- Declare as variáveis no início do arquivo, utilizando boas práticas de nomenclatura.  
+- Exiba os valores dessas variáveis como conteúdo dentro de tags HTML (como `
+` ou `
+`) no JSX ou TSX.  
+- Utilize o retorno do componente padrão da página para exibir os valores.  
+
+**Dica:**  
+No JSX ou TSX, utilize chaves `{}` para retornar valores de variáveis ou expressões JavaScript/TypeScript dentro das tags HTML. Isso permite que você misture JavaScript com HTML facilmente.
+",Variáveis e Constantes,rw1732543930047f3166d
+Crie uma Página Web sobre Pokémons,Desafie-se a criar uma aplicação incrível que analisa as fraquezas dos Pokémons com base nos tipos e conectando backend com frontend para uma experiência interativa,"Neste exercício, você vai desenvolver uma aplicação web completa, onde seu objetivo será consumir uma API que fornece dados de Pokémons e, com base nesses dados, aplicar uma lógica para descobrir as fraquezas de cada um deles.
+
+
+
+**Você irá praticar:**
+
+
+
+- Conexão entre backend e frontend  
+
+- Criação e consumo de endpoints locais ou online (como preferir)  
+
+- Requisições HTTP (GET)  
+
+- Manipulação de objetos e arrays em TypeScript  
+
+- Organização de código em aplicações fullstack (Next.js ou similar)  
+
+
+
+**Sobre a API**
+
+
+
+A API já está pronta e disponível no GitHub caso deseje usar. Ela fornece uma lista de Pokémons em formato JSON, contendo informações como nome, ID e tipos da primeira geração.
+
+
+
+**Você pode:**
+
+
+
+- Clonar o repositório e rodar localmente;  
+
+- Usar o link da API local como fonte de dados no frontend;  
+
+- Ou ainda usar uma API online como a [https://pokeapi.co/](https://pokeapi.co/), [https://pokedexapi.com/](https://pokedexapi.com/) ou [https://pogoapi.net/](https://pogoapi.net/)  
+
+
+
+**Exemplo de dados da API (entrada):**
+
+
+
+```json
+
+[
+
+  { ""id"": 1, ""name"": ""pikachu"", ""types"": [""electric""] },
+
+  { ""id"": 2, ""name"": ""gabite"", ""types"": [""dragon"", ""ground""] }
+
+]
+
+```
+
+
+
+**Sua Tarefa**
+
+
+
+Crie uma aplicação web que:
+
+
+
+- Consuma os dados da API local (endpoint `GET /api/pokemons`)  
+
+- Para cada Pokémon, calcule suas fraquezas com base nos seus tipos  
+
+- Exiba na tela: nome, tipos e fraquezas  
+
+- Permita filtrar os Pokémons por:
+
+  - Nome (input de busca)
+
+  - Tipo (select/dropdown)
+
+  - Fraqueza (select/dropdown)
+
+
+
+**Exemplo de saída esperada no frontend:**
+
+
+
+```json
+
+{
+
+  ""name"": ""pikachu"",
+
+  ""types"": [""electric""],
+
+  ""weakness"": [""ground""]
+
+}
+
+```
+
+
+
+## Clone o repositório
+
+
+
+Navegue até o diretório onde você deseja clonar o repositório:
+
+
+
+```bash
+
+cd /caminho/para/seu/diretorio
+
+```
+
+
+
+Execute o comando `git clone` com o URL do repositório:
+
+
+
+```bash
+
+git clone https://github.com/Wander06/exercicio-pokemon-types.git
+
+```
+
+
+
+Isso criará uma cópia local do repositório no seu computador.
+
+
+
+Depois de clonar o repositório, entre no diretório do projeto:
+
+
+
+```bash
+
+cd exercicio-pokemon-types
+
+```
+
+
+
+Lembre-se de usar o comando:
+
+
+
+```bash
+
+npm install
+
+```
+
+
+
+Para instalar as dependências necessárias, e:
+
+
+
+```bash
+
+npm run start
+
+```
+
+
+
+Para inicializar a aplicação.
+
+
+",Projeto Pokémon,rw17325466486388a37ea
+Dando nome as pedras,Terceiro exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Fazendo uso do código criado no exercício anterior, modifique-o para que, quando a pedra retirada do dominó for uma **bucha** (uma pedra com dois lados iguais), o código informe o nome da bucha.
+
+Utilize o glossário abaixo para nomear as pedras:
+
+| Bucha | Nome   |
+| :------: | :--------|
+| 0         | Branca  |
+| 1         | Ás         |
+| 2         | Duque  |
+| 3         | Terno    |
+| 4         | Quadra |
+| 5         | Quina   |
+| 6         | Sena     |
+
+**Exemplo:**
+
+Caso a bucha retirada tenha os dois lados com o número **3**, deverá ser impresso na tela:
+
+",Condicionais,rw1726148778374f4a37c
+Dominó,Segundo exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+No jogo de dominó, as peças são divididas em dois lados, cada um com um número. Uma peça especial, chamada de bucha, tem o mesmo número nos dois lados.
+
+Você deve criar um código que, dadas duas variáveis representando os lados de uma peça de dominó, verifique se ela é uma bucha. Se for, imprima ""SIM"". Caso contrário, imprima ""NÃO"".
+
+
+
+**Exemplo:**
+
+- const ladoA = 3; 
+
+- const ladoB = 3;
+
+
+
+A resposta esperada para este exemplo é ""SIM"".
+
+
+
+
+",Condicionais,rw172614877687962c399
+Entendendo Box Model e Box Sizing com Desafio Visual,Experimente ajustar padding border e margin para ver o impacto no tamanho e no layout de uma caixa,"**Objetivo**
+
+Compreender como cada camada do Box Model afeta o tamanho e o posicionamento dos elementos na página.
+
+**Instruções**
+
+**1. Entenda o Box Model**  
+   Visualize um elemento HTML como uma série de ""caixas"" empilhadas ao redor do conteúdo. Essas caixas são: `content`, `padding`, `border` e `margin`.
+
+**2. Experimente o Padding**  
+   Pense em um elemento como um botão ou uma imagem. Imagine o `padding` como o espaço que ""afasta"" o conteúdo das bordas internas. Pergunte-se: o que acontece com o tamanho do elemento ao adicionar mais `padding`?
+
+**3. Experimente o Border**  
+   Visualize o `border` como a linha ao redor do padding do elemento. Imagine variar a espessura e a cor do `border`. Pergunte-se: como um border fino ou grosso pode mudar a aparência e o foco do elemento na página?
+
+**4. Experimente o Margin**  
+   Considere o `margin` como o espaço externo, que separa o elemento de outros ao seu redor. Imagine um card ou uma imagem com `margin` de diferentes tamanhos. Pergunte-se: qual impacto visual o `margin` tem no espaçamento entre os elementos?
+
+**5. Teste o Box Sizing**  
+   Use o `box-sizing: border-box` para manter o tamanho total do elemento fixo ao adicionar padding ou border. Imagine se o tamanho visual do elemento se mantém o mesmo quando `border-box` é aplicado, em vez de `content-box`.
+
+**Dicas**
+
+- Ao usar `border-box`, observe como o `padding` e o `border` são incluídos no tamanho total do elemento, mantendo um layout mais estável.
+- Imagine situações onde o ajuste de `margin`, `padding` ou `border` pode ajudar a manter o alinhamento dos elementos e evitar sobreposições.
+
+",Box model e Box sizing,rw17310686110054613c9
+Exibir números de 0 a 40,Primeiro exercício da lista com o objetivo de aprofundar o aprendizado," **O problema:**
+
+Implemente o método `mostrarNumeros`, que exibe todos os números de 0 a 40.
+
+- O método deve iterar de 0 a 40 e exibir cada número na sequência.
+
+## Exemplos:
+
+- Quando o método for chamado, a saída deve ser: `0, 1, 2, 3, ..., 40`.
+
+
+",Repetição (Typescript: Lógica de Programação),rw1751553822823df99a1
+Exibir números de 0 a N,Primeiro exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Implemente o método `mostrarNumerosAteN`, que recebe um número N e exibe todos os números de 0 até N.
+
+- O método deve iterar de 0 até o valor de N e exibir cada número.
+
+## Exemplos:
+
+- Para a entrada `N = 5`, a saída deve ser: `0, 1, 2, 3, 4, 5`.
+- Para a entrada `N = 10`, a saída deve ser: `0, 1, 2, 3, ..., 10`.
+- Para a entrada `N = 3`, a saída deve ser: `0, 1, 2, 3`.
+",Repetição,rw172788849370372c4a4
+Exibir números entre M e N,Segundo exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Implemente o método `mostrarNumerosEntreMeN`, que recebe dois valores numéricos inteiros M e N e exibe todos os números entre M e N, incluindo M e N.
+
+- O método deve garantir que M seja menor que N e iterar de M até N.
+
+## Exemplos:
+
+- Para a entrada `M = 3` e `N = 7`, a saída deve ser: `3, 4, 5, 6, 7`.
+- Para a entrada `M = 10` e `N = 15`, a saída deve ser: `10, 11, 12, 13, 14, 15`.
+- Para a entrada `M = 1` e `N = 3`, a saída deve ser: `1, 2, 3`.
+",Repetição,rw1727888616227ba1cbc
+Explorando Seletores CSS para Estilos Personalizados,Aprenda a aplicar estilos específicos aos elementos da página usando diferentes seletores CSS e experimente sua funcionalidade,"**Objetivo**
+
+Aprender a selecionar e aplicar estilos a elementos específicos na sua página usando diferentes tipos de seletores CSS. Isso permitirá uma maior customização do design e maior controle sobre quais elementos recebem determinadas características visuais.
+
+**Instruções**
+
+Para este exercício, explore as ideias abaixo para entender melhor como cada seletor funciona e em quais contextos ele pode ser aplicado. Teste suas próprias hipóteses e veja os resultados na sua página.
+
+1. **Seletores Básicos**:
+- Pense em elementos que você gostaria de estilizar de maneira única, como um título principal, parágrafos, ou uma caixa de destaque.
+- Imagine: qual diferença visual faria entre aplicar uma classe versus um ID nesses elementos? Reflita sobre quando usar cada um.
+
+2. **Seletores Combinadores**:
+- Visualize o uso de um seletor descendente: quais elementos filhos você gostaria que herdassem estilos do elemento pai?
+- Tente entender como escolher entre os combinadores `>`, `+`, e `~` dependendo da estrutura de hierarquia dos elementos. Pergunte-se: como o layout mudaria ao aplicar um estilo apenas ao próximo elemento imediato em vez de todos os elementos subsequentes?
+
+3. **Seletores de Atributo**:
+- Selecione elementos específicos baseando-se em atributos. Por exemplo, como você diferenciaria um campo de entrada para email de um para número?
+- Experimente imaginar usos do seletor por prefixo ou sufixo de atributo para aplicar estilos a vários elementos com uma característica comum (ex.: classes que começam com ""btn-"" para botões).
+
+4. **Pseudo-Classes e Pseudo-Elementos**:
+- Pense em um elemento que deve mudar de cor ou de estilo ao ser clicado ou quando o mouse passar sobre ele. Como o seletor `:hover` ajuda a criar essa interação?
+- Para os pseudo-elementos `::before` e `::after`, imagine o que pode ser adicionado antes ou depois de um texto importante. Qual seria o efeito visual e a funcionalidade desse uso?
+
+5. **Seletores de Grupo**:
+- Identifique elementos que podem compartilhar o mesmo estilo e considere agrupá-los em um único seletor. Pergunte-se: quais elementos da página podem manter a coesão visual ao compartilharem as mesmas cores ou tamanhos de fonte?
+
+**Dicas Adicionais**: 
+- Fique a vontade para usar os seletores que quiser, não é necessário utilizar todos obrigatoriamente, mas a intenção nesse exercício é usar a criatividade e testar os diferentes tipos.
+- Para cada tipo de seletor, pergunte-se qual é o impacto visual e de usabilidade no design. Esteja atento a como pequenas mudanças afetam o conjunto e garantem uma página acessível e consistente. 
+
+",Seletores CSS,rw1731003577211cc4820
+Fizz Buzz,Primeiro exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+- Se o número for divisível somente por `3`, o método retorna `Fizz`
+- Se o número for divisível somente por `5`, o método retorna `Buzz`
+- Se o número for divisível por ambos `3` e `5`, o método retorna `FizzBuzz`
+- Se o número não for divisível por nenhum dos dois, o método retorna o próprio número em formato de String
+
+__Dicas:__
+
+Utilize o operador `%` para saber se um número é divisível por outro. Para saber se um número é divisível por 2, por exemplo, podemos usar o seguinte:
+
+```javascript
+int numero = 4;
+
+if (numero % 2 === 0) {
+    console.log(""O numero eh divisivel por 2"");
+} else {
+    console.log(""O numero nao eh divisivel por 2"");
+}
+```
+
+Para converter um número inteiro para String, pode-se utilizar os métodos `String()`
+
+```javascript
+const numero = String(2); // numero == ""2""
+
+```
+
+## Traduz numeros divisiveis por 3 para Fizz
+
+- Ao receber ""3"" deve retornar ""Fizz""
+- Ao receber ""6"" deve retornar ""Fizz""
+- Ao receber ""12"" deve retornar ""Fizz""
+
+## Traduz números divisíveis por 5 para Buzz
+
+- Ao receber ""5"" deve retornar ""Buzz""
+
+## Traduz números divisíveis por 3 e por 5 para FizzBuzz
+
+- Ao receber ""15"" deve retornar ""FizzBuzz""
+- Ao receber ""30"" deve retornar ""FizzBuzz""
+- Ao receber ""45"" deve retornar ""FizzBuzz""
+
+## Traduz números que não são diviseis para o próprio numero em forma de String
+
+- Ao receber ""7"" deve retornar ""7""
+- Ao receber ""2"" deve retornar ""2""",Fundamentos,rw1716905602727ecf72e
+Frontend - Desenvolvendo a Interface,Crie o frontend com Next.js conecte ao backend personalize o layout e implante na Vercel,"Olá, Aluna! Nesta atividade, você começará a trabalhar com Next.js, um framework React para construção de interfaces de usuário, e explorará as seguintes tecnologias: Node.js, NPM e Vercel. O objetivo é aprender a configurar um ambiente de desenvolvimento, entender como criar e rodar uma aplicação Next.js e também aprender sobre deploy em Vercel.
+
+**Configuração Inicial**
+
+Vamos começar com um repositório base como template. A primeira etapa será clonar esse repositório para sua máquina local.
+
+1. Clonando o repositório
+
+```bash
+git clone https://github.com/aceleradora-TW/acelera-movies-front-next
+```
+
+2. Abrir pasta do projeto 
+
+```bash
+cd acelera-movies-front-next
+```  
+
+
+**Rodando o Projeto**  
+
+1. Abra a pasta no Visual Studio Code    
+
+2. Abra um terminal com o comando (Crtl + `)  
+
+3. Instale as dependências com o comando abaixo  
+
+```bash
+npm install
+```
+
+4. Inicie o servidor de desenvolvimento
+
+```bash
+npm run dev
+```
+
+O frontend deve estar disponível em http://localhost:3000/   
+
+
+
+**Dicas**
+
+- Edite o arquivo app/page.tsx para modificar a aparência da página inicial.
+- Utilize bibliotecas como Tailwind CSS ou Material-UI para estilizar o layout conforme suas preferências.
+- Deploy na Vercel
+- Configure sua conta na Vercel.
+- Clique em ""New Project"" e conecte o repositório do frontend.
+- Configure as variáveis de ambiente se necessário.
+- Finalize o deploy e acesse o link gerado para visualizar sua aplicação.
+
+Bons estudos, aluna! ",Projeto Acelera Movies,rw1732628187155dfa078
+Iniciando aplicação em Next.js,Como configurar um projeto Next.js,"Vamos começar a criar aplicação Next.js, para construir aplicações modernas, rápidas e escaláveis. Durante a configuração inicial, você será guiado por uma série de perguntas para personalizar o ambiente de desenvolvimento.
+
+---
+
+**1. Abra o Terminal**
+
+O terminal é a ferramenta que você usará para executar os comandos. Aqui está como abrir o terminal no seu sistema:
+
+- Windows: Pressione Win + R, digite cmd e pressione Enter. Você também pode usar o PowerShell ou o Windows Terminal.
+- Mac: Pressione Command + Espaço, digite Terminal e pressione Enter.
+- Linux: Pressione Ctrl + Alt + T ou procure por ""Terminal"" no menu de aplicativos
+
+**2. Iniciando a aplicação**
+
+Na documentação do Next.js é recomendado usar create-next-app para criar um nova aplicação, pois com esse comando os processos de instalação são automaticamente configurados. Então digitamos o seguinte comando no terminal:
+
+```bash
+npx create-next-app@latest
+```
+
+**3. No momento da instalação, vão aparecer as seguintes perguntas que podem ser:**
+
+Na opção abaixo, você pode escolher como quer nomear sua aplicação. Por padrão, o nome vem como my-app.
+
+```bash
+What is your project named? my-app
+```
+
+A seguir, vão aparecer diversas opções que podemos marcar com sim ou não:
+
+Nessa opção você pode escolher se quer usar TypeScript, se sim marque com a opção **Yes**.Caso contrário, vai ser utilizado o JavaScript. 
+
+```bash
+Would you like to use TypeScript? No / Yes
+```
+
+O ESLint permite definir um conjunto de regras e padrões que devem ser seguidas no código.
+
+```bash
+Would you like to use ESLint? No / Yes
+```
+
+O Tailwind CSS é um framework com classes de CSS utilitárias.  
+
+```bash
+Would you like to use Tailwind CSS? No / Yes
+```
+
+Nessa opção podemos escolher se queremos usar o src como um diretório raiz. Se a opção for marcada como não, a pasta app vai ficar na raiz do projeto.
+
+```bash
+Would you like your code inside a `src/` directory? No / Yes
+```
+
+É o modelo recomendado no Next que usa server components. Também organiza rotas de maneira mais moderna e modular. 
+
+```bash
+Would you like to use App Router? (recommended) No / Yes
+```
+
+O **Turbopack** é um empacotador experimental, mais rápido que o Webpack. Caso marque não, por padrão é usado o Webpack.
+
+```bash
+Would you like to use Turbopack for `next dev`?  No / Yes
+```
+
+Um alias de importação permite usar um ""apelido""(alias) para se referir a arquivos ou pastas no seu projeto, em vez de usar caminhos relativos longos. Exemplos:
+
+- Sem alias: `import Button from '../../../components/Button';`
+
+
+- Com alias padrão (@/*): `import Button from '@/components/Button';`
+
+```bash
+Would you like to customize the import alias (`@/*` by default)? No / Yes)
+```
+
+Se você escolheu personalizar o alias de importação na pergunta anterior, define o novo alias aqui. 
+
+```bash
+What import alias would you like configured? @/*
+```
+
+Após responder estas perguntas, ele vai baixar e instalar tudo que é necessário para ter um projeto Next. Para rodar o projeto, basta executar o comando abaixo na pasta do mesmo.
+
+```bash
+npm run dev
+```
+
+Bom trabalho! 🚀
+",Fundamentos Next.js,rw173228144037772ee84
+Instruções  importantes,Guia com os passos necessários para realizar as atividades corretamente,"**Uso obrigatório de Arrays:**
+Todos os exercícios desta lista devem obrigatoriamente utilizar arrays para manipulação de dados. Evite ao máximo o uso de métodos prontos do JavaScript, como `.map()`, `.filter()`, `.reduce()`, `.reverse()`, entre outros. O objetivo é que você implemente a lógica de manipulação de arrays manualmente.
+
+**Tipagem:**
+Lembre-se de sempre tipar corretamente todas as variáveis, parâmetros e retornos das funções.
+
+**Funções para cada exercício:**
+Cada exercício deve ser implementado dentro de uma função. Essa função deve receber os parâmetros necessários e retornar os resultados adequados. A estrutura e a lógica de cada exercício devem estar contidas exclusivamente dentro dessas funções.
+
+**Respeito às boas práticas de código:**
+Procure manter o código limpo e organizado, utilizando nomes de variáveis e funções claros e expressivos. Evite duplicação de código e siga uma lógica clara em suas implementações.
+
+## Instalação
+
+- Acesse o repositório: [Exercícios de Arrays](https://github.com/aceleradora-TW/Exercicios-arrays.git)
+- Em seguida, faça um fork dele.
+- Clone na sua máquina.
+- Instale as dependências usando o comando `npm install`.
+
+## Como usar
+
+- Leia com atenção os exercícios dentro da pasta `enunciados`.
+- Crie a lógica de cada exercício dentro da pasta `implementacao`.
+- Para rodar um exercício específico dentro da pasta `implementacao`, é necessário usar o comando `npm run start -- nome-do-arquivo.ts`.
+
+**Bons estudos!**
+",Array Simples,rw17278857951789628d4
+Instruções Importantes,Guia com os passos necessários para realizar as atividades corretamente,"**Uso obrigatório de laços de repetição:**
+   Todos os exercícios desta lista devem obrigatoriamente utilizar laços de repetição (for, while, do while etc). Evite ao máximo o uso de métodos prontos do JavaScript. O objetivo é que você implemente a lógica de repetição manualmente.
+
+**Tipagem:**
+   Lembre-se de sempre tipar corretamente todas as variáveis, parâmetros e retornos das funções.
+
+**Funções para cada exercício:**
+   Cada exercício deve ser implementado dentro de uma função. Essa função deve receber os parâmetros necessários e retornar os resultados adequados. A estrutura e a lógica de cada exercício devem estar contidas exclusivamente dentro dessas funções.
+
+**Respeito às boas práticas de código:**
+   Procure manter o código limpo e organizado, utilizando nomes de variáveis e funções claros e expressivos. Evite duplicação de código e siga uma lógica clara em suas implementações.
+
+## Instalação
+
+- Acesse o repositório: [Interacao-For-While](https://github.com/aceleradora-TW/Interacao-For-While/tree/main)
+- Em seguida, faça um fork dele
+- Clone na sua máquina
+- Instale as dependências usando o comando `npm install`
+
+## Como usar
+
+- Leia com atenção os exercícios dentro da pasta `enunciados`
+- Crie a lógica de cada exercício dentro da pasta `implementacao`
+- Para rodar um exercício específico dentro da pasta `implementacao`, é necessário usar o comando `npm run start -- nome-do-arquivo.ts`
+
+**Bons estudos!**
+",Repetição,rw172788824375369b7de
+Instruções importantes,Guia com os passos necessários para realizar as atividades corretamente,"**Uso obrigatório de laços de condicionais:**
+   Todos os exercícios desta lista devem obrigatoriamente utilizar condicionais (if, if-else, else-if etc).
+​Atenção: Não utilize bibliotecas ou métodos prontos. Construa a lógica usando apenas estruturas básicas da linguagem. 
+​
+​
+
+**Tipagem:**
+   Lembre-se de sempre tipar corretamente todas as variáveis, parâmetros e retornos das funções.
+
+**Funções para cada exercício:**
+   Cada exercício deve ser implementado dentro de uma função. Essa função deve receber os parâmetros necessários e retornar os resultados adequados. A estrutura e a lógica de cada exercício devem estar contidas exclusivamente dentro dessas funções.
+
+**Respeito às boas práticas de código:**
+   Procure manter o código limpo e organizado, utilizando nomes de variáveis e funções claros e expressivos. Evite duplicação de código e siga uma lógica clara em suas implementações.
+
+**Instalação**
+
+- Acesse o repositório: [Condicionais-IF-ELSE](https://github.com/aceleradora-TW/Condicionais-IF-ELSE)
+- Em seguida faça um fork dele
+- Clone na sua máquina
+- Instale as dependências usando o comando `npm install`
+
+**Como usar**
+
+- Leia com atenção os exercícios dentro da pasta enunciados
+- Crie a lógica de cada exercício dentro da pasta implementação
+- Para rodar um exercício especifico dentro da pasta implementação é necessário usar o comando `npm run start -- nome-do-arquivo.ts`
+
+**Bons estudos!**",Condicionais,rw1725638686995f335f2
+Instruções importantes,Guia com os passos necessários para realizar as atividades corretamente,"**O problema:** 
+
+Uso obrigatório de laços de repetição: Todos os exercícios desta lista devem obrigatoriamente utilizar métodos prontos do JavaScript(map, filter, sort, find, etc). Evite ao máximo o uso de laços de repetição (for, while, do while etc). O objetivo é que você implemente a lógica utilizando metodos typescript.
+
+Tipagem: Lembre-se de sempre tipar corretamente todas as variáveis, parâmetros e retornos das funções. 
+
+Funções para cada exercício: Cada exercício deve ser implementado dentro de uma função. Essa função deve receber os parâmetros necessários e retornar os resultados adequados. A estrutura e a lógica de cada exercício devem estar contidas exclusivamente dentro dessas funções.
+
+Respeito às boas práticas de código: Procure manter o código limpo e organizado, utilizando nomes de variáveis e funções claros e expressivos. Evite duplicação de código e siga uma lógica clara em suas implementações.
+
+**Instalação**
+
+- Acesse o repositório: https://github.com/aceleradora-TW/exercicio-map-filter-sort
+- Em seguida faça um fork dele
+- Clone na sua máquina
+- Instale as dependências usando o comando ``npm install``
+
+**Como usar**
+
+- Leia com atenção os exercicios dentro da pasta enunciados 
+- Crie a lógica de cada exercicio dentro da pasta implementacao
+
+- Utilize os arquivos JSON da pasta db caso precise de listas pré-prontas para suas implementações.
+
+- Para verificar se suas implementações passaram, execute os testes pelo botão de Play (Code Runner) no VS Code.
+Abra um arquivo de exercício ou um arquivo de teste.
+
+- Clique no ícone ▶ no canto superior direito do editor.
+
+O script custom-test-results-processor.js exibirá no terminal uma mensagem de sucesso, caso passe no teste ou uma mensagem de insucesso, caso falhe.
+
+
+**Observações**
+1) as notas devem ter apenas 1 numero após a virgula
+2) para estar aprovada a aluna tem que ter media igual ou acima de 7
+3) Para esse exercicio voces não poderão usar o `for`, `while` ou `do while`
+4) Formula da média: `(a + b + c) / 3`
+5) Para rodar os testes, é necessário que a extensão Code Runner esteja instalada no VS Code.
+6) Verifique so o seu VS Code está atualizado, pois a execução pode não acontecer, caso existam atualizações pendentes.
+7) o arquivo ""ClassData.json"", que está dentro da pasta db, contem um array pronto para ser utilizado durante os exercicios, lembrem-se de importar o array e tipo para cada arquivo de exercicio.
+8) Se quiser vizualizar a saída dos exercícios no terminal, rode o exercício específico dentro da pasta implementação, usando o comando ``npm run start -- nome-do-arquivo.ts``.
+
+
+",Métodos map filter e sort,rw175208044431077ed1e
+Intercalação vetores,Segundo exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Implemente um método que preencha dois vetores de 10 elementos numéricos cada um e retorne um vetor com a intercalação deles.
+
+- O método deve percorrer dois vetores de 10 elementos.
+- O novo vetor deve alternar os elementos dos dois vetores de entrada.
+
+### Exemplo:
+
+- Quando a entrada for:
+  - Vetor 1: `[1, 3, 5]`
+  - Vetor 2: `[2, 4, 6]`
+- A saída deve ser `[1, 2, 3, 4, 5, 6]`.
+",Array Simples,rw1727886940271b774a5
+Isenção de impostos,Quarto exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Todos os  anos os cidadãos brasileiros e pessoas com residência permanente devem declarar o Imposto de Renda. Segundo a Receita Federal, algumas pessoas estão isentas do pagamento de imposto de renda (IR). Abaixo segue uma lista simplificada das pessoas isentas:
+
+
+
+- Pessoas com renda mensal menor ou igual a R$ 3.036,00 reais
+
+- Pessoas com rendimentos tributáveis de até R$ 33.888,00 reais ao ano;
+
+- Aposentados e pensionistas com doenças graves previstas em lei.
+
+
+
+Faça um programa que determine, com base nos critérios acima, se a pessoa está ou não isenta de pagar o imposto de renda. Caso a pessoa pertença ao grupo de isenção o programa deve imprimir na tela: **ISENTA**, caso a pessoa deva pegar IR imprima na tela: **PEGA LEAO**
+
+
+```javascript
+    const aposentada = false;
+
+    const portadoraDeDoenca = false;
+
+    const totalDeRendimentos = 34000;
+
+    //seu código aqui
+```
+​
+Neste exemplo a resposta correta é **PEGA LEAO**
+
+Teste seu programa para outras variações da entrada.
+
+
+
+",Condicionais,rw1726149090018cb2662
+Loja de artesanato vendas,Quarto exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+Uma loja de artesanato possui um vendedor que recebe R$400,00 mais 5% do valor total de suas vendas. Crie um método que leia o código, preço unitário e quantidade vendida de 10 produtos. O método deve retornar:
+
+- Um relatório com código, quantidade, valor unitário e total vendido para cada objeto.
+- O valor geral das vendas e a comissão do vendedor.
+- O código do objeto mais vendido.
+
+### Exemplo:
+
+- Quando a entrada for:
+  - Código: `001`
+  - Quantidade vendida: `10`
+  - Preço unitário: `R$20,00`
+- A saída deve ser:
+  - Relatório: `Código: 001, Quantidade: 10, Valor unitário: R$20,00, Total vendido: R$200,00`
+  - Total das vendas: `R$200,00`
+  - Comissão: `R$10,00`
+  - Objeto mais vendido: `001`.
+"," Array simples  (Typescript: Lógica de Programação)",rw17515535995444bdcb3
+Maior e menor valor de quatro números,Oitavo exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+ Crie uma função chamada maiorEMenorEntreQuatro que receba quatro números inteiros. A função deve identificar o maior e o menor valor entre os quatro.
+
+O que você deve fazer:
+
+Receber quatro números inteiros como entrada.
+
+Comparar os quatro valores para encontrar:
+
+O maior entre eles.
+
+O menor entre eles.
+
+Retornar ambos os valores.
+
+## Exemplos:
+
+maiorEMenorEntreQuatro(1, 2, 3, 4);
+
+Entrada: 1, 2, 3, 4 → Saída: ""Maior: 4, Menor: 1""
+
+maiorEMenorEntreQuatro(-1, 0, -10, 20);
+
+Entrada: -1, 0, -10, 20 → Saída: ""Maior: 20, Menor: -10""
+
+
+",Condicionais (Typescript: Lógica de Programação),rw1751552848491ebd141
+Medindo a Cobertura de Código,O objetivo desta atividade é explorar como o Jest mede a cobertura de código em um projeto simples,"Nesta atividade, você vai medir a cobertura de código de um projeto simples. 
+O objetivo é entender como o Jest mede a cobertura e como gerar relatórios.
+
+---
+
+**Objetivo**
+
+Escrever algumas funções simples, como uma função de soma e subtração.
+Rodar os testes com cobertura para garantir que o código está bem testado.
+
+---
+
+**Exemplo de código:**
+
+```javascript
+// calculator.js
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+module.exports = { add, subtract };
+```
+
+```javascript
+// calculator.test.js
+const { add, subtract } = require('./calculator');
+
+test('soma dois números', () =&gt; {
+  expect(add(1, 2)).toBe(3);
+});
+
+test('subtrai dois números', () =&gt; {
+  expect(subtract(5, 3)).toBe(2);
+});
+```
+
+---
+
+**Rodando os Testes com Cobertura**
+
+```bash
+npx jest --coverage
+```
+
+---
+
+
+**Critérios de Aceitação**
+
+O relatório de cobertura deve mostrar que todas as linhas do código foram cobertas pelos testes.
+
+---
+
+**Recursos**
+
+- Use Jest para medir a cobertura de código.
+
+---
+
+**Tecnologias Recomendadas**
+
+- Jest para testes unitários.
+​
+"," Cobertura de Código",rw1732811211638964415
+Menor e maior valor,Terceiro exercício da lista com o objetivo de aprofundar o aprendizado," **O problema:**
+
+ Crie uma função chamada compararDoisNumeros que receba dois números inteiros. A função deve identificar e retornar qual é o maior e qual é o menor valor.
+
+## Exemplos:
+
+compararDoisNumeros(5, 10);
+
+Entrada: 5 e 10 → Saída: ""Maior: 10, Menor: 5""
+
+compararDoisNumeros(7, 7);
+
+Entrada: 7 e 7 → Saída: ""Maior: 7, Menor: 7""
+
+
+",Condicionais (Typescript: Lógica de Programação),rw1751552688513b36111
+Modelagem do banco,"Como Configurar a Conexão com o Banco, Gerar o Cliente e Modelar os Dados da Aplicação","Nesta atividade você vai instalar e configurar o **Prisma Client** seguindo o padrão **Singleton**.
+
+---
+
+**Objetivo**
+
+​O objetivo é garantir uma configuração eficiente e segura para evitar problemas de performance e conexões duplicadas com o banco de dados.
+​
+- Instalar o Prisma CLI e o Prisma Client.  
+- Configurar o Prisma Client com o padrão Singleton.  
+- Gerar o Prisma Client a partir do `schema.prisma`.  
+- Criar um script para inserir e listar tarefas usando o Prisma Client.
+
+---
+
+**Instruções Passo a Passo**
+
+
+**Passo 1: Verificar e Instalar Dependências**
+
+```bash
+npm install prisma --save-dev
+npm install  *prisma/client
+npm install --save-dev ts-node typescript *types/node
+```
+
+​
+**Passo 2: Inicializar o Prisma**
+
+```bash
+npx prisma init
+```
+
+**Passo 3: Configurar o Schema**
+
+Edite o arquivo ` prisma/client`:
+
+````prisma
+generator client {
+  provider = ""prisma-client-js""
+}
+
+datasource db {
+  provider = ""sqlite""
+  url      = env(""DATABASE_URL"")
+}
+
+model Task {
+  id        Int       *id  *default(autoincrement())
+  title     String
+  completed Boolean   *default(false)
+  createdAt DateTime  *default(now())
+}
+````
+
+**Passo 4: Configurar o arquivo .env**
+
+Crie ou edite `.env` na raiz:
+
+````env
+DATABASE_URL=""file:./dev.db""
+````
+
+**Passo 5: Criar a pasta `lib` e o arquivo `prisma.ts`**
+
+```bash
+mkdir lib
+```
+
+Crie o arquivo `lib/prisma.ts`:
+
+````typescript
+// lib/prisma.ts
+import { PrismaClient } from '*prisma/client'
+
+declare global {
+  var prisma: PrismaClient | undefined
+}
+
+const client = globalThis.prisma || new PrismaClient()
+
+if (process.env.NODE_ENV !== 'production') {
+  globalThis.prisma = client
+}
+
+export default client
+````
+
+**Passo 6: Configurar o TypeScript**
+
+Crie `tsconfig.json` na raiz do projeto:
+
+````json
+{
+  ""compilerOptions"": {
+    ""target"": ""ES2020"",
+    ""module"": ""commonjs"",
+    ""lib"": [""ES2020""],
+    ""outDir"": ""./dist"",
+    ""rootDir"": ""./"",
+    ""strict"": true,
+    ""esModuleInterop"": true,
+    ""skipLibCheck"": true,
+    ""forceConsistentCasingInFileNames"": true,
+    ""resolveJsonModule"": true,
+    ""moduleResolution"": ""node"",
+    ""allowSyntheticDefaultImports"": true,
+    ""declaration"": true,
+    ""sourceMap"": true
+  },
+  ""ts-node"": {
+    ""esm"": false,
+    ""experimentalSpecifierResolution"": ""node"",
+    ""transpileOnly"": true,
+    ""files"": true,
+    ""compilerOptions"": {
+      ""module"": ""commonjs""
+    }
+  },
+  ""include"": [""**/*.ts""],
+  ""exclude"": [""node_modules"", ""dist""]
+}
+````
+
+**Passo 7: Criar ou Corrigir o arquivo `script.ts`**
+
+````typescript
+// script.ts
+import prisma from './lib/prisma'
+
+async function main() {
+  console.log(' Iniciando script...')
+
+  const novaTarefa = await prisma.task.create({
+    data: {
+      title: 'Aprender a usar o Prisma Client',
+    },
+  })
+  console.log(' Nova tarefa criada:', novaTarefa)
+  const todasAsTarefas = await prisma.task.findMany()
+  console.log(' Todas as tarefas no banco:')
+  console.dir(todasAsTarefas, { depth: null })
+}
+
+main()
+  .catch((e) =&gt; {
+    console.error(e)
+    process.exit(1)
+  })
+  .finally(async () =&gt; {
+    await prisma.$disconnect()
+    console.log(' Script finalizado.')
+  })
+````
+
+**Passo 8: Gerar o Prisma Client e Criar o Banco**
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+**Passo 9: Executar o script**
+
+```bash
+npx tsx script.ts
+```
+
+
+
+
+
+",PrismaORM,rw1749913231498b36ede
+Montanha Russa Muito Assustadora,Quinto exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Você está desenvolvendo o sistema de acesso para a **Montanha Russa Muito Assustadora**. As regras para permitir ou negar a entrada de usuários são as seguintes:
+
+**Requisitos de Acesso:**
+
+- Idade: Pessoas entre 12 e 65 anos (inclusive).
+
+- Saúde: Não podem ter patologias cardíacas.
+
+- Altura: Devem ter no mínimo 150cm.
+
+Se a pessoa não cumprir qualquer um desses requisitos, o sistema deve imprimir ""ACESSO NEGADO"".
+
+**Regras de Preço:**
+
+Para quem tem acesso permitido, o valor do ingresso é:
+
+- R$ 10,00 (meia-entrada) para estudantes ou menores de 18 anos.
+
+- R$ 20,00 para os demais casos.
+
+Seu papel é imprimir na tela:
+
+- **ACESSO NEGADO** caso a pessoa não possa brincar
+
+- **10 reais** caso esse seja o valor que a pessoa deve pagar para brincar
+
+- **20 reais** caso esse seja o valor que a pessoa deve pagar para brincar
+
+```javascript
+const idade = 18;
+const possuiPatologia = false;
+const altura = 180;
+const ehEstudante = false;
+
+```
+
+Para este exemplo a resposta correta é `20 reais`
+
+Lembre-se de testar seu código para outras variações de entrada.",Condicionais,rw17552773848501ad9ee
+Mostrar o maior valor digitado,Terceiro exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+Implemente o método `mostrarMaiorValor`, que recebe um array de números e retorna o maior valor digitado.
+
+- O método deve iterar sobre os números e identificar o maior valor.
+
+## Exemplos:
+
+- Para a entrada `[10, 25, 3, 18]`, a saída deve ser: `25`.
+- Para a entrada `[1, 100, 45, 60]`, a saída deve ser: `100`.
+- Para a entrada `[7, 7, 7]`, a saída deve ser: `7`.
+",Repetição (Typescript: Lógica de Programação),rw1751554432252955c80
+Mostrar o segundo maior valor digitado,Terceiro exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Implemente o método `mostrarSegundoMaiorValor`, que recebe um array de números e retorna o segundo maior valor digitado.
+
+- O método deve identificar o maior valor e o segundo maior valor em uma única iteração.
+
+## Exemplos:
+
+- Para a entrada `[10, 25, 3, 18]`, a saída deve ser: `18`.
+- Para a entrada `[50, 100, 99, 80]`, a saída deve ser: `99`.
+- Para a entrada `[5, 5, 5, 3]`, a saída deve ser: `3`.
+",Repetição,rw1727888759901a297ca
+Múltiplo de 3,Quinto exercício da lista com o objetivo de aprofundar o aprendizado," **O problema:**
+
+ Crie uma função chamada verificarMultiploDeTres que receba um número inteiro. A função deve retornar ""é múltiplo de 3"" se o número for divisível por 3, ou ""não é múltiplo de 3"" caso contrário.
+
+## Exemplos:
+
+verificarMultiploDeTres(9);
+
+Entrada: 9 → Saída: ""é múltiplo de 3""
+
+verificarMultiploDeTres(10);
+
+Entrada: 10 → Saída: ""não é múltiplo de 3""
+
+verificarMultiploDeTres(0);
+
+Entrada: 0 → Saída: ""é múltiplo de 3""
+
+
+",Condicionais (Typescript: Lógica de Programação),rw1751552757468282e36
+Navegação com React Router,Crie uma navegação simples entre páginas utilizando o Reat Router no Next.js,"**Instruções:**  
+
+1. **Configure o React Router no seu projeto:**  
+   - Instale o React Router com o comando:  
+     ```bash
+     npm install react-router-dom
+     ```
+
+2. **Crie um arquivo `app/routes.tsx` para definir as rotas do projeto.**  
+
+3. **Crie duas páginas:**  
+   - **Home:**  
+     - A página inicial com um botão para redirecionar para a página About.  
+   - **About:**  
+     - Uma página simples com um título e uma mensagem.  
+
+4. **No componente Home:**  
+   - Adicione um botão com o texto **""Ir para About""**.  
+   - Utilize o hook **useNavigate** do React Router para redirecionar o usuário ao clicar no botão.  
+
+5. **Configure o React Router para gerenciar as rotas do projeto:**  
+   - Utilize o componente `BrowserRouter` para envolver seu aplicativo.  
+   - Use o componente `Router` para definir as rotas.  
+
+---
+
+**Dica:**  
+- Utilize o componente `BrowserRouter` como o provedor de rotas.  
+- Para redirecionamento programático, use o hook **useNavigate**.  ",Direcionamento de Páginas,rw1732639866885f3bd9f
+Nome para exibição,Sétimo exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+​Considerando que uma pessoa pode ter nome, sobrenome e/ou apelido, crie um código que imprima o nome da pessoa no console, seguindo esta ordem de prioridade:
+
+- Apelido: Se a variável apelido estiver preenchida, imprima apenas o seu valor.
+- Nome e Sobrenome: Se a variável apelido não estiver preenchida, verifique se o sobrenome existe.
+- Se o sobrenome estiver preenchido, imprima o primeiroNome seguido de um espaço e o sobrenome.
+- Se o sobrenome não estiver preenchido, imprima apenas o primeiroNome.
+
+Lembre-se que o primeiroNome é sempre obrigatório e estará preenchido.
+
+**Exemplos**
+
+​1. Apelido preenchido
+
+```javascript
+const primeiroNome = ""Mario"";
+​const sobrenome = """";
+​const apelido = ""Bros""; 
+// Saída esperada: Bros
+```
+
+​2. Sobrenome preenchido
+
+```javascript
+const primeiroNome = ""Mario"";
+const sobrenome = ""Bros"";
+const apelido = """";
+// Saída esperada: Mario Bros
+```
+
+​3. Apenas o primeiro nome
+
+```javascript
+const primeiroNome = ""Mario"";
+const sobrenome = """";
+const apelido = """";
+// Seu código aqui
+// Saída esperada: Mario
+```
+
+",Condicionais,rw1755277672141849448
+Notas faixa,Terceiro exercício da lista com o objetivo de aprofundar o aprendizado," **O problema:**
+
+Elabore um método que leia uma série de 50 notas e uma média necessária para aprovação. O método deve retornar quantas notas estão no intervalo de 10% abaixo e 10% acima da média.
+
+- O método deve calcular a faixa de aprovação (10% abaixo e 10% acima da média) e contar quantas notas estão nesse intervalo.
+
+### Exemplo:
+
+- Quando a entrada for:
+  - Notas: `[50, 60, 70, 80, 90]`
+  - Média: `70`
+- A saída deve ser `2 notas estão entre 63 e 77`.
+
+"," Array simples  (Typescript: Lógica de Programação)",rw1751553414853317534
+Números Armstrong,Quarto exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Números de Armstrong são números onde a soma de cada algarismo elevado à quantidade de algarismos é igual ao número original. Por exemplo:
+
+- Para verificar se o número 9 é um número de Armstrong, fazemos o seguinte cálculo: 
+  - \(9\) (o primeiro algarismo do número original) elevado a \(1\) (a quantidade de algarismos do número original).
+  - Portanto, \(9^1 = 9\), logo 9 é sim um número de Armstrong.
+
+- Agora, considere o número 13:
+  - \(1\) (primeiro algarismo) elevado a \(2\) (total de algarismos) mais \(3\) (segundo algarismo) elevado a \(2\) (total de algarismos).
+  - O cálculo seria \(1^2 + 3^2 = 1 + 9 = 10\), logo 13 não é um número de Armstrong.
+
+- Para o número 153:
+  - \(1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153\)
+  - Portanto, 153 é um número de Armstrong.
+
+Escreva algum código para determinar se um número é um número Armstrong. Pense nos casos de teste:
+
+## Retorna mensagem de sucesso quando o número for de Armstrong
+
+- Identifica ""3"" corretamente, respondendo ""Este é um número de Armstrong!""
+- Identifica ""153"" corretamente, respondendo ""Este é um número de Armstrong!""
+
+## Retorna mensagem de aviso quando o número NÃO for de Armstrong
+
+- Identifica ""10"" corretamente, respondendo ""Este não é um número de Armstrong!""
+- Identifica ""154"" corretamente, respondendo ""Este não é um número de Armstrong!""",Fundamentos,rw1725642166308a69249
+Objeto de data,Segundo exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Implemente o método criaObjeto, que recebe como argumento uma string no formato `dd/mm/aaaa`, e retorna um objeto, do tipo:
+
+```javascript
+{
+    dia: dd,
+    mes: mm,
+    ano: aaaa
+}
+```
+
+## Casos de teste
+
+- Quando a entrada for ""12/08/2020"", a saida deve ser ""{ dia: 12, mes: 08, ano: 2020 }""
+- Quando a entrada for ""08/01/2012"", a saida deve ser ""{ dia: 08, mes: 01, ano: 2012 }""
+- Quando a entrada for ""24/03/2000"", a saida deve ser ""{ dia: 24, mes: 03, ano: 2000 }""
+",Fundamentos,rw1725642159329a2d9f4
+Par ou ímpar,Primeiro exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+​
+Duas pessoas estão jogando par ou ímpar. O primeiro usuário escolhe um número e o segundo usuário escolhe outro. A soma desses dois números determina o vencedor.
+
+Você deve imprimir ""par"" se a soma dos números for par, indicando que o usuário que escolheu par venceu. Você deve imprimir ""ímpar"" se a soma dos números for ímpar, indicando que o usuário que escolheu ímpar venceu.
+
+```javascript=
+const jogada1 = 5;
+const jogada2 = 3;
+
+//seu código aqui
+```
+Observação: A soma das jogadas é 5 + 3 = 8. Como 8 é um número par, a resposta deve ser par.
+
+Lembre-se de testar seu código para outras variações de entrada.",Condicionais,rw1726148767193d37419
+Par ou impar,Quarto exercício da lista com o objetivo de aprofundar o aprendizado," **O problema:**
+
+
+
+ Crie uma função chamada verificarParOuImpar que receba um número inteiro. A função deve retornar ""PAR"" se o número for par e ""ÍMPAR"" se o número for ímpar.
+
+
+
+## Exemplos:
+
+
+
+verificarParOuImpar(4);
+
+
+
+Entrada: 4 → Saída: ""PAR""
+
+
+
+verificarParOuImpar(7);
+
+
+
+Entrada: 7 → Saída: ""ÍMPAR""
+
+
+
+verificarParOuImpar(0);
+
+
+
+Entrada: 0 → Saída: ""PAR""
+
+
+
+",Condicionais (Typescript: Lógica de Programação),rw17515527172787e011c
+Personalizando Fontes na Página,Personalize sua página aplicando estilos de fontes e explore o poder do CSS para criar uma tipografia única e envolvente!,"
+**Objetivo**
+
+Praticar o uso das propriedades de fontes no CSS, ajustando o estilo, o tamanho, e outros detalhes para criar uma tipografia mais personalizada e envolvente na sua página.
+
+**Instruções**
+
+1. **Seleção de Fontes**
+
+   Aplique diferentes tipos de fontes ao longo da sua página. Use fontes genéricas ou experimente fontes personalizadas, como Google Fonts, para criar um estilo único.
+
+2. **Ajustes de Tamanho e Peso**
+
+   Experimente definir diferentes tamanhos e pesos de fonte para cada seção da sua página. Teste variações para criar uma hierarquia visual clara, tornando as informações mais fáceis de ler.
+
+3. **Exploração de Estilos e Espaçamentos**
+
+   Escolha trechos do texto para aplicar estilos como itálico, negrito ou pequenas variações de altura de linha. Isso ajudará a destacar partes importantes e dará um toque mais profissional à página.
+
+**Resultado Esperado**
+
+Sua página deve refletir um uso prático e personalizado das propriedades de fontes, com um visual mais organizado e atraente. A leitura e a navegação pelos textos devem ser claras e convidativas, mantendo a consistência tipográfica em toda a página.
+
+**Dicas Adicionais**
+
+- Explore várias combinações de fonte e tamanho para encontrar um estilo que harmonize com o conteúdo da sua página.
+- Não é obrigatório aplicar todas as propriedades aprendidas; escolha aquelas que melhor atendem ao design desejado.
+- Ao finalizar, revise a página para garantir que o texto está legível e que o estilo geral da tipografia é consistente e profissional.",Fontes,rw17309914063027a4e65
+Pontuação do concurso,Quarto exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Crie um método que leia a pontuação final de 25 provas de um concurso e os nomes dos respectivos participantes. O método deve retornar os participantes que obtiveram mais de 70 pontos.
+
+- O método deve percorrer as pontuações e listar os nomes dos participantes que atingiram mais de 70 pontos.
+
+### Exemplo:
+
+- Quando a entrada for:
+  - Nome: `João`
+  - Pontuação: `75`
+- A saída deve ser `João obteve mais de 70 pontos`.
+",Array Simples,rw1727887863868c37cc0
+Positivo negativo ou nulo,Segundo exercício da lista com o objetivo de aprofundar o aprendizado," **O problema:**
+
+Crie uma função chamada verificarSinal que receba um número inteiro. A função deve retornar uma das seguintes mensagens: ""POSITIVO"", ""NEGATIVO"" ou ""NULO"", dependendo do valor do número.
+
+## Exemplos:
+
+verificarSinal(5);
+
+​
+​​Entrada: 5 → Saída: ""POSITIVO""
+​
+​
+​
+verificarSinal(-3);
+
+​
+​​
+​Entrada: -3 → Saída: ""NEGATIVO""
+
+​
+​​
+verificarSinal(0);
+
+​​​
+​​Entrada: 0 → Saída: ""NULO""
+​
+
+",Condicionais (Typescript: Lógica de Programação),rw1751552572795b6b20e
+Primeiros Comandos Usando Git,Criando e Gerenciando um Repositório Git,"Abra o terminal ou Git Bash:
+No Windows, procure por ""Git Bash"" no menu iniciar e abra.
+No macOS ou Linux, abra o aplicativo ""Terminal"".
+
+Passos:
+
+Configurações iniciais do Git:
+
+Antes de começar, configure seu nome de usuário e email no Git. Esses dados serão utilizados para identificar quem fez os commits. No terminal, digite os seguintes comandos:
+ 
+**git config --global user.name ""Seu Nome""**
+**git config --global user.email ""seuemail&nbsp;example.com""**
+
+Essas configurações serão aplicadas globalmente, ou seja, para todos os repositórios que você criar ou gerenciar no seu computador.
+
+
+Crie uma pasta de projeto no seu computador:
+
+No terminal, navegue até a pasta onde deseja criar seu projeto. Para isso, use o comando cd (change directory). Por exemplo:
+ 
+**cd ~/Documentos/Projetos**
+
+Crie uma nova pasta para o projeto, chamada meu-projeto-git, com o comando:
+ 
+**mkdir meu-projeto-git**
+
+Entre na pasta recém-criada:
+ 
+**cd meu-projeto-git**
+
+Inicialize o Git no projeto:
+
+Agora, dentro da pasta do projeto, inicialize um repositório Git:
+ 
+**git init**
+
+Esse comando cria uma pasta oculta chamada .git, que o Git usa para rastrear as alterações no projeto.
+
+Crie um arquivo de README:
+
+Crie um arquivo chamado **README.md** com a descrição do projeto. Se estiver no terminal, você pode usar um editor de texto como o **nano** ou abrir o arquivo em um editor de sua preferência.
+ 
+**nano README.md**
+
+No arquivo, adicione o seguinte texto:
+ 
+**# Meu Projeto Git
+Este é um projeto de exemplo para aprender Git.**
+
+Salve o arquivo e feche o editor. No nano, isso é feito pressionando Ctrl+O para salvar e Ctrl+X para sair.
+
+Verifique o status do repositório:
+
+Verifique o status atual do repositório para ver quais arquivos foram modificados e estão prontos para serem adicionados ao Git:
+ 
+**git status**
+
+
+Adicione o arquivo ao repositório:
+
+Adicione o arquivo README.md à área de stage (preparado para commit):
+ 
+**git add README.md**
+
+Faça o commit das alterações:
+
+Agora que o arquivo está no stage, faça o commit para salvar as alterações no histórico do repositório:
+ 
+**git commit -m ""Adiciona o arquivo README.md""**
+
+## Bons Estudos!",Como utilizar o GitHub e Git,rw17279755805932f4be4
+Prisma Migrate e Prisma Client,Neste exercício você vai criar sua primeira tabela em um banco de dados sem escrever uma única linha de código SQL utilizando o Prisma Migrate," Seguindo o exercício anterior, você criou sua primeira tabela no banco de dados sem escrever uma única linha de código SQL. Usando o Prisma Migrate, você definiu um modelo de dados Task e executou uma migração automática, demonstrando como o Prisma transforma definições de schema em estruturas de banco funcionais.
+
+​
+**Passo 1: Edite o arquivo  prisma/client:**
+
+```bash
+generator client {
+  provider = ""prisma-client-js""
+}
+
+datasource db {
+  provider = ""sqlite""
+  url      = ""file:./dev.db""
+}
+
+model Task {
+  id        Int        *id  *default(autoincrement())
+  title     String
+  completed Boolean   *default(false)
+  createdAt DateTime  *default(now())
+}
+```
+
+---
+
+**Passo 2: Reset do banco e Executar a Migração**
+
+```bash
+npx prisma migrate reset
+npx prisma migrate dev --name create_tasks_table
+```
+
+---
+
+
+**Passo 3:  Gerar o Cliente**
+
+
+```bash
+npx prisma generate
+```
+---
+
+**Passo 4: ​Criar o script MIGRATE:**
+
+Crie o arquivo migrate-simple.ts na raiz do projeto:
+
+```ts
+import prisma from './lib/prisma'
+
+async function main() {
+  console.log(' Testando Prisma Migrate - Modelo Task\n')
+
+  try {
+    // Verificar se o modelo Task está disponível após a migração
+    console.log(' Verificando modelo Task...')
+    console.log('- Task model:', typeof prisma.task)
+
+    if (typeof prisma.task !== 'object') {
+      console.log(' Modelo Task não encontrado!')
+      console.log(' Execute: npx prisma migrate dev --name create_tasks_table')
+      return
+    }
+
+    // Limpar dados existentes
+    await prisma.task.deleteMany()
+    console.log(' Tarefas antigas removidas')
+
+    // CREATE - Criar tarefas
+    console.log('\n Criando tarefas...')
+    const task1 = await prisma.task.create({
+      data: {
+        title: 'Estudar Prisma Migrate',
+        completed: false
+      }
+    })
+
+    const task2 = await prisma.task.create({
+      data: {
+        title: 'Testar migrações',
+        completed: true
+      }
+    })
+
+    console.log(' Tarefas criadas:', task1.title, '|', task2.title)
+
+    // READ - Ler tarefas
+    console.log('\n Lendo todas as tarefas...')
+    const allTasks = await prisma.task.findMany({
+      orderBy: { createdAt: 'asc' }
+    })
+    console.log(' Total de tarefas:', allTasks.length)
+
+    allTasks.forEach(task =&gt; {
+      const status = task.completed ? '✅' : '⏳'
+      console.log(`${status} ${task.title}`)
+    })
+
+    // UPDATE - Marcar tarefa como concluída
+    console.log('\n Marcando primeira tarefa como concluída...')
+    const updatedTask = await prisma.task.update({
+      where: { id: task1.id },
+      data: { completed: true }
+    })
+    console.log(' Tarefa atualizada:', updatedTask.title)
+
+    // READ - Filtrar tarefas concluídas
+    console.log('\n Tarefas concluídas:')
+    const completedTasks = await prisma.task.findMany({
+      where: { completed: true }
+    })
+    console.log(' Total concluídas:', completedTasks.length)
+
+    // DELETE - Deletar uma tarefa
+    console.log('\n Deletando uma tarefa...')
+    await prisma.task.delete({
+      where: { id: task2.id }
+    })
+    console.log(' Tarefa deletada com sucesso')
+
+    // Verificar resultado final
+    const remainingTasks = await prisma.task.count()
+    console.log(' Tarefas restantes:', remainingTasks)
+
+  } catch (error) {
+    console.error(' Erro:', error)
+    console.log('\n Certifique-se de que executou:')
+    console.log('1. npx prisma migrate dev --name create_tasks_table')
+    console.log('2. npx prisma generate')
+  } finally {
+    await prisma.$disconnect()
+    console.log('\n Migrate test finalizado')
+  }
+}
+
+main()
+```
+
+​Execute o teste:
+
+
+```bash
+npx tsx migrate-simple.ts
+```
+
+",PrismaORM,rw1750769620065527d4b
+Produtos e lucros,Terceiro exercício da lista com o objetivo de garantir que o teste seja bem-sucedido,"**O problema:**
+
+Faça um método que leia o nome, o custo e o preço de venda de 50 produtos. O método deve contar quantos produtos têm:
+
+- Lucro menor que 10%
+- Lucro entre 10% e 30%
+- Lucro maior que 30%
+
+- O método deve calcular o lucro percentual de cada produto e contar quantos produtos se encaixam em cada faixa de lucro.
+
+### Exemplo:
+
+- Quando a entrada for:
+  - Nome: `Produto A`
+  - Custo: `R$50,00`
+  - Preço de venda: `R$55,00`
+- A saída deve ser `Lucro entre 10% e 30%`.
+
+",Array Simples,rw1727887740711bbc6c1
+Publicando seu Projeto com Netlify,"Aprenda a realizar o deploy de seu site no Netlify, configurando deploys automáticos e garantindo atualizações simples e eficientes","**Objetivo**  
+
+Realizar o **deploy** de um projeto já desenvolvido, utilizando o Netlify como plataforma de hospedagem. Este exercício permitirá que você aprenda a publicar seu site de forma prática e eficiente, disponibilizando-o online para acesso público. Além disso, você entenderá como configurar deploys automáticos, garantindo que futuras atualizações sejam aplicadas sem complicações.
+
+
+**Instruções**  
+
+1. **Preparando os Arquivos para o Deploy**  
+   Certifique-se de que o projeto desenvolvido nos exercícios anteriores está completo e organizado. Todos os arquivos do seu site, como HTML, CSS, JavaScript e quaisquer imagens ou recursos adicionais, devem estar reunidos em uma única pasta.  
+   
+   Revise o código para garantir que não existam erros que possam comprometer a funcionalidade ou a apresentação do site. Se houver algum arquivo desnecessário, remova-o para manter o projeto limpo e organizado.
+
+2. **Acessando o Netlify**  
+   - Visite o site [Netlify](https://netlify.com) e clique em **Sign Up** para criar uma conta gratuita ou em **Log In** se já tiver uma.  
+   - Após realizar o login, você será direcionado ao painel principal, onde poderá visualizar e gerenciar seus projetos hospedados no Netlify.
+
+3. **Deploy Manual (Para Projetos Simples)**  
+   - No painel do Netlify, clique no botão **""Add New Site""**. Em seguida, selecione a opção **""Deploy manually""**.  
+   - Você será levado para uma página onde poderá arrastar e soltar os arquivos do seu site. Localize a pasta do projeto no seu computador, selecione todos os arquivos e arraste-os para a área de upload no Netlify.  
+   - O Netlify fará o upload e processará automaticamente os arquivos, configurando o ambiente necessário para que seu site funcione corretamente.  
+
+   Após a conclusão do processo, o Netlify gerará um link público único que permitirá que qualquer pessoa acesse o seu site.  
+
+   - **Personalize o Domínio (Opcional):**  
+     Para tornar o link mais amigável, vá até as configurações do site clicando em **""Site Settings""**. Em **""Domain Settings""**, você pode alterar o subdomínio padrão ou conectar um domínio personalizado, como `www.seusite.com`.
+
+4. **Deploy Automatizado com GitHub**  
+   - Caso tenha versionado seu projeto com GitHub, você pode configurar o deploy automatizado. No painel do Netlify, clique novamente em **""Add New Site""** e escolha a opção **""Import from Git""**.  
+   - Autorize o Netlify a acessar sua conta do GitHub. Uma vez conectado, você verá uma lista de repositórios. Selecione o repositório que contém o projeto que deseja publicar.  
+   - Escolha a branch que será monitorada (geralmente ""main"" ou ""master""). Se o projeto for mais complexo (usando frameworks como React ou Vue), defina o comando de build, por exemplo:  
+     ```bash
+     npm run build
+     ```  
+   - Uma vez configurado, o Netlify monitorará a branch escolhida. Toda vez que você fizer um `push` para o repositório, o Netlify automaticamente realizará o build e atualizará o site.
+
+5. **Verificando o Deploy**  
+   - Após o deploy, acesse o link público gerado pelo Netlify para visualizar o seu site.  
+   - Teste o site em diferentes dispositivos e resoluções para garantir que ele funcione corretamente em todas as telas.  
+   - Se algo não estiver funcionando como esperado, você pode revisar os logs de build no painel do Netlify para identificar possíveis problemas e corrigi-los.
+
+
+**Resultado Esperado**  
+
+Ao concluir o exercício, seu projeto estará disponível online por meio de um link público gerado pelo Netlify. Com a configuração do deploy automatizado via GitHub, qualquer alteração feita no repositório será refletida automaticamente no site, garantindo que ele esteja sempre atualizado sem a necessidade de passos manuais adicionais.
+
+
+**Próximos Passos**  
+
+Com o site publicado, você pode começar a explorar outras funcionalidades oferecidas pelo Netlify, como configurações avançadas de deploy, integração com ferramentas de análise de tráfego e otimização de performance. Além disso, continue refinando o projeto com novas funcionalidades e melhorias."," Deploy com o Netlify",rw1731946635738b8a139
+Refatorando Arrays,Primeiro exercício da lista com objetivo de fixar os conceitos da refatoração em TypeScript,Refatore os exercícios do topico [**Arrays Simples**](https://staging--e-acelera-homologacao.netlify.app/Nivelamento/rw1720014886324a56ac2-Typescript:%20Lógica%20de%20Programação/rw1727203515904ad3fa2-Array%20Simples) do tema **TypeScript: Lógica de programação.**,Principais Técnicas de Refatoração em TypeScript,rw172795995480204cc77
+Refatorando Testes para Melhor Manutenção,"Nesta atividade, você vai refatorar um conjunto de testes para garantir que eles sejam organizados e fáceis de manter.","Nesta atividade, você vai refatorar um conjunto de testes para garantir que eles sejam organizados e fáceis de manter. O objetivo é garantir que os testes sejam reutilizáveis, claros e eficientes. A refatoração envolve o uso de boas práticas, como agrupar testes com `describe` e escrever os testes de forma que cubram diferentes cenários.
+
+**Objetivo**  
+- Refatorar os testes para garantir que eles sejam organizados e reutilizáveis.  
+- Criar um conjunto de testes que cubra diferentes cenários de maneira clara e eficiente.
+
+**Exemplo de código**:
+
+```javascript
+// calculator.js
+function multiply(a, b) {
+  return a * b;
+}
+
+function divide(a, b) {
+  if (b === 0) throw new Error('Cannot divide by zero');
+  return a / b;
+}
+
+module.exports = { multiply, divide };
+
+// calculator.test.js
+const { multiply, divide } = require('./calculator');
+
+describe('Funções de cálculo', () => {
+  test('multiplica dois números', () => {
+    expect(multiply(2, 3)).toBe(6);
+  });
+
+  test('divide dois números', () => {
+    expect(divide(6, 2)).toBe(3);
+  });
+
+  test('não pode dividir por zero', () => {
+    expect(() => divide(6, 0)).toThrow('Cannot divide by zero');
+  });
+});
+```
+---
+
+**Critérios de Aceitação**
+- Os testes devem estar bem organizados, com describe e test claros.
+- Os testes devem cobrir os cenários mais comuns e de erro.
+
+---
+
+**Recursos**
+- Use boas práticas para escrever testes reutilizáveis e organizados.
+- Tecnologias Recomendadas
+- Jest para testes unitários.
+",Boas Práticas de Testes,rw1732803174198ffbf6a
+Retornar a aluna com menor nota,"Nesta atividade, você irá retornar o nome da aluna com a menor nota","**O problema:**
+
+Faça uma função que receba uma lista pré-construída e retorne o nome da aluna com menor nota.
+",Métodos map filter e sort,rw1755093112006fb018e
+Retornar nomes das aprovadas,"Nesta atividade, você vai implementar as funções, usando métodos de array, para retornar os nomes das alunas aprovadas.","**O problema:**
+
+Faça uma função que receba uma lista pré-construída e retorne um array com os nomes das alunas aprovadas.
+",Métodos map filter e sort,rw17549300132192ebb02
+Retornar objeto com as informações das alunas,"Nesta atividade, você irá retornar um objeto com as informações das alunas aprovadas","**O problema**
+
+Fazer uma função que receba a lista pre constuida retorne um array de objetos com as seguintes propriedades:
+```javascript
+  [
+      { 
+          nome: String , 
+          media: Number, 
+          aprovada: Boolean 
+      }
+  ] 
+```
+**Exemplo de saída:**
+
+Deve ser feito calculo de media e retornada as seguintes informações de cada aluna:
+```javascript
+  [
+      { nome: ""Ashley"", media: 7.1, aprovada: true },
+      { nome: ""Sabrina"", media: 7.9, aprovada: true },
+      { nome: ""Samantha"", media: 5.0, aprovada: false }
+  ]
+```
+",Métodos map filter e sort,rw1755092831407e570c5
+Soma com ajuste,Sétimo exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+ Crie uma função chamada somaComAjuste que receba dois números inteiros. A função deve somar os dois valores e, dependendo do resultado, fazer um ajuste:
+
+Se a soma for maior que 20, adicione 8 ao valor.
+
+Se a soma for menor ou igual a 20, subtraia 5 do valor.
+
+## Exemplos:
+
+somaComAjuste(15, 10);
+
+Entrada: 15 e 10 → Soma: 25 → Resultado ajustado: 33
+
+somaComAjuste(12, 7);
+
+Entrada: 12 e 7 → Soma: 19 → Resultado ajustado: 14
+
+
+",Condicionais (Typescript: Lógica de Programação),rw1751552821533df6b2b
+Soma de intervalos,Quarto exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+
+
+Implemente o método `somarNumerosEntreMeN`, que recebe dois números M e N e retorna a soma de todos os números entre eles, inclusive M e N.
+
+
+
+- O método deve continuar pedindo pares até que o valor de M seja maior que N.
+
+
+
+## Exemplos:
+
+
+
+- Para a entrada `M = 1` e `N = 5`, a saída deve ser: `15` (pois 1 + 2 + 3 + 4 + 5 = 15).
+
+- Para a entrada `M = 10` e `N = 15`, a saída deve ser: `75` (pois 10 + 11 + 12 + 13 + 14 + 15 = 75).
+
+- Para a entrada `M = 3` e `N = 6`, a saída deve ser: `18`(pois 3+4+5+6=18).
+
+
+",Repetição (Typescript: Lógica de Programação),rw1751554459322694909
+Soma dobrada,Primeiro exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+Implemente o método `somaDobrada`, que recebe como argumento dois números inteiros e retorna um valor inteiro. A implementação deve considerar as seguintes regras:
+
+- Caso os dois números recebidos sejam iguais, o método retorna o dobro da soma;
+
+- Caso um dos números seja menor do que 1, o método retorna -1;
+
+- Caso nenhuma das condições anteriores seja verdadeira, o método retorna a soma dos dois números.
+
+## Casos de teste:
+
+- Quando a entrada for ""1"" e ""2"", a saida deve ser ""3""
+- Quando a entrada for ""3"" e ""2"", a saida deve ser ""5""
+- Quando a entrada for ""2"" e ""2"", a saida deve ser ""8""
+- Quando a entrada for ""7"" e ""7"", a saida deve ser ""28""
+- Quando a entrada for ""3"" e ""-3"", a saida deve ser ""-1""
+
+",Fundamentos(typescript Fundamentos),rw1751481256893111248
+Soma maior 50,Primeiro exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+Crie uma função chamada somaMaiorQueCinquenta que receba dois números inteiros. A função deve somar os dois números e retornar o valor da soma somente se o resultado for maior que 50. Caso contrário, a função deve retornar null.
+
+##  Exemplos:
+
+somaMaiorQueCinquenta(25,30);
+
+Entrada: 25 e 30 → Saída: 55
+
+somaMaiorQueCinquenta(20,35);
+
+Entrada: 20 e 25 → Saída: null
+
+
+",Condicionais (Typescript: Lógica de Programação),rw17515525189894c60af
+Testando a Soma com Jest,Nesta atividade você vai escrever um teste unitário simples para uma função que soma dois números,"Nesta atividade, você vai escrever um teste unitário simples para uma função que soma dois números. 
+
+O objetivo é entender como criar testes para funções que executam operações simples.
+
+---
+
+**Objetivo**  
+- Criar uma função `sum(a, b)` que recebe dois números e retorna a soma.  
+- Escrever um teste unitário usando Jest para verificar se a função está funcionando corretamente.  
+- Garantir que o teste passe para valores positivos e negativos.
+
+---
+
+**Exemplo de código**:
+
+```javascript
+// sum.js
+function sum(a, b) {
+  return a + b;
+}
+
+module.exports = { sum };
+
+// sum.test.js
+const { sum } = require('./sum');
+
+test('soma dois números positivos', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+
+test('soma números negativos', () => {
+  expect(sum(-1, -2)).toBe(-3);
+});
+```
+
+---
+
+**Critérios de Aceitação**
+
+A função sum deve retornar a soma de dois números corretamente.
+Os testes devem cobrir tanto números positivos quanto negativos.
+
+---
+
+**Recursos**
+
+Use Jest para rodar os testes.
+
+---
+
+**Tecnologias Recomendadas**
+
+Jest para testes unitários.",Conceitos Básicos de Testes Unitários,rw1732800899865ca56dd
+Testando Código com Banco de Dados Simulado,Nesta atividade você vai criar uma função que simula a inserção de dados em um banco de dados,"Nesta atividade, você vai criar uma função que simula a inserção de dados em um banco de dados. A interação com o banco será simulada utilizando mocks, o que permite que você teste a função sem depender de uma conexão real com o banco de dados. O uso de mocks é importante para isolar os testes e garantir que a lógica da função seja validada de maneira eficiente.
+
+**Objetivo**  
+- Criar uma função que insira dados em um banco de dados simulado.  
+- Simular a interação com o banco de dados utilizando mocks para garantir que o código funciona corretamente.
+
+**Exemplo de código**:
+
+```javascript
+// database.js
+function insertData(data) {
+  // Simula a inserção no banco de dados
+  return Promise.resolve({ id: 1, ...data });
+}
+
+module.exports = { insertData };
+
+// database.test.js
+const { insertData } = require('./database');
+
+jest.mock('./database');
+
+test('insere dados no banco', async () => {
+  insertData.mockResolvedValueOnce({ id: 1, name: 'John' });
+  const result = await insertData({ name: 'John' });
+  expect(result.id).toBe(1);
+  expect(result.name).toBe('John');
+});
+```
+
+---
+
+**Critérios de Aceitação**
+
+- O mock do banco de dados deve retornar dados simulados.
+- A função de inserção deve ser testada sem uma conexão real com o banco.
+
+---
+
+**Recursos**
+
+- Use Jest para mockar a interação com o banco de dados.
+
+---
+
+**Tecnologias Recomendadas**
+
+- Jest para testes unitários.
+",Testando Código com Dependências Externas,rw1732810429625e12b85
+Testando uma Função com Dependências Externas,Você irá criar e testar uma função que realiza uma requisição HTTP a uma API externa,"Nesta atividade, você vai testar uma função que depende de uma API externa. 
+
+O objetivo é aprender a mockar a resposta da API para que o teste seja controlado e não dependa de uma chamada real.
+
+---
+
+**Objetivo**
+
+- Escrever uma função fetchData(url) que faz uma requisição HTTP para uma URL e retorna os dados.
+- Criar um mock da API para testar a função sem fazer uma requisição real.~
+
+---
+
+**Exemplo de código:**
+
+```javascript
+// fetchData.js
+const fetch = require('node-fetch');
+
+async function fetchData(url) {
+  const response = await fetch(url);
+  return response.json();
+}
+
+module.exports = { fetchData };
+```
+
+
+```javascript
+// fetchData.test.js
+const { fetchData } = require('./fetchData');
+const fetch = require('node-fetch');
+
+jest.mock('node-fetch');
+
+test('mockando a API para retornar dados simulados', async () =&gt; {
+  fetch.mockResolvedValueOnce({
+    json: jest.fn().mockResolvedValue({ data: 'test data' }),
+  });
+
+  const result = await fetchData('https://api.example.com/data');
+  expect(result.data).toBe('test data');
+});
+```
+
+---
+
+**Critérios de Aceitação**
+
+- A função fetchData deve retornar a resposta mockada da API.
+- O mock deve ser configurado corretamente para simular a resposta da API.
+
+---
+
+**Recursos**
+
+- Use Jest para mockar a função da API.
+
+---
+
+**Tecnologias Recomendadas**
+
+Jest para testes unitários.
+",Testando Funções e Módulos com Jest,rw17328104408179a988d
+Teste  Componente de Contador,Nesta atividade você vai testar um componente contador utilizando Jest e React Testing Library,"Neste exercício, você irá criar um componente de contador que pode ser incrementado ao clicar em um botão. Em seguida, você escreverá testes para garantir que o botão está funcionando corretamente e que o valor do contador é exibido corretamente.
+
+---
+
+**Objetivo**  
+- Criar um componente React simples de contador.  
+- Escrever testes para verificar se o contador é incrementado corretamente ao clicar no botão.
+
+---
+
+**Exemplo de código**:
+
+```javascript
+// Counter.js
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increment = () =&gt; setCount(count + 1);
+
+  return (
+    
+      Contagem: {count}
+      Incrementar
+    
+  );
+}
+
+export default Counter;
+
+// Counter.test.js
+import { render, screen, fireEvent } from ' testing-library/react';
+import Counter from './Counter';
+
+test('deve exibir o contador e incrementar ao clicar no botão', () =&gt; {
+  render();
+  
+  const button = screen.getByText('Incrementar');
+  const countText = screen.getByText('Contagem: 0');
+  
+  expect(countText).toBeInTheDocument();
+
+  fireEvent.click(button);
+  const updatedCountText = screen.getByText('Contagem: 1');
+  
+  expect(updatedCountText).toBeInTheDocument();
+});
+```
+---
+
+**Critérios de Aceitação**
+
+- O componente deve exibir o valor inicial do contador como 0.
+- O contador deve ser incrementado em 1 cada vez que o botão for clicado.
+- O teste deve garantir que o valor exibido na tela seja atualizado corretamente.
+
+---
+
+**Recursos**
+
+- Use  testing-library/react para testar o componente.
+- Utilize fireEvent para simular o clique no botão e verificar a - atualização do contador.
+
+---
+
+**Tecnologias Recomendadas**
+
+- Jest para testes unitários. 
+
+- React Testing Library para renderização e interação com o componente."," Testando Componentes React ",rw1732812769706adad54
+Teste de Comparação de String,Nesta atividade você vai escrever um teste para comparar duas strings,"Nesta atividade, você vai escrever um teste para comparar duas strings. 
+
+O objetivo é entender como o Jest realiza comparações e verificar se os valores estão sendo retornados corretamente.
+
+---
+
+**Objetivo**  
+
+- Escrever uma função `compareStrings(str1, str2)` que compara duas strings e retorna se são iguais ou não.  
+- Criar testes para verificar se a função está funcionando corretamente.
+
+---
+
+**Exemplo de código**:
+
+```javascript
+// compareStrings.js
+function compareStrings(str1, str2) {
+  return str1 === str2;
+}
+
+module.exports = { compareStrings };
+```
+
+---
+
+```javascript
+// compareStrings.test.js
+const { compareStrings } = require('./compareStrings');
+
+test('compara duas strings iguais', () => {
+  expect(compareStrings('teste', 'teste')).toBe(true);
+});
+
+test('compara duas strings diferentes', () => {
+  expect(compareStrings('teste', 'outro')).toBe(false);
+});
+```",Escrevendo Testes Simples com Jest,rw1732803088332a5dd34
+Uniformizando Estilos em Navegadores com Reset.css,Entenda o Reset.css e como ele mantém a consistência visual em diferentes navegadores,"**Objetivo**
+
+Entender como aplicar o Reset.css no seu projeto, linkando-o ao HTML para uniformizar a aparência dos elementos. Esse exercício reforça a importância de uma configuração inicial para evitar variações indesejadas entre navegadores.
+
+**Instruções**
+
+1. **Revisão do Reset.css**
+
+    Certifique-se de que o arquivo `reset.css` foi criado e está salvo na mesma pasta que o seu HTML ou em uma pasta específica de estilos, conforme sua organização preferida.
+
+2. **Preparando o HTML para usar o Reset.css**
+
+    No seu arquivo HTML, localize a seção responsável por importar arquivos de estilo. Pense em qual seção do HTML faz essa função e onde deve ser posicionado o link para o `reset.css` dentro dessa estrutura.
+
+3. **Ligação dos Arquivos**
+
+    Refletindo sobre o nome e o caminho do arquivo `reset.css`, insira-o adequadamente dentro da seção do HTML que importa estilos. O objetivo é que o navegador carregue o reset antes de aplicar seus próprios estilos personalizados.
+
+4. **Teste**
+
+    Abra sua página em um navegador e verifique se os estilos padrão foram removidos. Esse é o indicativo de que o `reset.css` está funcionando corretamente.
+
+",Reset.css,rw17309876100642d9bba
+Vetor invertido,Segundo exercício da lista com o objetivo de aprofundar o aprendizado,"**O problema:**
+
+
+
+Desenvolva um método que leia um vetor de 30 números inteiros e gere um segundo vetor com os mesmos dados, mas na ordem invertida.
+
+
+
+- O método deve ler os 30 números e reverter a ordem deles no novo vetor.
+
+
+
+### Exemplo:
+
+
+
+- Quando a entrada for `[1, 2, 3, 4, 5]`, a saída deve ser `[5, 4, 3, 2, 1]`.
+
+
+
+"," Array simples  (Typescript: Lógica de Programação)",rw1751553389129395eda
