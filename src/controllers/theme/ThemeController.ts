@@ -14,15 +14,14 @@ export class ThemeController {
   }
 
   async getThemes(req: Request, res: Response) {
-   const dto = plainToInstance(GetThemeByCategoryDTO, req.query, { enableImplicitConversion: true },
+  const dto = plainToInstance(GetThemeByCategoryDTO, req.query, { enableImplicitConversion: true },
 );
     try {
-      if(dto) {
+      //if(dto) {
         await validateOrReject(dto);
-      } 
-      const themes = await this.themeService.getThemes(dto?.category);
+      //} 
+      const themes = await this.themeService.getThemes(dto.category);
       return res.status(STATUS_CODE.OK).json(themes);
-     
     } catch (error) {
       return res
         .status(STATUS_CODE.INTERNAL_SERVER_ERROR)

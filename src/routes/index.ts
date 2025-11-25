@@ -28,22 +28,16 @@ router.post("/login", (req, res) =>
   new LoginController().registerUser(req, res)
 );
 
-
+router.get("/themes", async (req, res) => {
+  new ThemeController().getThemes(req, res);
+});
 
 router.get("/themes/:id", async (req, res) => {
   new ThemeController().getThemeById(req, res);
 });
 
-router.get("/themes", async (req, res) => {
-  new ThemeController().getThemes(req, res);
-});
-
 router.get("/topics", async (req, res) => {
   new TopicController().getAllTopics(req, res);
-});
-
-router.get("/themes/:themeId/topics", async (req, res) => {
-  new TopicController().getTopicsByThemeId(req, res);
 });
 
 router.get("/topics/:id", async (req, res) => {
@@ -54,54 +48,13 @@ router.get("/exercises", async (req, res) => {
   new ExerciseController().getAllExercises(req, res);
 });
 
-router.get("/topics/:topicId/exercises", async (req, res) => {
-  new ExerciseController().getExercisesByTopicId(req, res);
-});
-
 router.get("/exercises/:id", async (req, res) => {
   new ExerciseController().getExerciseById(req, res);
 });
 
- router.get("/stackby/:endpoint", (req, res, next) =>
+router.get("/stackby/:endpoint", (req, res, next) =>
   new StackbyController().getStackbyData(req, res, next)
 );
-
-router.post('/user-preferences', async (req, res) => {
-  const flagsmithServerKey = process.env.FLAGSMITH_SERVER_KEY;
-  if (!flagsmithServerKey) {
-    return res.status(500).json({ error: "Configuração do servidor incompleta." });
-  }
-
-  const { identity, trait, value } = req.body;
-  if (!identity || !trait || value === undefined) {
-    console.log(identity, trait, value)
-    return res.status(400).json({ error: "Campos 'userId', 'key', e 'value' são obrigatórios." });
-  }
-
-  try {
-    const apiUrl = "https://edge.api.flagsmith.com/api/v1/identities";
-    console.log('aqui')
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-environment-key': flagsmithServerKey,
-      },
-      body: JSON.stringify({
-        identifier: identity,
-        traits: [{ trait_key: trait, trait_value: value }],
-      }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      return res.status(response.status).json({ error: "Falha ao salvar no serviço de preferências.", details: errorData });
-    }
-    return res.status(200).json({ success: true });
-  } catch (error) {
-    return res.status(500).json({ error: 'Erro interno do servidor.' });
-  }
-});
 
 router.use(validateTokenMiddleware);
 

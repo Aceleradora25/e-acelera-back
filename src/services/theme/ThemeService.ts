@@ -23,6 +23,9 @@ export class ThemeService {
   async getThemeById(id: string) {
       return await prisma.theme.findUnique({
         where: { id },
+        include: {
+          topic: true,
+        },
       });
   }
 }

@@ -97,7 +97,7 @@ const start = async () => {
   });
 
   app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}${admin.options.rootPath}`);
+    console.log(`Server is running on port http://localhost:${PORT}${admin.options.rootPath}`);
   });
 };
 
