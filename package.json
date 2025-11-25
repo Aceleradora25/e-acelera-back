@@ -8,10 +8,10 @@
     "db:seed": "prisma db seed",
     "start": "npx tsx src/index.ts",
     "dev": "nodemon --watch src --exec tsx src/index.ts",
-    "build": "npx prisma migrate deploy",
+    "build": "npx prisma@6 migrate deploy",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "postinstall": "npx prisma generate"
+    "postinstall": "npx prisma@6 generate"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
