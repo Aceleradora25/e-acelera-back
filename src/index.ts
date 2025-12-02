@@ -8,6 +8,7 @@ import Connect from 'connect-pg-simple'
 import session from 'express-session'
 import { Database, Resource, getModelByName } from '@adminjs/prisma'
 import prisma from '../client';
+import MarkdownField from "./adminjs/components/markdownField.js";
 
 const PORT = 5002;
 AdminJS.registerAdapter({ Database, Resource })
@@ -29,7 +30,20 @@ const start = async () => {
     const adminOptions = {
     resources: [{
       resource: { model: getModelByName('User'), client: prisma },
-      options: {},
+      options: {
+        properties: {
+          email: {
+          type: 'textarea', 
+          props: {
+            rows: 5, 
+          },
+          },
+          provider: {
+            type: 'textarea',
+            props: { rows: 3 },
+          }
+        }
+      }
     }, {
       resource: { model: getModelByName('Progress'), client: prisma },
       options: {},
