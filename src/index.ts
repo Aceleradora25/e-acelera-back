@@ -61,24 +61,79 @@ const start = async () => {
         resource: { model: getModelByName("Theme"), client: prisma },
         options: {
           properties: {
+            title: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+              components: {
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
+              },
+            },
+
             description: {
               type: "textarea",
               props: {
                 rows: 5,
               },
               components: {
-                // edit: MarkdownField,
-                // show: MarkdownField,
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
               },
             },
-            cardDescription: {
-              components: {
-                // edit: MarkdownField,
-                // show: MarkdownField,
-              },
+            shortDescription: {
               type: "textarea",
               props: {
-                rows: 10, // Aumenta a altura do MarkdownField
+                rows: 5,
+              },
+              components: {
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
+              },
+            },
+
+            // image: {
+            //   type: "textarea",
+            //   props: {
+            //     rows: 5,
+            //   },
+            //   components: {
+            //     edit: Components.RichTextEditor,
+            //     show: Components.RichTextEditor,
+            //   },
+            // },
+
+            // category: {
+            //   type: "textarea",
+            //   props: {
+            //     rows: 5,
+            //   },
+            //   components: {
+            //     edit: Components.RichTextEditor,
+            //     show: Components.RichTextEditor,
+            //   },
+            // },
+
+            // sequence: {
+            //   type: "textarea",
+            //   props: {
+            //     rows: 5,
+            //   },
+            //   components: {
+            //     edit: Components.RichTextEditor,
+            //     show: Components.RichTextEditor,
+            //   },
+            // },
+
+            alt: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+              components: {
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
               },
             },
           },
@@ -88,6 +143,17 @@ const start = async () => {
         resource: { model: getModelByName("Topic"), client: prisma },
         options: {
           properties: {
+            title: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+              components: {
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
+              },
+            },
+
             description: {
               type: "textarea",
               props: {
@@ -99,6 +165,27 @@ const start = async () => {
               },
             },
            
+            shortDescription: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+              components: {
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
+              },
+            },
+
+            references: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+              components: {
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
+              },
+            },
           },
         },
       },
