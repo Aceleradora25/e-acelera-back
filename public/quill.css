@@ -1,0 +1,10 @@
+@import "https://cdn.quilljs.com/1.3.6/quill.snow.css";
+
+p strong {
+    font-weight: 800 !important;
+};
+
+em {
+    font: italic 1rem inherit !important;
+    
+}

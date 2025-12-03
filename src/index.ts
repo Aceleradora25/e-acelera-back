@@ -2,102 +2,156 @@ import "reflect-metadata";
 import express from "express";
 import router from "./routes/index";
 import { errorHandlerMiddleware } from "./middleware/errorHandlerMiddleware";
-import AdminJS from "adminjs";
+import AdminJS, { brandingReducer, ComponentLoader} from "adminjs";
 import AdminJSExpress from "@adminjs/express";
-import Connect from 'connect-pg-simple'
-import session from 'express-session'
-import { Database, Resource, getModelByName } from '@adminjs/prisma'
-import prisma from '../client';
+import Connect from "connect-pg-simple";
+import session from "express-session";
+import { Database, Resource, getModelByName } from "@adminjs/prisma";
+import prisma from "../client";
 import MarkdownField from "./adminjs/components/markdownField.js";
+import { componentLoader, Components } from "./adminjs/component.js";
+import * as url from "url";
+import path from "path";
 
 const PORT = 5002;
-AdminJS.registerAdapter({ Database, Resource })
+AdminJS.registerAdapter({ Database, Resource });
 
 const DEFAULT_ADMIN = {
-  email: 'admin@example.com',
-  password: 'password',
-}
+  email: "admin@example.com",
+  password: "password",
+};
 
 const authenticate = async (email: string, password: string) => {
   if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) {
-    return Promise.resolve(DEFAULT_ADMIN)
+    return Promise.resolve(DEFAULT_ADMIN);
   }
-  return null
-}
+  return null;
+};
+
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 const start = async () => {
-
-    const adminOptions = {
-    resources: [{
-      resource: { model: getModelByName('User'), client: prisma },
-      options: {
-        properties: {
-          email: {
-          type: 'textarea', 
-          props: {
-            rows: 5, 
-          },
-          },
-          provider: {
-            type: 'textarea',
-            props: { rows: 3 },
-          }
-        }
-      }
-    }, {
-      resource: { model: getModelByName('Progress'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('Theme'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('Topic'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('Exercise'), client: prisma },
-      options: {},
-    }, {
-      resource: { model: getModelByName('Video'), client: prisma },
-      options: {},
+  const adminOptions = {
+    assets: {
+      styles: ["/quill.css"]
     },
-  ],
-  }
+    resources: [
+      {
+        resource: { model: getModelByName("User"), client: prisma },
+        options: {
+          properties: {
+            email: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+            },
+            provider: {
+              type: "textarea",
+              props: { rows: 3 },
+            },
+          },
+        },
+      },
+      {
+        resource: { model: getModelByName("Progress"), client: prisma },
+        options: {},
+      },
+      {
+        resource: { model: getModelByName("Theme"), client: prisma },
+        options: {
+          properties: {
+            description: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+              components: {
+                // edit: MarkdownField,
+                // show: MarkdownField,
+              },
+            },
+            cardDescription: {
+              components: {
+                // edit: MarkdownField,
+                // show: MarkdownField,
+              },
+              type: "textarea",
+              props: {
+                rows: 10, // Aumenta a altura do MarkdownField
+              },
+            },
+          },
+        },
+      },
+      {
+        resource: { model: getModelByName("Topic"), client: prisma },
+        options: {
+          properties: {
+            description: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+              components: {
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
+              },
+            },
+           
+          },
+        },
+      },
+      {
+        resource: { model: getModelByName("Exercise"), client: prisma },
+        options: {},
+      },
+      {
+        resource: { model: getModelByName("Video"), client: prisma },
+        options: {},
+      },
+    ],
+    componentLoader,
+
+  };
 
   const app = express();
   const admin = new AdminJS(adminOptions);
+  admin.watch()
 
-  const ConnectSession = Connect(session)
+  const ConnectSession = Connect(session);
   const sessionStore = new ConnectSession({
     conObject: {
       connectionString: process.env.DATABASE_URL,
-      ssl: process.env.NODE_ENV === 'production',
+      ssl: process.env.NODE_ENV === "production",
     },
-    tableName: 'session',
+    tableName: "session",
     createTableIfMissing: true,
-  })
+  });
 
   app.use(express.json());
+  app.use(express.static(path.join(__dirname, "../public")));
 
-    const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
+  const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
     admin,
     {
       authenticate,
-      cookieName: 'adminjs',
-      cookiePassword: 'sessionsecret',
+      cookieName: "adminjs",
+      cookiePassword: "sessionsecret",
     },
     null,
     {
       store: sessionStore,
       resave: true,
       saveUninitialized: true,
-      secret: 'sessionsecret',
+      secret: "sessionsecret",
       cookie: {
-        httpOnly: process.env.NODE_ENV === 'production',
-        secure: process.env.NODE_ENV === 'production',
+        httpOnly: process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === "production",
       },
-      name: 'adminjs',
+      name: "adminjs",
     }
-  )
+  );
   app.use(admin.options.rootPath, adminRouter);
   app.use(router);
   app.use(errorHandlerMiddleware);
@@ -111,7 +165,9 @@ const start = async () => {
   });
 
   app.listen(PORT, () => {
-    console.log(`Server is running on port http://localhost:${PORT}${admin.options.rootPath}`);
+    console.log(
+      `Server is running on port http://localhost:${PORT}${admin.options.rootPath}`
+    );
   });
 };
 
