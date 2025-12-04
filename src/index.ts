@@ -92,7 +92,6 @@ const start = async () => {
                 show: Components.RichTextEditor,
               },
             },
-
             // image: {
             //   type: "textarea",
             //   props: {
@@ -191,7 +190,42 @@ const start = async () => {
       },
       {
         resource: { model: getModelByName("Exercise"), client: prisma },
-        options: {},
+        options: {
+          properties: {
+            title: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+              components: {
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
+              },
+            },
+
+            description: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+              components: {
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
+              },
+            },
+           
+            shortDescription: {
+              type: "textarea",
+              props: {
+                rows: 5,
+              },
+              components: {
+                edit: Components.RichTextEditor,
+                show: Components.RichTextEditor,
+              },
+            },
+          },
+        },
       },
       {
         resource: { model: getModelByName("Video"), client: prisma },
