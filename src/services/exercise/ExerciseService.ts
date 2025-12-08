@@ -15,8 +15,21 @@ export class ExerciseService {
   async getExerciseById(id: string) {
       return await prisma.exercise.findUnique({
         where: { id },
-        include: {
-          topic: true,
+        select: {
+          id: true,
+          title: true,
+          shortDescription: true,
+          description: true,
+          sequence: true,
+          topic: {
+            select: {
+              exercises: {
+                select: {
+                  id: true,
+                }
+              }
+            }
+          }
         },
       });
   }
