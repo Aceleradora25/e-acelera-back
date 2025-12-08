@@ -17,9 +17,7 @@ export class ThemeController {
   const dto = plainToInstance(GetThemeByCategoryDTO, req.query, { enableImplicitConversion: true },
 );
     try {
-      //if(dto) {
-        await validateOrReject(dto);
-      //} 
+      await validateOrReject(dto);
       const themes = await this.themeService.getThemes(dto.category);
       return res.status(STATUS_CODE.OK).json(themes);
     } catch (error) {
@@ -33,7 +31,7 @@ export class ThemeController {
     const dto = plainToInstance(GetThemeByIdDTO, req.params, { enableImplicitConversion: true });
 
     try {
-       await validateOrReject(dto);
+      await validateOrReject(dto);
       const theme = await this.themeService.getThemeById(dto.id);
 
       if (!theme) {
@@ -49,12 +47,10 @@ export class ThemeController {
         .status(STATUS_CODE.BAD_REQUEST)
         .json({ message: error[0].constraints?.isNotEmpty || "Invalid Theme ID" });
     }
-      
+
         return res
         .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
         .json({ message: "Error fetching theme", details: error });
     }
   }
-
-  
 }

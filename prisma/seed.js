@@ -25,8 +25,12 @@ async function csvToJSON(filename) {
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("Iniciando seed...");
+  if(process.env.NODE_ENV === 'production') {
+    console.warn('Run of the seed script was skipped...')
+    return;
+  }
 
+  console.log("Iniciando seed...");
 
   await prisma.exercise.deleteMany();
   await prisma.topic.deleteMany();
