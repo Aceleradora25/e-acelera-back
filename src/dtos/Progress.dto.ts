@@ -1,11 +1,11 @@
 import { IsEnum } from "class-validator";
-import { IdType } from "../types/types";
+import { IdType } from "@/types/types.js";
 
 export class ProgressDTO {
-  id!: string;
+	id!: string;
 
-  @IsEnum(IdType, {
-    message: "Invalid or missing element idType."
-  })
-  idType!: IdType;
+	@IsEnum(IdType, {
+		message: "Invalid or missing element idType.",
+	})
+	idType!: IdType;
 }
