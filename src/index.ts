@@ -68,10 +68,10 @@ const start = async () => {
       },
       { resource: { model: getModelByName('User'), client: prisma }, options: {} },
       { resource: { model: getModelByName('Progress'), client: prisma }, options: {} },
-      { resource: { model: getModelByName('themes'), client: prisma }, options: {} },
-      { resource: { model: getModelByName('topics'), client: prisma }, options: {} },
-      { resource: { model: getModelByName('exercises'), client: prisma }, options: {} },
-      { resource: { model: getModelByName('videos'), client: prisma }, options: {} },
+      { resource: { model: getModelByName('Theme'), client: prisma }, options: {} },
+      { resource: { model: getModelByName('Topic'), client: prisma }, options: {} },
+      { resource: { model: getModelByName('Exercise'), client: prisma }, options: {} },
+      { resource: { model: getModelByName('Video'), client: prisma }, options: {} },
     ],
     rootPath: '/admin',
   };
@@ -129,7 +129,7 @@ const start = async () => {
   });
 
   app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}${admin.options.rootPath}`);
+    console.log(`Server is running on port http://localhost:${PORT}${admin.options.rootPath}`);
   });
 };
 
