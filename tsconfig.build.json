@@ -1,0 +1,48 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist",
+    "declaration": true,
+    "sourceMap": true,
+    "paths": {
+      "@/root/*": [
+        "./*"
+      ],
+      "@/src/*": [
+        "./src/*"
+      ],
+      "@/routes/*": [
+        "./src/routes/*"
+      ],
+      "@/dtos/*": [
+        "./src/dtos/*"
+      ],
+      "@/middlewares/*": [
+        "./src/middleware/*"
+      ],
+      "@/errors/*": [
+        "./src/errors/*"
+      ],
+      "@/controllers/*": [
+        "./src/controllers/*"
+      ],
+      "@/services/*": [
+        "./src/services/*"
+      ],
+      "@/utils/*": [
+        "./src/utils/*"
+      ],
+      "@/types/*": [
+        "./src/types/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "next-env.d.ts",
+    "src/**/*.tsx",
+    "prisma/seed.js",
+    "./client.ts"
+  ]
+}
