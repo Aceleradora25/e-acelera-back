@@ -47,7 +47,10 @@ export class StackbyService {
 					throw new Error(`Stackby API error: ${text}`);
 				}
 
-				return response.json();
+				const data = await response.json();
+				return !filter || filter instanceof StackbyStandardFilter
+					? data
+					: { data: data.data[0] };
 			},
 		);
 	}
