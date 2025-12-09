@@ -7,29 +7,26 @@
   - You are about to drop the `Video` table. If the table is not empty, all the data it contains will be lost.
 
 */
--- CreateEnum
-CREATE TYPE "Role" AS ENUM ('ADMIN', 'EDITOR', 'VIEWER');
+-- DropForeignKey
+ALTER TABLE "Exercise" DROP CONSTRAINT "Exercise_topicId_fkey";
 
 -- DropForeignKey
-ALTER TABLE "public"."Exercise" DROP CONSTRAINT "Exercise_topicId_fkey";
+ALTER TABLE "Topic" DROP CONSTRAINT "Topic_themeId_fkey";
 
 -- DropForeignKey
-ALTER TABLE "public"."Topic" DROP CONSTRAINT "Topic_themeId_fkey";
-
--- DropForeignKey
-ALTER TABLE "public"."Video" DROP CONSTRAINT "Video_topicId_fkey";
+ALTER TABLE "Video" DROP CONSTRAINT "Video_topicId_fkey";
 
 -- DropTable
-DROP TABLE "public"."Exercise";
+DROP TABLE "Exercise";
 
 -- DropTable
-DROP TABLE "public"."Theme";
+DROP TABLE "Theme";
 
 -- DropTable
-DROP TABLE "public"."Topic";
+DROP TABLE "Topic";
 
 -- DropTable
-DROP TABLE "public"."Video";
+DROP TABLE "Video";
 
 -- CreateTable
 CREATE TABLE "themes" (
@@ -81,18 +78,6 @@ CREATE TABLE "videos" (
     CONSTRAINT "videos_pkey" PRIMARY KEY ("idVideos")
 );
 
--- CreateTable
-CREATE TABLE "AdminUser" (
-    "id" SERIAL NOT NULL,
-    "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "role" "Role" NOT NULL DEFAULT 'VIEWER',
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "AdminUser_pkey" PRIMARY KEY ("id")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "themes_title_key" ON "themes"("title");
 
@@ -107,9 +92,6 @@ CREATE UNIQUE INDEX "videos_title_key" ON "videos"("title");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "videos_link_key" ON "videos"("link");
-
--- CreateIndex
-CREATE UNIQUE INDEX "AdminUser_email_key" ON "AdminUser"("email");
 
 -- AddForeignKey
 ALTER TABLE "topics" ADD CONSTRAINT "topics_themeId_fkey" FOREIGN KEY ("themeId") REFERENCES "themes"("idThemes") ON DELETE SET NULL ON UPDATE CASCADE;

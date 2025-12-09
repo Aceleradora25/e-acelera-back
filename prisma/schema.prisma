@@ -13,6 +13,8 @@ model User {
   provider  String
   loginDate DateTime
   Progress  Progress[]
+
+  @@map("users")
 }
 
 model Progress {
@@ -41,53 +43,66 @@ enum ElementType {
   Exercise
 }
 
-model themes {
-  idThemes        String   @id @default(cuid())
-  title           String   @unique
-  description     String?
-  cardDescription String?
-  image           String?
-  category        String?
-  sequence        Int?      @default(0)
-  alt             String?
-
-  topic           topics[]
+enum ThemeCategory {
+  Leveling @map("nivelamento")
+  SelfStudy @map("autoestudo")
 }
 
-model topics {
-  idTopics        String   @id @default(cuid())
-  title           String   @unique
-  cardDescription String?
-  description     String?
-  references      String?
+model Theme {
+  id               String        @id @default(cuid())
+  title            String
+  description      String
+  shortDescription String
+  image            String
+  category         ThemeCategory
+  sequence         Int           @default(0)
+  alt              String
 
-  themeId         String?
-  theme           themes?  @relation(fields: [themeId], references:[idThemes])
+  topic Topic[]
 
-  exercises       exercises[]
-  videos          videos[]
+  @@map("themes")
 }
 
-model exercises {
-  idExercises     String   @id @default(cuid())
-  title           String   @unique
-  cardDescription String?
-  description     String?
-  sequence        Int?      @default(0)
+model Topic {
+  id               String @id @default(cuid())
+  title            String
+  shortDescription String
+  description      String
+  references       String
 
-  topicId         String?
-  topic           topics?   @relation(fields: [topicId], references: [idTopics])
+  themeId String?
+  theme   Theme?  @relation(fields: [themeId], references: [id])
+
+  exercises Exercise[]
+  video   Video?
+
+  @@map("topics")
 }
 
-model videos {
-  idVideos        String   @id @default(cuid())
-  title           String   @unique
-  description     String?
-  references      String?
-  link            String   @unique
+model Exercise {
+  id               String @id @default(cuid())
+  title            String
+  shortDescription String
+  description      String
+  sequence         Int    @default(0)
 
-  topicId         String?
-  topic           topics?    @relation(fields: [topicId], references:[idTopics])
+  topicId String?
+  topic Topic? @relation(fields: [topicId], references: [id])
+
+  @@map("exercises")
+}
+
+model Video {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  references  String
+  link        String @unique
+
+  topicId String? @unique
+  topic Topic? @relation(fields: [topicId], references: [id])
+
+  @@map("videos")
 }
 
 model AdminUser {
@@ -104,3 +119,4 @@ enum Role {
   EDITOR
   VIEWER
 }
+

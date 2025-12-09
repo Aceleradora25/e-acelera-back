@@ -22,6 +22,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
       - name: Deploy to Homolog
         run: |
           echo "Commit from main being deployed: $(git rev-parse origin/main)"
