@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
-import prisma from "@/root/client.js";
-import { TokenService } from "@/services/TokenService.js";
-import { STATUS_CODE } from "@/utils/constants.js";
+import prisma from "../../client.js";
+import { TokenService } from "../services/TokenService.js";
+import { STATUS_CODE } from "../utils/constants.js";
 
 export async function validateTokenMiddleware(
 	req: Request,

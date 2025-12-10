@@ -1,8 +1,8 @@
 /** biome-ignore-all lint/complexity/useLiteralKeys: Usamos modificador de acesso private para as dependencias */
 import type { Request, Response } from "express";
-import { LoginController } from "@/controllers/login/LoginController.js";
-import { TokenService } from "@/services/TokenService.js";
-import { STATUS_CODE } from "@/utils/constants.js";
+import { TokenService } from "../../services/TokenService.js";
+import { STATUS_CODE } from "../../utils/constants.js";
+import { LoginController } from "./LoginController.js";
 
 jest.mock("../../services/TokenService");
 let controller: LoginController;

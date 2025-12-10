@@ -1,3 +1,5 @@
+import { ItemStatus } from "@prisma/client";
+import prisma from "../../../client.js";
 import {
 	type DataItem,
 	type GetProgress,
@@ -6,9 +8,7 @@ import {
 	type StackbyDataResponse,
 	type ThemeField,
 	type TopicField,
-} from "@/types/types.js";
-import { ItemStatus } from "@prisma/client";
-import prisma from "@/root/client.js";
+} from "../../types/types.js";
 
 export class ProgressService {
 	calculateProgressPercentage(
@@ -74,7 +74,7 @@ export class ProgressService {
 		const total = this.getTopicTotalItems(topicField);
 		const completed = await this.getTopicCompletedCount(userId, topic.id);
 		const progress = total ? Math.floor((completed / total) * 100) : 0;
-		return { topicId: topic.id, progress, completed, total };
+		return { completed, progress, topicId: topic.id, total };
 	}
 
 	private async calculateAllTopicsProgress(
@@ -89,7 +89,7 @@ export class ProgressService {
 		for (const topic of topics) {
 			const { topicId, progress, completed } =
 				await this.calculateTopicProgress(userId, topic);
-			topicsProgress.push({ topicId, progress });
+			topicsProgress.push({ progress, topicId });
 			totalCompleted += completed;
 		}
 		return { topicsProgress, totalCompleted };
@@ -149,8 +149,8 @@ export class ProgressService {
 		try {
 			return await prisma.progress.findFirst({
 				where: {
-					userId,
 					itemId,
+					userId,
 				},
 			});
 		} catch (_error) {
@@ -181,20 +181,20 @@ export class ProgressService {
 	}: SaveStatusProgress) {
 		try {
 			const createdProgress = await prisma.progress.upsert({
+				create: {
+					elementType,
+					itemId,
+					itemStatus,
+					themeId,
+					topicId,
+					userId,
+				},
+				update: { itemStatus },
 				where: {
 					itemId_userId: {
 						itemId,
 						userId,
 					},
-				},
-				update: { itemStatus },
-				create: {
-					itemId,
-					elementType,
-					userId,
-					itemStatus,
-					topicId,
-					themeId,
 				},
 			});
 

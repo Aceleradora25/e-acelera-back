@@ -1,12 +1,12 @@
 import express from "express";
 import { Flagsmith } from "flagsmith-nodejs";
-import { ExerciseController } from "@/controllers/exercise/ExerciseController.js";
-import { LoginController } from "@/controllers/login/LoginController.js";
-import { ProgressController } from "@/controllers/progress/ProgressController.js";
-import { StackbyController } from "@/controllers/stackby/StackbyController.js";
-import { ThemeController } from "@/controllers/theme/ThemeController.js";
-import { TopicController } from "@/controllers/topic/TopicController.js";
-import { validateTokenMiddleware } from "@/middlewares/validateTokenMiddleware.js";
+import { ExerciseController } from "../controllers/exercise/ExerciseController.js";
+import { LoginController } from "../controllers/login/LoginController.js";
+import { ProgressController } from "../controllers/progress/ProgressController.js";
+import { StackbyController } from "../controllers/stackby/StackbyController.js";
+import { ThemeController } from "../controllers/theme/ThemeController.js";
+import { TopicController } from "../controllers/topic/TopicController.js";
+import { validateTokenMiddleware } from "../middleware/validateTokenMiddleware.js";
 
 if (!process.env.FLAGSMITH_SERVER_KEY) {
 	throw new Error(

@@ -9,39 +9,6 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"forceConsistentCasingInFileNames": true,
-		"outDir": "dist",
-		"paths": {
-			"@/root/*": [
-				"./*"
-			],
-			"@/src/*": [
-				"./src/*"
-			],
-			"@/routes/*": [
-				"./src/routes/*"
-			],
-			"@/dtos/*": [
-				"./src/dtos/*"
-			],
-			"@/middlewares/*": [
-				"./src/middleware/*"
-			],
-			"@/errors/*": [
-				"./src/errors/*"
-			],
-			"@/controllers/*": [
-				"./src/controllers/*"
-			],
-			"@/services/*": [
-				"./src/services/*"
-			],
-			"@/utils/*": [
-				"./src/utils/*"
-			],
-			"@/types/*": [
-				"./src/types/*"
-			]
-		}
 	},
 	"include": [
 		"next-env.d.ts",

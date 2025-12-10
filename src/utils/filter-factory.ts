@@ -1,13 +1,13 @@
-import type { StackbyParamsDto } from "@/dtos/StackbyEndpoint.dto.js";
+import type { StackbyParamsDto } from "../dtos/StackbyEndpoint.dto.js";
 import {
 	MissingColumnError,
 	MissingValueError,
-} from "@/errors/StackbyErrors.js";
+} from "../errors/StackbyErrors.js";
 import {
 	STACKBY_FILTER_OPERATORS,
 	StackbyFilterById,
 	StackbyStandardFilter,
-} from "@/utils/stackby-filter.js";
+} from "../utils/stackby-filter.js";
 
 export function buildStackbyFilter(dto: StackbyParamsDto) {
 	if (!dto.operator) {

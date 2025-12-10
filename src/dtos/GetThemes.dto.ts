@@ -1,5 +1,5 @@
 import { IsEnum, IsOptional } from "class-validator";
-import { ThemeType } from "@/types/types.js";
+import { ThemeType } from "../types/types.js";
 
 export class GetThemesDTO {
 	@IsOptional()

@@ -1,10 +1,10 @@
 import { plainToInstance } from "class-transformer";
 import { ValidationError, validateOrReject } from "class-validator";
 import type { Request, Response } from "express";
-import { GetThemeByCategoryDTO } from "@/dtos/GetThemeByCategory.dto.js";
-import { GetThemeByIdDTO } from "@/dtos/GetThemeById.dto.js";
-import { ThemeService } from "@/services/theme/ThemeService.js";
-import { STATUS_CODE } from "@/utils/constants.js";
+import { GetThemeByCategoryDTO } from "../../dtos/GetThemeByCategory.dto.js";
+import { GetThemeByIdDTO } from "../../dtos/GetThemeById.dto.js";
+import { ThemeService } from "../../services/theme/ThemeService.js";
+import { STATUS_CODE } from "../../utils/constants.js";
 
 export class ThemeController {
 	private themeService: ThemeService;

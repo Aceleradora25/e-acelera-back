@@ -1,4 +1,4 @@
-import { IdType, StackbyEndpoint } from "@/types/types.js";
+import { IdType, StackbyEndpoint } from "../types/types.js";
 
 export enum STATUS_CODE {
 	OK = 200,

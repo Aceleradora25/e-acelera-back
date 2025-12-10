@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { TokenService } from "@/services/TokenService.js";
-import { STATUS_CODE } from "@/utils/constants.js";
+import { TokenService } from "../../services/TokenService.js";
+import { STATUS_CODE } from "../../utils/constants.js";
 
 export class LoginController {
 	private tokenService: TokenService;

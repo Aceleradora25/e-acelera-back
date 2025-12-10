@@ -1,5 +1,5 @@
 import { IsEnum } from "class-validator";
-import { IdType } from "@/types/types.js";
+import { IdType } from "../types/types.js";
 
 export class ProgressDTO {
 	id!: string;

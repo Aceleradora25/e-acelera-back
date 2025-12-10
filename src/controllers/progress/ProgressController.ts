@@ -1,12 +1,15 @@
 import { plainToInstance } from "class-transformer";
 import { validateOrReject } from "class-validator";
 import type { Request, Response } from "express";
-import { ProgressDTO } from "@/dtos/Progress.dto.js";
-import { SaveStatusProgressDTO } from "@/dtos/SaveStatusProgress.dto.js";
-import { ProgressService } from "@/services/progress/ProgressService.js";
-import { StackbyService } from "@/services/StackbyService.js";
-import { IdType, StackbyEndpoint } from "@/types/types.js";
-import { STACKBY_ENDPOINTS_HASHTABLE, STATUS_CODE } from "@/utils/constants.js";
+import { ProgressDTO } from "../../dtos/Progress.dto.js";
+import { SaveStatusProgressDTO } from "../../dtos/SaveStatusProgress.dto.js";
+import { ProgressService } from "../../services/progress/ProgressService.js";
+import { StackbyService } from "../../services/StackbyService.js";
+import { IdType, StackbyEndpoint } from "../../types/types.js";
+import {
+	STACKBY_ENDPOINTS_HASHTABLE,
+	STATUS_CODE,
+} from "../../utils/constants.js";
 
 export class ProgressController {
 	private progressService: ProgressService;

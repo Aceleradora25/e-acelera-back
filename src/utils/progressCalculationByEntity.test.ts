@@ -3,12 +3,12 @@ import {
 	StackbyEndpoint,
 	type ThemeField,
 	type TopicField,
-} from "@/types/types.js";
+} from "../types/types.js";
 import {
 	countThemeItems,
 	countTopicItems,
 	PROGRESS_CALCULATION_BY_ENTITY,
-} from "@/utils/progressCalculationByEntity.js";
+} from "./progressCalculationByEntity.js";
 
 describe("progressCalculationByEntity util", () => {
 	function makeTopicField(overrides: Partial<TopicField> = {}): TopicField {

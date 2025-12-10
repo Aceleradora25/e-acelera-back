@@ -1,4 +1,4 @@
-import prisma from "@/root/client.js";
+import prisma from "../../../client.js";
 
 export class TopicService {
 	async getAllTopics() {

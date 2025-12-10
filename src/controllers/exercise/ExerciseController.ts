@@ -1,10 +1,10 @@
 import { plainToInstance } from "class-transformer";
 import { ValidationError, validateOrReject } from "class-validator";
 import type { Request, Response } from "express";
-import { GetExerciseByIdDTO } from "@/dtos/GetExerciseById.dto.js";
-import { GetExercisesByTopicIdDTO } from "@/dtos/GetExercisesByTopicId.dto.js";
-import { ExerciseService } from "@/services/exercise/ExerciseService.js";
-import { STATUS_CODE } from "@/utils/constants.js";
+import { GetExerciseByIdDTO } from "../../dtos/GetExerciseById.dto.js";
+import { GetExercisesByTopicIdDTO } from "../../dtos/GetExercisesByTopicId.dto.js";
+import { ExerciseService } from "../../services/exercise/ExerciseService.js";
+import { STATUS_CODE } from "../../utils/constants.js";
 
 export class ExerciseController {
 	private exerciseService: ExerciseService;

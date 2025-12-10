@@ -1,7 +1,7 @@
 import { ElementType, ItemStatus } from "@prisma/client";
-import { prismaMock } from "@/root/singleton.js";
-import { ProgressService } from "@/services/progress/ProgressService.js";
-import { IdType } from "@/types/types.js";
+import { prismaMock } from "../../../singleton.js";
+import { IdType } from "../../types/types.js";
+import { ProgressService } from "./ProgressService.js";
 
 let progressService: ProgressService;
 beforeEach(() => {

@@ -1,8 +1,8 @@
-import * as crypto from "crypto";
+import * as crypto from "node:crypto";
 import * as dotenv from "dotenv";
 import * as jose from "jose";
-import prisma from "@/root/client.js";
-import type { UserToken } from "@/types/types.js";
+import prisma from "../../client.js";
+import type { UserToken } from "../types/types.js";
 
 dotenv.config();
 

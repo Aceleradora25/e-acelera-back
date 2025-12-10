@@ -1,32 +1,21 @@
+// const { pathsToModuleNameMapper } = require('ts-jest');
+// const { compilerOptions } = require('./tsconfig.json');
+
+/** @type {import("ts-jest").JestConfigWithTsJest} */
 module.exports = {
-  	preset: 'ts-jest/presets/default-esm',
-  	testEnvironment: 'node',
+  preset: "ts-jest/presets/default-esm",
+  testEnvironment: "node",
+  extensionsToTreatAsEsm: [".ts"],
+  transform: {
+    "^.+\\.ts?$": ["ts-jest", {
+      useESM: true,
+      diagnostics: {
+        ignoreCodes: [151002]
+      }
+    }],
+  },
 
-  	transform: {
-  	  '^.+\\.ts$': [
-  	    'ts-jest',
-  	    {
-  	      useESM: true,
-  	    },
-  	  ],
-  	},
-
-  	extensionsToTreatAsEsm: ['.ts'],
-
-  	moduleFileExtensions: ['ts', 'js', 'json', 'node'],
-
-  	moduleNameMapper: {
-		"^@/root/(.*)\\.js$": "<rootDir>/$1.ts",
-		"^@/src/(.*)\\.js$": "<rootDir>/src/$1.ts",
-		"^@/dtos/(.*)\\.js$": "<rootDir>/src/dtos/$1.ts",
-		"^@/middlewares/(.*)\\.js$": "<rootDir>/src/middleware/$1.ts",
-		"^@/errors/(.*)\\.js$": "<rootDir>/src/errors/$1.ts",
-		"^@/controllers/(.*)\\.js$": "<rootDir>/src/controllers/$1.ts",
-		"^@/services/(.*)\\.js$": "<rootDir>/src/services/$1.ts",
-		"^@/utils/(.*)\\.js$": "<rootDir>/src/utils/$1.ts",
-		"^@/types/(.*)\\.js$": "<rootDir>/src/types/$1.ts"
-	},
-
-	testPathIgnorePatterns: ["/node_modules/", "/.next/", "/dist/"],
-	setupFilesAfterEnv: ["<rootDir>/jest.setup.ts", "<rootDir>/singleton.ts"],
+  moduleNameMapper: {
+    "^(\\.{1,2}/.*)\\.js$": "$1",
+  },
 };

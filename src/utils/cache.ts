@@ -1,5 +1,5 @@
-import { redis } from "@/src/lib/redis.js";
-import { CACHE_TTL, IS_CACHE_ENABLED } from "@/utils/constants.js";
+import { redis } from "../lib/redis.js";
+import { CACHE_TTL, IS_CACHE_ENABLED } from "../utils/constants.js";
 
 export async function cacheOrFetch<T>(
 	key: string,

@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
-import { StackbyController } from "@/controllers/stackby/StackbyController.js";
-import { StackbyEndpoint } from "@/types/types.js";
-import { STATUS_CODE } from "@/utils/constants.js";
+import { StackbyEndpoint } from "../../types/types.js";
+import { STATUS_CODE } from "../../utils/constants.js";
+import { StackbyController } from "./StackbyController.js";
 
 describe("StackbyController", () => {
 	let controller: StackbyController;

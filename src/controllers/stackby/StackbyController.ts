@@ -1,11 +1,11 @@
 import { plainToInstance } from "class-transformer";
 import { validateOrReject } from "class-validator";
 import type { NextFunction, Request, Response } from "express";
-import { StackbyParamsDto } from "@/dtos/StackbyEndpoint.dto.js";
-import { BadRequestError } from "@/errors/HttpErrors.js";
-import { StackbyService } from "@/services/StackbyService.js";
-import { STATUS_CODE } from "@/utils/constants.js";
-import { buildStackbyFilter } from "@/utils/filter-factory.js";
+import { StackbyParamsDto } from "../../dtos/StackbyEndpoint.dto.js";
+import { BadRequestError } from "../../errors/HttpErrors.js";
+import { StackbyService } from "../../services/StackbyService.js";
+import { STATUS_CODE } from "../../utils/constants.js";
+import { buildStackbyFilter } from "../../utils/filter-factory.js";
 
 export class StackbyController {
 	private stackbyService: StackbyService;

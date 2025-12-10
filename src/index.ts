@@ -7,9 +7,9 @@ import Connect from "connect-pg-simple";
 import cors from "cors";
 import express from "express";
 import session from "express-session";
-import { errorHandlerMiddleware } from "@/middlewares/errorHandlerMiddleware.js";
-import prisma from "@/root/client.js";
-import router from "@/routes/index.js";
+import prisma from "../client.js";
+import { errorHandlerMiddleware } from "./middleware/errorHandlerMiddleware.js";
+import router from "./routes/index.js";
 
 const PORT = 5002;
 AdminJS.registerAdapter({ Database, Resource });
@@ -27,7 +27,7 @@ const authenticate = async (email: string, password: string) => {
 	return null;
 };
 
-const start = async () => {
+const start = () => {
 	const adminOptions = {
 		resources: [
 			{

@@ -3,12 +3,12 @@ import { ElementType, ItemStatus } from "@prisma/client";
 import { plainToClass } from "class-transformer";
 import { validateSync } from "class-validator";
 import type { Request, Response } from "express";
-import { ProgressController } from "@/controllers/progress/ProgressController.js";
-import { SaveStatusProgressDTO } from "@/dtos/SaveStatusProgress.dto.js";
-import { ProgressService } from "@/services/progress/ProgressService.js";
-import { StackbyService } from "@/services/StackbyService.js";
-import type { SingleProgressResponse } from "@/types/types.js";
-import { STATUS_CODE } from "@/utils/constants.js";
+import { ProgressController } from "../../controllers/progress/ProgressController.js";
+import { SaveStatusProgressDTO } from "../../dtos/SaveStatusProgress.dto.js";
+import { ProgressService } from "../../services/progress/ProgressService.js";
+import { StackbyService } from "../../services/StackbyService.js";
+import type { SingleProgressResponse } from "../../types/types.js";
+import { STATUS_CODE } from "../../utils/constants.js";
 
 jest.mock("../../services/Progress/ProgressService");
 jest.mock("../../services/UserService");

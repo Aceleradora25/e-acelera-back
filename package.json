@@ -4,13 +4,13 @@
 	"description": "A backend repository for e-acelera project",
 	"main": "src/index.ts",
 	"type": "module",
+
 	"scripts": {
 		"db:seed": "prisma db seed",
 		"db:migration-deploy": "npx prisma@6 migrate deploy",
-		"start": "node ./dist/src/index.js",
+		"start": "npx tsx src/index.ts",
 		"dev": "nodemon --watch src --exec tsx src/index.ts",
-		"build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
-		"build:prod": "npm run build && db:migration-deploy",
+		"build": "npx prisma@6 migrate deploy",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
 		"postinstall": "npx prisma@6 generate",

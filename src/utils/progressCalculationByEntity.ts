@@ -3,7 +3,7 @@ import {
 	StackbyEndpoint,
 	type ThemeField,
 	type TopicField,
-} from "@/types/types.js";
+} from "../types/types.js";
 
 export function countTopicItems(
 	id: string,

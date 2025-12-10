@@ -1,8 +1,8 @@
 process.env.STACKBY_BASE_URL = "http://fakeurl";
 process.env.STACKBY_SECRET_KEY = "fakekey";
 
-import { StackbyService } from "@/services/StackbyService.js";
-import { type StackbyDataResponse, StackbyEndpoint } from "@/types/types.js";
+import { StackbyService } from "../services/StackbyService.js";
+import { type StackbyDataResponse, StackbyEndpoint } from "../types/types.js";
 
 describe("StackbyService", () => {
 	let service: StackbyService;

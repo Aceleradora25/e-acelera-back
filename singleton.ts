@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { DeepMockProxy, mockDeep, mockReset } from "jest-mock-extended";
 
-import prisma from "@/root/client.js";
+import prisma from "./client.js";
 
 jest.mock("./client", () => ({
   __esModule: true,

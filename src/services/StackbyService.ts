@@ -1,15 +1,15 @@
-import { type StackbyDataResponse, StackbyEndpoint } from "@/types/types.js";
-import { cacheOrFetch } from "@/utils/cache.js";
+import { type StackbyDataResponse, StackbyEndpoint } from "../types/types.js";
+import { cacheOrFetch } from "../utils/cache.js";
 import {
 	REDIS_STACKBY_KEYS,
 	STACKBY_BASE_URL,
 	STACKBY_SECRET_KEY,
-} from "@/utils/constants.js";
-import { PROGRESS_CALCULATION_BY_ENTITY } from "@/utils/progressCalculationByEntity.js";
+} from "../utils/constants.js";
+import { PROGRESS_CALCULATION_BY_ENTITY } from "../utils/progressCalculationByEntity.js";
 import {
 	type StackbyFilter,
 	StackbyStandardFilter,
-} from "@/utils/stackby-filter.js";
+} from "../utils/stackby-filter.js";
 
 export class StackbyService {
 	async fetchStackbyData(
