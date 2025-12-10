@@ -23,7 +23,10 @@
 	"author": "daniellemadrid, barbaraanger, aceleradora-TW/teams/turma-25",
 	"license": "ISC",
 	"optionalDependencies": {
-    	"@rollup/rollup-linux-x64-gnu": "4.53.3"
+    	"@rollup/rollup-linux-x64-gnu": "*"
+	},
+	"overrides": {
+		"rollup": "npm:@rollup/wasm-node"
 	},
 	"dependencies": {
 		"@adminjs/express": "^6.1.1",
