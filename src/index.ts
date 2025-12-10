@@ -1,15 +1,20 @@
 import "reflect-metadata";
 import express from "express";
-import router from "./routes/index";
-import { errorHandlerMiddleware } from "./middleware/errorHandlerMiddleware";
+import 'dotenv/config';
+import router from "./routes/index.js";
+import { errorHandlerMiddleware } from "./middleware/errorHandlerMiddleware.js";
 import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
 import Connect from 'connect-pg-simple';
 import session from 'express-session';
 import { Database, Resource, getModelByName } from '@adminjs/prisma';
-import prisma from '../client';
+import prisma from '../client.js';
 import cors from "cors";
 import bcrypt from "bcryptjs";
+
+const COOKIE_PASSWORD = process.env.ADMINJS_COOKIE_PASSWORD;
+const SESSION_SECRET = process.env.ADMINJS_SESSION_SECRET;
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:3000";
 
 const PORT = 5002;
 AdminJS.registerAdapter({ Database, Resource });
@@ -28,6 +33,11 @@ const authenticate = async (email: string, password: string) => {
 };
 
 const start = async () => {
+
+  if (!COOKIE_PASSWORD || !SESSION_SECRET) {
+    throw new Error("ADMINJS_COOKIE_PASSWORD e ADMINJS_SESSION_SECRET devem ser definidas no arquivo .env");
+  }
+  
   const adminOptions = {
     resources: [
       {
@@ -91,7 +101,7 @@ const start = async () => {
 
   app.use(express.json());
   app.use(cors({
-    origin: "http://localhost:3000",
+    origin: CORS_ORIGIN,
     credentials: true,
   }));
 
@@ -100,14 +110,14 @@ const start = async () => {
     {
       authenticate,
       cookieName: 'adminjs',
-      cookiePassword: 'sessionsecret',
+      cookiePassword: COOKIE_PASSWORD,
     },
     null,
     {
       store: sessionStore,
       resave: true,
       saveUninitialized: true,
-      secret: 'sessionsecret',
+      secret: SESSION_SECRET,
       cookie: {
         httpOnly: process.env.NODE_ENV === 'production',
         secure: process.env.NODE_ENV === 'production',
