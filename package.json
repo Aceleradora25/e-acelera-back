@@ -12,7 +12,7 @@
 		"build": "npx prisma@6 migrate deploy",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
-		"postinstall": "npx prisma@6 generate && npm install --omit=optional",
+		"postinstall": "npx prisma@6 generate",
 		"biome:fmt": "biome format --write .",
 		"biome:fmt-check": "biome format --check ."
 	},
