@@ -4,6 +4,7 @@
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
 		"strict": true,
+		"outDir": "dist",
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"emitDecoratorMetadata": true,

@@ -10,7 +10,6 @@ import {
 	type StackbyFilter,
 	StackbyStandardFilter,
 } from "../utils/stackby-filter.js";
-
 export class StackbyService {
 	async fetchStackbyData(
 		endpoint: string,
