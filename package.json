@@ -7,12 +7,12 @@
 	"scripts": {
 		"db:seed": "prisma db seed",
 		"db:migration-deploy": "npx prisma@6 migrate deploy",
-    	"start": "node dist/index.js",
+		"start": "npx tsx src/index.ts",
 		"dev": "nodemon --watch src --exec tsx src/index.ts",
-		"build": "tsc",
+		"build": "npx prisma@6 migrate deploy",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
-		"postinstall": "npx prisma@6 generate",
+		"postinstall": "npx prisma@6 generate && npm install --omit=optional",
 		"biome:fmt": "biome format --write .",
 		"biome:fmt-check": "biome format --check ."
 	},
@@ -27,6 +27,7 @@
 		"@fast-csv/parse": "^5.0.5",
 		"@prisma/client": "^6.19.0",
 		"@upstash/redis": "^1.35.1",
+		"adminjs": "^7.8.17",
 		"bcryptjs": "^3.0.2",
 		"class-transformer": "^0.5.1",
 		"class-validator": "^0.14.2",
