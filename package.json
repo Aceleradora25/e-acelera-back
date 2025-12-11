@@ -7,9 +7,9 @@
 	"scripts": {
 		"db:seed": "prisma db seed",
 		"db:migration-deploy": "npx prisma@6 migrate deploy",
-		"start": "npx tsx src/index.ts",
+    	"start": "node dist/index.js",
 		"dev": "nodemon --watch src --exec tsx src/index.ts",
-		"build": "npx prisma@6 migrate deploy",
+		"build": "tsc",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
 		"postinstall": "npx prisma@6 generate",

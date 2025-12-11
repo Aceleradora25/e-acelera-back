@@ -1,0 +1,53 @@
+import { plainToInstance } from "class-transformer";
+import { ValidationError, validateOrReject } from "class-validator";
+import { GetThemeByCategoryDTO } from "../../dtos/GetThemeByCategory.dto.js";
+import { GetThemeByIdDTO } from "../../dtos/GetThemeById.dto.js";
+import { ThemeService } from "../../services/theme/ThemeService.js";
+import { STATUS_CODE } from "../../utils/constants.js";
+export class ThemeController {
+    themeService;
+    constructor() {
+        this.themeService = new ThemeService();
+    }
+    async getThemes(req, res) {
+        const dto = plainToInstance(GetThemeByCategoryDTO, req.query, {
+            enableImplicitConversion: true,
+        });
+        try {
+            await validateOrReject(dto);
+            const themes = await this.themeService.getThemes(dto.category);
+            return res.status(STATUS_CODE.OK).json(themes);
+        }
+        catch (_error) {
+            return res
+                .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
+                .json({ message: "Error fetching themes" });
+        }
+    }
+    async getThemeById(req, res) {
+        const dto = plainToInstance(GetThemeByIdDTO, req.params, {
+            enableImplicitConversion: true,
+        });
+        try {
+            await validateOrReject(dto);
+            const theme = await this.themeService.getThemeById(dto.id);
+            if (!theme) {
+                return res
+                    .status(STATUS_CODE.NOT_FOUND)
+                    .json({ message: "Theme not found" });
+            }
+            return res.status(STATUS_CODE.OK).json(theme);
+        }
+        catch (error) {
+            if (Array.isArray(error) &&
+                error.every((err) => err instanceof ValidationError)) {
+                return res.status(STATUS_CODE.BAD_REQUEST).json({
+                    message: error[0].constraints?.isNotEmpty || "Invalid Theme ID",
+                });
+            }
+            return res
+                .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
+                .json({ details: error, message: "Error fetching theme" });
+        }
+    }
+}
