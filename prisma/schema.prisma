@@ -13,6 +13,8 @@ model User {
   provider  String
   loginDate DateTime
   Progress  Progress[]
+
+  @@map("users")
 }
 
 model Progress {
