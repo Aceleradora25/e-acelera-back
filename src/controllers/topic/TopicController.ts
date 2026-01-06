@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { TopicService } from "../../services/topic/TopicService";
 import { STATUS_CODE } from "../../utils/constants";
-import { GetTopicByIdDTO } from "../../dtos/GetTopicById.dto.js";
+import { GetTopicByIdDTO } from "../../dtos/GetTopicById.dto";
 import { plainToInstance } from "class-transformer";
 import { validateOrReject, ValidationError } from "class-validator";
-import { GetTopicsByThemeIdDTO } from "../../dtos/GetTopicsByThemeId.dto.js";
+import { GetTopicsByThemeIdDTO } from "../../dtos/GetTopicsByThemeId.dto";
 
 export class TopicController {
   private topicService: TopicService;

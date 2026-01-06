@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import { STATUS_CODE } from "../../utils/constants";
 import { ThemeService } from "../../services/theme/ThemeService";
 import { plainToInstance } from "class-transformer";
-import { GetThemeByCategoryDTO } from "../../dtos/GetThemeByCategory.dto.js";
+import { GetThemeByCategoryDTO } from "../../dtos/GetThemeByCategory.dto";
 import { validateOrReject, ValidationError } from "class-validator";
-import { GetThemeByIdDTO } from "../../dtos/GetThemeById.dto.js";
+import { GetThemeByIdDTO } from "../../dtos/GetThemeById.dto";
 
 export class ThemeController {
   private themeService: ThemeService;

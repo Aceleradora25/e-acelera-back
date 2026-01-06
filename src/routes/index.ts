@@ -6,9 +6,9 @@ import { StackbyController } from "../controllers/stackby/StackbyController";
 import prisma from '../../client'
 import { Router } from 'express';
 import { Flagsmith } from 'flagsmith-nodejs';
-import { ThemeController } from "../controllers/theme/ThemeController.js";
-import { TopicController } from "../controllers/topic/TopicController.js";
-import { ExerciseController } from "../controllers/exercise/ExerciseController.js";
+import { ThemeController } from "../controllers/theme/ThemeController";
+import { TopicController } from "../controllers/topic/TopicController";
+import { ExerciseController } from "../controllers/exercise/ExerciseController";
 
 if (!process.env.FLAGSMITH_SERVER_KEY) {
   throw new Error("FATAL: A variável de ambiente FLAGSMITH_SERVER_KEY não está definida.");
