@@ -1,31 +1,52 @@
 import { ThemeCategory } from "@prisma/client";
-import prisma from "../../../client";
+import prisma from "../../../client.js";
+import { CreateThemeDTO } from "../../dtos/CreateTheme.dto"
 
 export class ThemeService {
   async getThemes(category?: ThemeCategory) {
-     
-    if(category) {
-      return await prisma.theme.findMany({
-        where: { category: ThemeCategory[category] },
-        orderBy: {
-          sequence: 'asc',
-        },
-      });
-    }
-    
+    const where = category ? { category } : {};
     return await prisma.theme.findMany({
-        orderBy: {
-          sequence: 'asc',
-        },
-      });
+      where,
+      orderBy: { sequence: "asc" },
+    });
   }
 
   async getThemeById(id: string) {
-      return await prisma.theme.findUnique({
-        where: { id },
-        include: {
-          topic: true,
-        },
-      });
+    return await prisma.theme.findUnique({
+      include: { topic: true },
+      where: { id },
+    });
+  }
+
+  async createTheme(dto: CreateThemeDTO) {
+    const theme = await prisma.theme.create({
+      data: {
+        title: dto.title,
+        description: dto.description,
+        shortDescription: dto.shortDescription,
+        image: dto.image,
+        alt: dto.alt,
+        category: dto.category,
+        sequence: dto.sequence || 0,
+        isActive: true,
+      },
+    });
+    return theme;
+  }
+
+  async updateTheme(id: string, dto: Partial<CreateThemeDTO>) {
+    const theme = await prisma.theme.update({
+      where: { id },
+      data: { ...dto },
+    });
+    return theme;
+  }
+
+  async deleteTheme(id: string) {
+    const theme = await prisma.theme.update({
+      where: { id },
+      data: { isActive: false },
+    });
+    return theme;
   }
 }

@@ -1,5 +1,6 @@
 import express from "express";
 import { validateTokenMiddleware } from "../middleware/validateTokenMiddleware";
+import { authorizeRoleMiddleware } from "../middleware/authorizeRoleMiddleware";
 import { LoginController } from "../controllers/login/LoginController";
 import { ProgressController } from "../controllers/progress/ProgressController";
 import { StackbyController } from "../controllers/stackby/StackbyController";
@@ -77,6 +78,12 @@ router.get("/progress/:id/:idType", (req, res) =>
 router.get("/themes/progress", (req, res) =>
   new ProgressController().getThemeProgress(req, res)
 );
+
+router.use(authorizeRoleMiddleware)
+
+router.post("/themes", async (req, res) => {
+  new ThemeController().createTheme(req, res)
+});
 
 
 export default router;

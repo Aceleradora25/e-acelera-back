@@ -19,11 +19,15 @@ export async function validateTokenMiddleware(req: Request, res: Response, next:
             return res.status(STATUS_CODE.TOKEN_EXPIRED).json({ message: "Token invalid" });
         }
 
-        const user = await prisma.user.findUnique({
-            where: {
-                email
-            }
-        })
+		const user = await prisma.user.findUnique({
+			where: {
+				email,
+			},
+			select: {
+				id: true,
+				role: true,
+			}
+		});
 
         if (!user) {
             return res
@@ -31,9 +35,11 @@ export async function validateTokenMiddleware(req: Request, res: Response, next:
                 .json({ message: "User not found" });
         }
 
-        req.user = { email, id: +user.id };
-        next();
-    } catch (error) {
-        return res.status(STATUS_CODE.UNAUTHORIZED).json({ message: "Authentication failed" });
-    }
+		req.user = { email, id: +user.id, role: user.role };
+		next();
+	} catch (_error) {
+		return res
+			.status(STATUS_CODE.UNAUTHORIZED)
+			.json({ message: "Authentication failed" });
+	}
 }
