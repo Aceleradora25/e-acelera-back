@@ -2,30 +2,29 @@ import { ThemeCategory } from "@prisma/client";
 import prisma from "../../../client";
 
 export class ThemeService {
-  async getThemes(category?: ThemeCategory) {
-     
-    if(category) {
-      return await prisma.theme.findMany({
-        where: { category: ThemeCategory[category] },
-        orderBy: {
-          sequence: 'asc',
-        },
-      });
-    }
-    
-    return await prisma.theme.findMany({
-        orderBy: {
-          sequence: 'asc',
-        },
-      });
-  }
+	async getThemes(category?: ThemeCategory) {
+		if (category) {
+			return await prisma.theme.findMany({
+				orderBy: {
+					sequence: "asc",
+				},
+				where: { category: ThemeCategory[category] },
+			});
+		}
 
-  async getThemeById(id: string) {
-      return await prisma.theme.findUnique({
-        where: { id },
-        include: {
-          topic: true,
-        },
-      });
-  }
+		return await prisma.theme.findMany({
+			orderBy: {
+				sequence: "asc",
+			},
+		});
+	}
+
+	async getThemeById(id: string) {
+		return await prisma.theme.findUnique({
+			include: {
+				topic: true,
+			},
+			where: { id },
+		});
+	}
 }
