@@ -39,7 +39,7 @@ export async function validateTokenMiddleware(
 				.json({ message: "User not found" });
 		}
 
-		req.user = { email, id: +user.id };
+		req.user = { email, id: +user.id};
 		next();
 	} catch (_error) {
 		return res
