@@ -4,9 +4,9 @@ import { ExerciseController } from "../controllers/exercise/ExerciseController.j
 import { LoginController } from "../controllers/login/LoginController.js";
 import { ProgressController } from "../controllers/progress/ProgressController.js";
 import { StackbyController } from "../controllers/stackby/StackbyController.js";
-import { ThemeController } from "../controllers/theme/ThemeController.js";
-import { TopicController } from "../controllers/topic/TopicController.js";
-import { validateTokenMiddleware } from "../middleware/validateTokenMiddleware.js";
+import { ThemeController } from "../controllers/theme/ThemeController";
+import { TopicController } from "../controllers/topic/TopicController";
+import { validateTokenMiddleware } from "../middleware/validateTokenMiddleware";
 
 if (!process.env.FLAGSMITH_SERVER_KEY) {
 	throw new Error(

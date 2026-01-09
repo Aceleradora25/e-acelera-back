@@ -1,8 +1,8 @@
 import { plainToInstance } from "class-transformer";
 import { ValidationError, validateOrReject } from "class-validator";
 import type { Request, Response } from "express";
-import { GetExerciseByIdDTO } from "../../dtos/GetExerciseById.dto.js";
-import { GetExercisesByTopicIdDTO } from "../../dtos/GetExercisesByTopicId.dto.js";
+import { GetExerciseByIdDTO } from "../../dtos/GetExerciseById.dto";
+import { GetExercisesByTopicIdDTO } from "../../dtos/GetExercisesByTopicId.dto";
 import { ExerciseService } from "../../services/exercise/ExerciseService.js";
 import { STATUS_CODE } from "../../utils/constants.js";
 

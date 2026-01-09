@@ -1,5 +1,5 @@
 import { ThemeCategory } from "@prisma/client";
-import prisma from "../../../client.js";
+import prisma from "../../../client";
 
 export class ThemeService {
 	async getThemes(category?: ThemeCategory) {

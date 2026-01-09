@@ -1,8 +1,8 @@
 import { plainToInstance } from "class-transformer";
 import { ValidationError, validateOrReject } from "class-validator";
 import type { Request, Response } from "express";
-import { GetThemeByCategoryDTO } from "../../dtos/GetThemeByCategory.dto.js";
-import { GetThemeByIdDTO } from "../../dtos/GetThemeById.dto.js";
+import { GetThemeByCategoryDTO } from "../../dtos/GetThemeByCategory.dto";
+import { GetThemeByIdDTO } from "../../dtos/GetThemeById.dto";
 import { ThemeService } from "../../services/theme/ThemeService.js";
 import { STATUS_CODE } from "../../utils/constants.js";
 
