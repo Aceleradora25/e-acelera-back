@@ -16,32 +16,32 @@ export class ThemeController {
 	}
 
 	async createTheme(req: Request, res: Response) {
-        const dto = plainToInstance(CreateThemeDTO, req.body, {
-            enableImplicitConversion: true,
-        });
+		const dto = plainToInstance(CreateThemeDTO, req.body, {
+			enableImplicitConversion: true,
+		});
 
-        try {
-            await validateOrReject(dto);
+		try {
+			await validateOrReject(dto);
 
-            const theme = await this.themeService.createTheme(dto);
+			const theme = await this.themeService.createTheme(dto);
 
-            return res.status(STATUS_CODE.CREATED).json(theme);
-        } catch (error: any) {
-            if (
-                Array.isArray(error) &&
-                error.every((err) => err instanceof ValidationError)
-            ) {
-                return res.status(STATUS_CODE.BAD_REQUEST).json({
-                    message: error[0].constraints?.isNotEmpty || "Invalid data",
-                });
-            }
+			return res.status(STATUS_CODE.CREATED).json(theme);
+		} catch (error: any) {
+			if (
+				Array.isArray(error) &&
+				error.every((err) => err instanceof ValidationError)
+			) {
+				return res.status(STATUS_CODE.BAD_REQUEST).json({
+					message: error[0].constraints?.isNotEmpty || "Invalid data",
+				});
+			}
 
-            return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
-                message: "Error creating theme",
-                details: error,
-            });
-        }
-    }
+			return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+				message: "Error creating theme",
+				details: error,
+			});
+		}
+	}
 
 	async getThemes(req: Request, res: Response) {
 		const dto = plainToInstance(GetThemeByCategoryDTO, req.query, {
@@ -62,76 +62,75 @@ export class ThemeController {
 		const dto = plainToInstance(GetThemeByIdDTO, req.params, {
 			enableImplicitConversion: true,
 		});
+			try {
+				await validateOrReject(dto);
+				const theme = await this.themeService.getThemeById(dto.id);
 
-		try {
-			await validateOrReject(dto);
-			const theme = await this.themeService.getThemeById(dto.id);
-
-			if (!theme) {
+				if (!theme) {
+					return res
+						.status(STATUS_CODE.NOT_FOUND)
+						.json({ message: "Theme not found" });
+				}
+				return res.status(STATUS_CODE.OK).json(theme);
+			} catch (error) {
+				if (
+					Array.isArray(error) &&
+					error.every((err) => err instanceof ValidationError)
+				) {
+					return res.status(STATUS_CODE.BAD_REQUEST).json({
+						message: error[0].constraints?.isNotEmpty || "Invalid Theme ID",
+					});
+				}
 				return res
-					.status(STATUS_CODE.NOT_FOUND)
-					.json({ message: "Theme not found" });
+					.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
+					.json({ details: error, message: "Error fetching theme" });
 			}
+		}
 
-			return res.status(STATUS_CODE.OK).json(theme);
-		} catch (error) {
-			if (
-				Array.isArray(error) &&
-				error.every((err) => err instanceof ValidationError)
-			) {
-				return res.status(STATUS_CODE.BAD_REQUEST).json({
-					message: error[0].constraints?.isNotEmpty || "Invalid Theme ID",
+
+		async updateTheme(req: Request, res: Response) {
+			console.log("PARAMS:", req.params);
+			console.log("BODY:", req.body);
+			const id = req.params.id.trim();
+
+			const dto = plainToInstance(UpdateThemeDTO, req.body, {
+				enableImplicitConversion: true,
+			});
+
+			try {
+				await validateOrReject(dto);
+
+				const theme = await this.themeService.updateTheme(id, dto);
+
+				return res.status(STATUS_CODE.OK).json(theme);
+			} catch (error: any) {
+				if (
+					Array.isArray(error) &&
+					error.every((err) => err instanceof ValidationError)
+				) {
+					return res.status(STATUS_CODE.BAD_REQUEST).json({
+						message: "Invalid data for update",
+					});
+				}
+
+				return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+					message: "Error updating theme",
+					details: error,
 				});
 			}
+		}
 
-			return res
-				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-				.json({ details: error, message: "Error fetching theme" });
+  async deleteTheme(req: Request, res: Response) {
+			const id = req.params.id.trim();
+
+			try {
+				const theme = await this.themeService.deleteTheme(id);
+				return res.status(STATUS_CODE.OK).json(theme);
+			} catch (error: any) {
+				return res
+					.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
+					.json({ message: "Error deleting theme", details: error });
+			}
 		}
 	}
 
-	async updateTheme(req: Request, res: Response) {
-        console.log("PARAMS:", req.params);
-  console.log("BODY:", req.body);
-  const id = req.params.id.trim();
-
-  const dto = plainToInstance(UpdateThemeDTO, req.body, {
-  enableImplicitConversion: true,
-});
-
-  try {
-    await validateOrReject(dto);
-
-    const theme = await this.themeService.updateTheme(id, dto);
-
-    return res.status(STATUS_CODE.OK).json(theme);
-  } catch (error: any) {
-    if (
-      Array.isArray(error) &&
-      error.every((err) => err instanceof ValidationError)
-    ) {
-      return res.status(STATUS_CODE.BAD_REQUEST).json({
-        message: "Invalid data for update",
-      });
-    }
-
-    return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
-      message: "Error updating theme",
-      details: error,
-    });
-  }
-}
-
-  async deleteTheme(req: Request, res: Response) {
-    const id = req.params.id.trim();
-
-    try {
-        const theme = await this.themeService.deleteTheme(id);
-        return res.status(STATUS_CODE.OK).json(theme);
-    } catch (error: any) {
-        return res
-            .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-            .json({ message: "Error deleting theme", details: error });
-    }
-  }
-}
