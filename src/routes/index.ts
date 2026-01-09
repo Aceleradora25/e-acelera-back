@@ -85,6 +85,13 @@ router.post("/themes", async (req, res) => {
   new ThemeController().createTheme(req, res)
 });
 
+router.patch("/themes/:id", (req, res) => {
+  new ThemeController().updateTheme(req, res);
+});
+
+router.delete("/themes/:id", (req, res) => {
+  new ThemeController().deleteTheme(req, res);
+});
 
 export default router;
 

@@ -5,7 +5,6 @@ import { UserToken } from "../types/types"
 import prisma from "../../client"
 
 dotenv.config()
-
 export class TokenService {
   private secretKey = process.env.NEXTAUTH_SECRET || ""
 

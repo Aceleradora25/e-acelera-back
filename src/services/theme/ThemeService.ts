@@ -1,7 +1,7 @@
 import { ThemeCategory } from "@prisma/client";
 import prisma from "../../../client.js";
 import { CreateThemeDTO } from "../../dtos/CreateTheme.dto"
-
+import { UpdateThemeDTO } from "../../dtos/UpdateTheme.dto";
 export class ThemeService {
   async getThemes(category?: ThemeCategory) {
     const where = category ? { category } : {};
@@ -34,13 +34,24 @@ export class ThemeService {
     return theme;
   }
 
-  async updateTheme(id: string, dto: Partial<CreateThemeDTO>) {
-    const theme = await prisma.theme.update({
-      where: { id },
-      data: { ...dto },
-    });
-    return theme;
+  async updateTheme(id: string, dto: UpdateThemeDTO) {
+  const existingTheme = await prisma.theme.findUnique({
+    where: { id },
+  });
+
+  if (!existingTheme) {
+    throw new Error("Theme not found");
   }
+
+  const theme = await prisma.theme.update({
+    where: { id },
+    data: {
+      ...dto,
+    },
+  });
+
+  return theme;
+}
 
   async deleteTheme(id: string) {
     const theme = await prisma.theme.update({
