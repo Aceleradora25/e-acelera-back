@@ -89,8 +89,6 @@ export class ThemeController {
 
 
 		async updateTheme(req: Request, res: Response) {
-			console.log("PARAMS:", req.params);
-			console.log("BODY:", req.body);
 			const id = req.params.id.trim();
 
 			const dto = plainToInstance(UpdateThemeDTO, req.body, {
