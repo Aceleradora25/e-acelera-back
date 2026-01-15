@@ -1,12 +1,13 @@
 import express from "express";
-import { Flagsmith } from "flagsmith-nodejs";
-import { ExerciseController } from "../controllers/exercise/ExerciseController.js";
-import { LoginController } from "../controllers/login/LoginController.js";
-import { ProgressController } from "../controllers/progress/ProgressController.js";
-import { StackbyController } from "../controllers/stackby/StackbyController.js";
+import { validateTokenMiddleware } from "../middleware/validateTokenMiddleware";
+import { authorizeRoleMiddleware } from "../middleware/authorizeRoleMiddleware";
+import { LoginController } from "../controllers/login/LoginController";
+import { ProgressController } from "../controllers/progress/ProgressController";
+import { StackbyController } from "../controllers/stackby/StackbyController";
+import { Flagsmith } from 'flagsmith-nodejs';
 import { ThemeController } from "../controllers/theme/ThemeController";
 import { TopicController } from "../controllers/topic/TopicController";
-import { validateTokenMiddleware } from "../middleware/validateTokenMiddleware";
+import { ExerciseController } from "../controllers/exercise/ExerciseController";
 
 if (!process.env.FLAGSMITH_SERVER_KEY) {
 	throw new Error(
@@ -49,10 +50,6 @@ router.get("/exercises", (req, res) => {
 	new ExerciseController().getAllExercises(req, res);
 });
 
-router.get("/exercises/:id", (req, res) => {
-	new ExerciseController().getExerciseById(req, res);
-});
-
 router.get("/stackby/:endpoint", (req, res, next) =>
 	new StackbyController().getStackbyData(req, res, next),
 );
@@ -74,5 +71,22 @@ router.get("/status/:topicId/item/:itemId", (req, res) =>
 router.get("/progress/:id/:idType", (req, res) =>
 	new ProgressController().getProgressPercentageById(req, res),
 );
+
+router.use(authorizeRoleMiddleware)
+
+router.post("/themes", async (req, res) => {
+  new ThemeController().createTheme(req, res)
+});
+
+router.patch("/themes/:id", (req, res) => {
+  new ThemeController().updateTheme(req, res);
+});
+
+/*
+* to-do:wip
+router.delete("/themes/:id", (req, res) => {
+  new ThemeController().deleteTheme(req, res);
+});
+*/
 
 export default router;

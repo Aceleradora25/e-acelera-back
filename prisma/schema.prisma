@@ -45,7 +45,7 @@ enum ElementType {
 }
 
 enum ThemeCategory {
-  Leveling  @map("nivelamento")
+  Leveling @map("nivelamento")
   SelfStudy @map("autoestudo")
 }
 
@@ -58,6 +58,7 @@ model Theme {
   category         ThemeCategory
   sequence         Int           @default(0)
   alt              String
+  isActive       Boolean       @default(true)
 
   topic Topic[]
 
@@ -75,7 +76,7 @@ model Topic {
   theme   Theme?  @relation(fields: [themeId], references: [id])
 
   exercises Exercise[]
-  video     Video?
+  video   Video?
 
   @@map("topics")
 }
@@ -88,7 +89,7 @@ model Exercise {
   sequence         Int    @default(0)
 
   topicId String?
-  topic   Topic?  @relation(fields: [topicId], references: [id])
+  topic Topic? @relation(fields: [topicId], references: [id])
 
   @@map("exercises")
 }
@@ -101,7 +102,7 @@ model Video {
   link        String @unique
 
   topicId String? @unique
-  topic   Topic?  @relation(fields: [topicId], references: [id])
+  topic Topic? @relation(fields: [topicId], references: [id])
 
   @@map("videos")
 }
