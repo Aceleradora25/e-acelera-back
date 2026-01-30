@@ -30,12 +30,28 @@ router.post("/login", (req, res) =>
 	new LoginController().registerUser(req, res),
 );
 
+router.post("/themes", async (req, res) => {
+	new ThemeController().createTheme(req, res)
+});
+
+router.patch("/themes/:id", (req, res) => {
+	new ThemeController().updateTheme(req, res);
+});
+
 router.get("/themes", (req, res) => {
 	new ThemeController().getThemes(req, res);
 });
 
 router.get("/themes/:id", (req, res) => {
 	new ThemeController().getThemeById(req, res);
+});
+
+router.post("/topics", async (req, res) => {
+	new TopicController().createTopic(req, res)
+});
+
+router.patch("/topics/:id", (req, res) => {
+	new TopicController().updateTopic(req, res);
 });
 
 router.get("/topics", (req, res) => {
@@ -73,14 +89,6 @@ router.get("/progress/:id/:idType", (req, res) =>
 );
 
 router.use(authorizeRoleMiddleware)
-
-router.post("/themes", async (req, res) => {
-  new ThemeController().createTheme(req, res)
-});
-
-router.patch("/themes/:id", (req, res) => {
-  new ThemeController().updateTheme(req, res);
-});
 
 /*
 * to-do:wip
