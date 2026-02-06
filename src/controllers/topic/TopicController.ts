@@ -142,10 +142,9 @@ export class TopicController {
 
 	async deleteTopic(req: Request, res: Response) {
 		const id = req.params.id.trim();
-
 		try {
-			const topic = await this.topicService.deleteTopic(id);
-			return res.status(STATUS_CODE.OK).json(topic);
+			await this.topicService.deleteTopic(id);
+			return res.status(STATUS_CODE.OK).json({ message: "Topic deleted with success" });
 		} catch (error: any) {
 			return res
 				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)

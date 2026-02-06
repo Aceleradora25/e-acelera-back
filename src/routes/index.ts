@@ -62,6 +62,10 @@ router.get("/topics/:id", (req, res) => {
 	new TopicController().getTopicById(req, res);
 });
 
+router.delete("/topics/:id", (req, res) => {
+	new TopicController().deleteTopic(req, res);
+});
+
 router.get("/exercises", (req, res) => {
 	new ExerciseController().getAllExercises(req, res);
 });

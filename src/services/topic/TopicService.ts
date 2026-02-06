@@ -68,10 +68,20 @@ export class TopicService {
 	}
 
 	async deleteTopic(id: string) {
-		const topic = await prisma.topic.update({
+		const existingTopic = await prisma.topic.findUnique({
 			where: { id },
-			data: { isActive: false },
 		});
-		return topic;
+
+		if (!existingTopic) {
+			throw new Error("Topic not found");
+		}
+		if (existingTopic.isActive) {
+			throw new Error("Can't delete active topic");
+		}
+
+		await prisma.topic.delete({
+			where: { id },
+			},
+		);
 	}
 }
