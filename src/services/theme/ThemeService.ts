@@ -3,13 +3,24 @@ import prisma from "../../../client.js";
 import { CreateThemeDTO } from "../../dtos/CreateTheme.dto"
 import { UpdateThemeDTO } from "../../dtos/UpdateTheme.dto";
 export class ThemeService {
-  async getThemes(category?: ThemeCategory) {
+  //async getThemes(category?: ThemeCategory) {
+   async getThemes(category?: ThemeCategory, page: number = 1, limit: number = 10) { //Geo
     const where = category ? { category } : {};
-    return await prisma.theme.findMany({
+     const skip = (page - 1) * limit; //geo
+   /* return await prisma.theme.findMany({
       where,
       orderBy: { sequence: "asc" },
-    });
-  }
+    }); */
+
+    const [theme, total] = await Promise.all([prisma.theme.findMany({
+      where,
+      orderBy: { sequence: "asc"},
+      skip: skip,
+      take: limit,
+    }), //Geo
+    prisma.theme.count({ where }) ]) //Geo
+    return { data: ThemeService, meta: { total, page, limit, totalPages:Math.ceil(total / limit),}}
+    } //Geo
 
   async getThemeById(id: string) {
     return await prisma.theme.findUnique({
