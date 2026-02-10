@@ -49,11 +49,9 @@ export class ThemeController {
 		});
 		try {
 			await validateOrReject(dto);
-			const page = parseInt(req.query.page as string) || 1; //geo
-			const limit = parseInt(req.query.limit as string) || 10; //geo
-			const result = await this.themeService.getThemes(dto.category, page, limit); //geo
-			//const themes = await this.themeService.getThemes(dto.category);
-			//return res.status(STATUS_CODE.OK).json(themes);
+			const page = parseInt(req.query.page as string) || 1; 
+			const limit = parseInt(req.query.limit as string) || 10; 
+			const result = await this.themeService.getThemes(dto.category, page, limit); 
 			return res.status(STATUS_CODE.OK).json(result);
 		} catch (_error) {
 			return res

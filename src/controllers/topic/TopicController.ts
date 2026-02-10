@@ -13,9 +13,12 @@ export class TopicController {
 		this.topicService = new TopicService();
 	}
 
-	async getAllTopics(_req: Request, res: Response) {
+	async getAllTopics(req: Request, res: Response) {
+
 		try {
-			const topics = await this.topicService.getAllTopics();
+			const page = parseInt(req.query.page as string) || 1;
+			const limit = parseInt(req.query.limit as string) || 10;
+			const topics = await this.topicService.getAllTopics(page, limit);
 			return res.status(STATUS_CODE.OK).json(topics);
 		} catch (_error) {
 			return res

@@ -1,26 +1,29 @@
 import { ThemeCategory } from "@prisma/client";
 import prisma from "../../../client.js";
-import { CreateThemeDTO } from "../../dtos/CreateTheme.dto"
+import { CreateThemeDTO } from "../../dtos/CreateTheme.dto";
 import { UpdateThemeDTO } from "../../dtos/UpdateTheme.dto";
+import { pagination } from "../../utils/pagination";
 export class ThemeService {
-  //async getThemes(category?: ThemeCategory) {
-   async getThemes(category?: ThemeCategory, page: number = 1, limit: number = 10) { //Geo
-    const where = category ? { category } : {};
-     const skip = (page - 1) * limit; //geo
-   /* return await prisma.theme.findMany({
-      where,
-      orderBy: { sequence: "asc" },
-    }); */
 
-    const [theme, total] = await Promise.all([prisma.theme.findMany({
-      where,
-      orderBy: { sequence: "asc"},
-      skip: skip,
-      take: limit,
-    }), //Geo
-    prisma.theme.count({ where }) ]) //Geo
-    return { data: ThemeService, meta: { total, page, limit, totalPages:Math.ceil(total / limit),}}
-    } //Geo
+  async getThemes(category?: ThemeCategory, page: number = 1, limit: number = 10) {
+
+    const where = category ? { category } : {};
+    const { skip, take } = pagination(page, limit);
+
+    const [themes, total] = await Promise.all([
+      prisma.theme.findMany({
+        where,
+        orderBy: { sequence: "asc" },
+        skip,
+        take,
+      }),
+      prisma.theme.count({ where }),
+    ]); 
+    return {
+      data: themes,
+      meta: { total, page, limit: take, totalPages: Math.ceil(total / take) },
+    };
+  } 
 
   async getThemeById(id: string) {
     return await prisma.theme.findUnique({
@@ -46,23 +49,23 @@ export class ThemeService {
   }
 
   async updateTheme(id: string, dto: UpdateThemeDTO) {
-  const existingTheme = await prisma.theme.findUnique({
-    where: { id },
-  });
+    const existingTheme = await prisma.theme.findUnique({
+      where: { id },
+    });
 
-  if (!existingTheme) {
-    throw new Error("Theme not found");
+    if (!existingTheme) {
+      throw new Error("Theme not found");
+    }
+
+    const theme = await prisma.theme.update({
+      where: { id },
+      data: {
+        ...dto,
+      },
+    });
+
+    return theme;
   }
-
-  const theme = await prisma.theme.update({
-    where: { id },
-    data: {
-      ...dto,
-    },
-  });
-
-  return theme;
-}
 
   async deleteTheme(id: string) {
     const theme = await prisma.theme.update({
