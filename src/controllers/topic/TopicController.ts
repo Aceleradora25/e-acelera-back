@@ -5,12 +5,42 @@ import { GetTopicByIdDTO } from "../../dtos/GetTopicById.dto";
 import { GetTopicsByThemeIdDTO } from "../../dtos/GetTopicsByThemeId.dto";
 import { TopicService } from "../../services/topic/TopicService.js";
 import { STATUS_CODE } from "../../utils/constants.js";
+import { CreateTopicDTO } from "../../dtos/CreateTopic.dto";
+import { UpdateTopicDTO } from "../../dtos/UpdateTopic.dto";
 
 export class TopicController {
 	private topicService: TopicService;
 
 	constructor() {
 		this.topicService = new TopicService();
+	}
+
+	async createTopic(req: Request, res: Response) {
+		const dto = plainToInstance(CreateTopicDTO, req.body, {
+			enableImplicitConversion: true,
+		});
+
+		try {
+			await validateOrReject(dto);
+
+			const topic = await this.topicService.createTopic(dto);
+
+			return res.status(STATUS_CODE.CREATED).json(topic);
+		} catch (error: any) {
+			if (
+				Array.isArray(error) &&
+				error.every((err) => err instanceof ValidationError)
+			) {
+				return res.status(STATUS_CODE.BAD_REQUEST).json({
+					message: error[0].constraints?.isNotEmpty || "Invalid data",
+				});
+			}
+
+			return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+				message: "Error creating topic",
+				details: error,
+			});
+		}
 	}
 
 	async getAllTopics(_req: Request, res: Response) {
@@ -77,6 +107,48 @@ export class TopicController {
 			return res
 				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
 				.json({ message: "Error fetching topics by theme ID" });
+		}
+	}
+
+	async updateTopic(req: Request, res: Response) {
+		const id = req.params.id.trim();
+
+		const dto = plainToInstance(UpdateTopicDTO, req.body, {
+			enableImplicitConversion: true,
+		});
+
+		try {
+			await validateOrReject(dto);
+
+			const topic = await this.topicService.updateTopic(id, dto);
+
+			return res.status(STATUS_CODE.OK).json(topic);
+		} catch (error: any) {
+			if (
+				Array.isArray(error) &&
+				error.every((err) => err instanceof ValidationError)
+			) {
+				return res.status(STATUS_CODE.BAD_REQUEST).json({
+					message: "Invalid data for update",
+				});
+			}
+
+			return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+				message: "Error updating topic",
+				details: error,
+			});
+		}
+	}
+
+	async deleteTopic(req: Request, res: Response) {
+		const id = req.params.id.trim();
+		try {
+			await this.topicService.deleteTopic(id);
+			return res.status(STATUS_CODE.OK).json({ message: "Topic deleted with success" });
+		} catch (error: any) {
+			return res
+				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
+				.json({ message: "Error deleting topic", details: error });
 		}
 	}
 }
