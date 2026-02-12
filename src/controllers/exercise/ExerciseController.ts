@@ -13,9 +13,11 @@ export class ExerciseController {
 		this.exerciseService = new ExerciseService();
 	}
 
-	async getAllExercises(_req: Request, res: Response) {
+	async getAllExercises(req: Request, res: Response) {
 		try {
-			const exercises = await this.exerciseService.getAllExercises();
+			const page = parseInt(req.query.page as string) || 1;
+			const limit = parseInt(req.query.limit as string) || 10;
+			const exercises = await this.exerciseService.getAllExercises(page, limit);
 			return res.status(STATUS_CODE.OK).json(exercises);
 		} catch (_error) {
 			return res
