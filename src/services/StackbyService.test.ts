@@ -23,7 +23,7 @@ describe("StackbyService", () => {
 			(fetch as jest.Mock).mockResolvedValue({ json: mockJson, ok: true });
 			const result = await service.fetchStackbyData("Themes", null);
 			expect(fetch).toHaveBeenCalledWith(
-				expect.stringContaining("http://fakeurl/endpoint"),
+				expect.stringContaining("http://fakeurl/Themes"),
 				expect.objectContaining({
 					headers: expect.objectContaining({
 						"x-api-key": "fakekey",
