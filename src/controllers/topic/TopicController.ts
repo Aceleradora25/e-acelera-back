@@ -7,6 +7,7 @@ import { TopicService } from "../../services/topic/TopicService.js";
 import { STATUS_CODE } from "../../utils/constants.js";
 import { CreateTopicDTO } from "../../dtos/CreateTopic.dto";
 import { UpdateTopicDTO } from "../../dtos/UpdateTopic.dto";
+import { getPaginationParams } from "../../utils/pagination";
 
 export class TopicController {
 	private topicService: TopicService;
@@ -43,9 +44,11 @@ export class TopicController {
 		}
 	}
 
-	async getAllTopics(_req: Request, res: Response) {
+	async getAllTopics(req: Request, res: Response) {
+
 		try {
-			const topics = await this.topicService.getAllTopics();
+			const { page, limit } = getPaginationParams(req);
+			const topics = await this.topicService.getAllTopics(page, limit);
 			return res.status(STATUS_CODE.OK).json(topics);
 		} catch (_error) {
 			return res

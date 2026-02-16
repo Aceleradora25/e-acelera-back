@@ -1,6 +1,7 @@
 import prisma from "../../../client";
 import { CreateTopicDTO } from "../../dtos/CreateTopic.dto";
 import { UpdateTopicDTO } from "../../dtos/UpdateTopic.dto";
+import { createPaginationMeta, pagination } from "../../utils/pagination";
 
 export class TopicService {
 	async createTopic(dto: CreateTopicDTO) {
@@ -17,14 +18,25 @@ export class TopicService {
 		return topic;
 	}
 
-	async getAllTopics() {
-		return await prisma.topic.findMany({
+	async getAllTopics(page: number = 1, limit: number = 10) {
+		const { skip, take } = pagination(page, limit);
+
+		const total = await prisma.topic.count();
+		const topics = await
+		prisma.topic.findMany({
 			include: {
 				exercises: true,
 				theme: true,
 				video: true,
 			},
+			skip,
+			take,
 		});
+ 
+	 return {
+      data: topics,
+      meta: createPaginationMeta(total, page, take),
+    };
 	}
 
 	async getTopicById(id: string) {
