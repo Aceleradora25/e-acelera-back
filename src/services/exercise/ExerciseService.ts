@@ -22,6 +22,7 @@ export class ExerciseService {
 				description: dto.description,
 				sequence: dto.sequence || 0,
 				topicId: dto.topicId || null,
+				isActive: true,
 			},
 			include: { topic: true },
 		});
@@ -38,11 +39,7 @@ export class ExerciseService {
 		const updated = await prisma.exercise.update({
 			where: { id },
 			data: {
-				...(dto.title !== undefined && { title: dto.title }),
-				...(dto.shortDescription !== undefined && { shortDescription: dto.shortDescription }),
-				...(dto.description !== undefined && { description: dto.description }),
-				...(dto.sequence !== undefined && { sequence: dto.sequence }),
-				...(dto.topicId !== undefined && { topicId: dto.topicId }),
+				...dto,
 			},
 			include: { topic: true },
 		});
