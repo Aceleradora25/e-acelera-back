@@ -1,26 +1,23 @@
 import prisma from "../../../client";
-import { pagination } from "../../utils/pagination";
+import { createPaginationMeta, pagination } from "../../utils/pagination";
 
 export class ExerciseService {
 	async getAllExercises(page: number = 1, limit: number = 10) {
 		const { skip, take } = pagination(page, limit);
 
-		const [exercises, total] = await Promise.all([
-			prisma.exercise.findMany({
-				include: {
+		const total = await prisma.exercise.count();
+		const exercises = await prisma.exercise.findMany({
+		 include: {
 					topic: true,
 				},
 				orderBy: {
 					sequence: "asc",
 				},
 				skip,
-				take,
-			}),
-			prisma.exercise.count({ where: {} }),
-		]);
+				take,});
 		return {
 			data: exercises,
-			meta: { total, page, limit: take, totalPages: Math.ceil(total / take) },
+			meta: createPaginationMeta(total, page, take),
 		};
 	}
 

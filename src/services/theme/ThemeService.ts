@@ -2,7 +2,7 @@ import { ThemeCategory } from "@prisma/client";
 import prisma from "../../../client.js";
 import { CreateThemeDTO } from "../../dtos/CreateTheme.dto";
 import { UpdateThemeDTO } from "../../dtos/UpdateTheme.dto";
-import { pagination } from "../../utils/pagination";
+import { createPaginationMeta, pagination } from "../../utils/pagination";
 export class ThemeService {
 
   async getThemes(category?: ThemeCategory, page: number = 1, limit: number = 10) {
@@ -10,18 +10,16 @@ export class ThemeService {
     const where = category ? { category } : {};
     const { skip, take } = pagination(page, limit);
 
-    const [themes, total] = await Promise.all([
-      prisma.theme.findMany({
+    const total = await prisma.theme.count({ where: {} });
+		const themes = await prisma.theme.findMany({
         where,
         orderBy: { sequence: "asc" },
         skip,
         take,
-      }),
-      prisma.theme.count({ where }),
-    ]); 
+      });
     return {
       data: themes,
-      meta: { total, page, limit: take, totalPages: Math.ceil(total / take) },
+      meta: createPaginationMeta(total, page, take),
     };
   } 
 

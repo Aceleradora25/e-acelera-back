@@ -5,6 +5,7 @@ import { GetExerciseByIdDTO } from "../../dtos/GetExerciseById.dto";
 import { GetExercisesByTopicIdDTO } from "../../dtos/GetExercisesByTopicId.dto";
 import { ExerciseService } from "../../services/exercise/ExerciseService.js";
 import { STATUS_CODE } from "../../utils/constants.js";
+import { getPaginationParams } from "../../utils/pagination";
 
 export class ExerciseController {
 	private exerciseService: ExerciseService;
@@ -15,8 +16,7 @@ export class ExerciseController {
 
 	async getAllExercises(req: Request, res: Response) {
 		try {
-			const page = parseInt(req.query.page as string) || 1;
-			const limit = parseInt(req.query.limit as string) || 10;
+			const { page, limit } = getPaginationParams(req);
 			const exercises = await this.exerciseService.getAllExercises(page, limit);
 			return res.status(STATUS_CODE.OK).json(exercises);
 		} catch (_error) {
