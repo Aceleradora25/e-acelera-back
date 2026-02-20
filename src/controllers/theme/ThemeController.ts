@@ -7,6 +7,7 @@ import { CreateThemeDTO } from "../../dtos/CreateTheme.dto.js";
 import { UpdateThemeDTO } from "../../dtos/UpdateTheme.dto.js";
 import { ThemeService } from "../../services/theme/ThemeService.js";
 import { STATUS_CODE } from "../../utils/constants.js";
+import { getPaginationParams } from "../../utils/pagination.js";
 
 export class ThemeController {
 	private themeService: ThemeService;
@@ -49,12 +50,13 @@ export class ThemeController {
 		});
 		try {
 			await validateOrReject(dto);
-			const themes = await this.themeService.getThemes(dto.category);
-			return res.status(STATUS_CODE.OK).json(themes);
+			const { page, limit } = getPaginationParams(req);
+			const result = await this.themeService.getThemes(dto.category, page, limit); 
+			return res.status(STATUS_CODE.OK).json(result);
 		} catch (_error) {
 			return res
 				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-				.json({ message: "Error fetching themes" });
+				.json({ message: "Error fetching themes", details: _error });
 		}
 	}
 

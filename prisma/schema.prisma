@@ -71,6 +71,7 @@ model Topic {
   shortDescription String
   description      String
   references       String
+  isActive       Boolean       @default(true)
 
   themeId String?
   theme   Theme?  @relation(fields: [themeId], references: [id])
