@@ -94,6 +94,25 @@ router.get("/progress/:id/:idType", (req, res) =>
 
 router.use(authorizeRoleMiddleware)
 
+router.post("/themes", async (req, res) => {
+  new ThemeController().createTheme(req, res)
+});
+
+router.patch("/themes/:id", (req, res) => {
+  new ThemeController().updateTheme(req, res);
+});
+
+router.post("/exercises", (req, res) => {
+	new ExerciseController().createExercise(req, res);
+});
+
+router.patch("/exercises/:id", (req, res) => {
+	new ExerciseController().updateExercise(req, res);
+});
+
+router.delete("/exercises/:id", (req, res) => {
+	new ExerciseController().deleteExercise(req, res);
+});
 /*
 * to-do:wip
 router.delete("/themes/:id", (req, res) => {
