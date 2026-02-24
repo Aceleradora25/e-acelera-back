@@ -17,8 +17,7 @@ export class StackbyService {
 		filter?: StackbyFilter | null,
 	): Promise<StackbyDataResponse> {
 		const apiKey: string = STACKBY_SECRET_KEY || "";
-		const uniqueParam: string = `nocache=${Date.now()}`;
-		let url: string = `${STACKBY_BASE_URL}/${endpoint}?${uniqueParam}`;
+		let url: string = `${STACKBY_BASE_URL}/${endpoint}?latest=true`;
 		let filterKey = "";
 
 		if (filter) {
