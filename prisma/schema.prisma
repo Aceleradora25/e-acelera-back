@@ -71,6 +71,7 @@ model Topic {
   shortDescription String
   description      String
   references       String
+  isActive       Boolean       @default(true)
 
   themeId String?
   theme   Theme?  @relation(fields: [themeId], references: [id])
@@ -87,6 +88,7 @@ model Exercise {
   shortDescription String
   description      String
   sequence         Int    @default(0)
+  isActive       Boolean @default(true)
 
   topicId String?
   topic Topic? @relation(fields: [topicId], references: [id])
