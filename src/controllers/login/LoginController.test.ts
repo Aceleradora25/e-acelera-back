@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 import { TokenService } from "../../services/TokenService.js";
 import { STATUS_CODE } from "../../utils/constants.js";
 import { LoginController } from "./LoginController.js";
+import { Role } from "@prisma/client";
 
 jest.mock("../../services/TokenService");
 let controller: LoginController;
@@ -74,6 +75,7 @@ describe("LoginController - registerUser", () => {
 			id: 1,
 			loginDate: date,
 			provider: "google",
+			role: Role.ADMIN,
 		});
 
 		await controller.registerUser(req as Request, res as Response);
@@ -140,6 +142,7 @@ describe("LoginController - registerUser", () => {
 			id: 2,
 			loginDate: date,
 			provider: "github",
+			role: Role.ADMIN,
 		});
 
 		await controller.registerUser(req as Request, res as Response);
