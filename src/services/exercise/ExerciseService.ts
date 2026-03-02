@@ -1,7 +1,7 @@
-import prisma from "../../../client";
-import { CreateExerciseDTO } from "../../dtos/CreateExercise.dto";
-import { UpdateExerciseDTO } from "../../dtos/UpdateExercise.dto";
-import { createPaginationMeta, pagination } from "../../utils/pagination";
+import prisma from '../../../client.js';
+import { CreateExerciseDTO } from '../../dtos/CreateExercise.dto.js';
+import { UpdateExerciseDTO } from '../../dtos/UpdateExercise.dto.js';
+import { createPaginationMeta, pagination } from '../../utils/pagination.js';
 
 export class ExerciseService {
 	async getAllExercises(page: number = 1, limit: number = 10) {
@@ -9,14 +9,15 @@ export class ExerciseService {
 
 		const total = await prisma.exercise.count();
 		const exercises = await prisma.exercise.findMany({
-		 include: {
-					topic: true,
-				},
-				orderBy: {
-					sequence: "asc",
-				},
-				skip,
-				take,});
+			include: {
+				topic: true,
+			},
+			orderBy: {
+				sequence: 'asc',
+			},
+			skip,
+			take,
+		});
 		return {
 			data: exercises,
 			meta: createPaginationMeta(total, page, take),
@@ -42,7 +43,7 @@ export class ExerciseService {
 	async updateExercise(id: string, dto: UpdateExerciseDTO) {
 		const existing = await prisma.exercise.findUnique({ where: { id } });
 		if (!existing) {
-			throw new Error("Exercise not found");
+			throw new Error('Exercise not found');
 		}
 
 		const updated = await prisma.exercise.update({
@@ -73,7 +74,7 @@ export class ExerciseService {
 	async getExercisesByTopicId(topicId: string) {
 		return await prisma.exercise.findMany({
 			orderBy: {
-				sequence: "asc",
+				sequence: 'asc',
 			},
 			where: { topicId },
 		});
