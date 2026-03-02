@@ -57,6 +57,14 @@ export class ExerciseService {
 	}
 
 	async deleteExercise(id: string) {
+		const existing = await prisma.exercise.findUnique({ where: { id } });
+		if (!existing) {
+			throw new Error("Exercise not found");
+		}
+		if (existing.isActive) {
+			throw new Error("Exercise must be inactive to delete");
+		}
+
 		const deleted = await prisma.exercise.delete({ where: { id } });
 		return deleted;
 	}

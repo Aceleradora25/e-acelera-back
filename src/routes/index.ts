@@ -70,6 +70,10 @@ router.get("/exercises", (req, res) => {
 	new ExerciseController().getAllExercises(req, res);
 });
 
+router.get("/exercises/:id", (req, res) => {
+	new ExerciseController().getExerciseById(req, res);
+});
+
 router.get("/stackby/:endpoint", (req, res, next) =>
 	new StackbyController().getStackbyData(req, res, next),
 );
@@ -113,6 +117,7 @@ router.patch("/exercises/:id", (req, res) => {
 router.delete("/exercises/:id", (req, res) => {
 	new ExerciseController().deleteExercise(req, res);
 });
+
 /*
 * to-do:wip
 router.delete("/themes/:id", (req, res) => {

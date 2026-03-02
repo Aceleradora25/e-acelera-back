@@ -148,8 +148,22 @@ export class ExerciseController {
 
 		try {
 			const exercise = await this.exerciseService.deleteExercise(id);
-			return res.status(STATUS_CODE.OK).json(exercise);
+			return res.status(STATUS_CODE.OK).json({
+				message: "Exercise deleted successfully",
+				exercise,
+			});
 		} catch (error: any) {
+			if (error.message === "Exercise not found") {
+				return res
+					.status(STATUS_CODE.NOT_FOUND)
+					.json({ message: error.message });
+			}
+			if (error.message === "Exercise must be inactive to delete") {
+				return res
+					.status(STATUS_CODE.BAD_REQUEST)
+					.json({ message: error.message });
+			}
+
 			return res
 				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
 				.json({ message: "Error deleting exercise", details: error });
