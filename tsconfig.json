@@ -1,13 +1,15 @@
 {
 	"compilerOptions": {
-		"target": "es5",
-		"module": "commonjs",
+		"target": "es2022",
+		"module": "NodeNext",
+		"moduleResolution": "nodenext",
+		"noEmitOnError": true,
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
 	},
 	"include": [
 		"next-env.d.ts",

@@ -1,7 +1,7 @@
-import prisma from "../../../client";
-import { CreateTopicDTO } from "../../dtos/CreateTopic.dto";
-import { UpdateTopicDTO } from "../../dtos/UpdateTopic.dto";
-import { createPaginationMeta, pagination } from "../../utils/pagination";
+import prisma from '../../../client.js';
+import { CreateTopicDTO } from '../../dtos/CreateTopic.dto.js';
+import { UpdateTopicDTO } from '../../dtos/UpdateTopic.dto.js';
+import { createPaginationMeta, pagination } from '../../utils/pagination.js';
 
 export class TopicService {
 	async createTopic(dto: CreateTopicDTO) {
@@ -22,8 +22,7 @@ export class TopicService {
 		const { skip, take } = pagination(page, limit);
 
 		const total = await prisma.topic.count();
-		const topics = await
-		prisma.topic.findMany({
+		const topics = await prisma.topic.findMany({
 			include: {
 				exercises: true,
 				theme: true,
@@ -32,11 +31,11 @@ export class TopicService {
 			skip,
 			take,
 		});
- 
-	 return {
-      data: topics,
-      meta: createPaginationMeta(total, page, take),
-    };
+
+		return {
+			data: topics,
+			meta: createPaginationMeta(total, page, take),
+		};
 	}
 
 	async getTopicById(id: string) {
@@ -66,7 +65,7 @@ export class TopicService {
 		});
 
 		if (!existingTopic) {
-			throw new Error("Topic not found");
+			throw new Error('Topic not found');
 		}
 
 		const topic = await prisma.topic.update({
@@ -85,7 +84,7 @@ export class TopicService {
 		});
 
 		if (!existingTopic) {
-			throw new Error("Topic not found");
+			throw new Error('Topic not found');
 		}
 		if (existingTopic.isActive) {
 			throw new Error("Can't delete active topic");
@@ -93,7 +92,6 @@ export class TopicService {
 
 		await prisma.topic.delete({
 			where: { id },
-			},
-		);
+		});
 	}
 }
