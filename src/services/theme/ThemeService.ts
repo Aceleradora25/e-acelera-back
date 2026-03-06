@@ -20,7 +20,6 @@ export class ThemeService {
 			take,
 		});
 
-		console.log("ORDEM DOS THEMES:");
 themes.forEach(t => console.log(t.title, t.sequence));
 		return {
 			data: themes,
