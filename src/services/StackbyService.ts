@@ -47,9 +47,18 @@ export class StackbyService {
 				}
 
 				const data = await response.json();
+				const orderedData = data.data
+					.map((t: any) => ({
+						...t,
+						field: {
+							...t.field,
+							sequence: Number(t.field.sequence)
+						}
+					}))
+					.sort((a: any, b: any) => a.field.sequence - b.field.sequence);
 				return !filter || filter instanceof StackbyStandardFilter
-					? data
-					: { data: data.data[0] };
+					? { data: orderedData }
+					: { data: [orderedData[0]] };
 			},
 		);
 	}
