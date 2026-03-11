@@ -5,24 +5,25 @@ import { STATUS_CODE } from "../../utils/constants.js";
 import { LoginController } from "./LoginController.js";
 import { Role } from "@prisma/client";
 
-jest.mock("../../services/TokenService");
+jest.mock('../../services/TokenService');
 let controller: LoginController;
 let req: Partial<Request>;
 let res: Partial<Response>;
 let mockTokenService: jest.Mocked<TokenService>;
 
-describe("LoginController - registerUser", () => {
+describe('LoginController - registerUser', () => {
 	beforeEach(() => {
 		mockTokenService = new TokenService() as jest.Mocked<TokenService>;
 
 		controller = new LoginController();
-		controller["tokenService"] = mockTokenService;
+		controller['tokenService'] = mockTokenService;
 
 		req = {
-			headers: { authorization: "Bearer eysncskwnsopmcsabuwsa" },
+			headers: { authorization: 'Bearer eysncskwnsopmcsabuwsa' },
 			user: {
-				email: "test@gmail.com",
+				email: 'test@gmail.com',
 				id: 1,
+				role: Role.VIEWER,
 			},
 		};
 		res = {
@@ -36,12 +37,12 @@ describe("LoginController - registerUser", () => {
 	});
 
 	it('Verifica se o token é expirado ou invalido, deve retornar: "Expired or invalid token"', async () => {
-		req = { headers: { authorization: "eynkdsflmdnas" } };
+		req = { headers: { authorization: 'eynkdsflmdnas' } };
 
 		await controller.registerUser(req as Request, res as Response);
 		expect(res.status).toHaveBeenCalledWith(STATUS_CODE.TOKEN_EXPIRED);
 		expect(res.json).toHaveBeenCalledWith({
-			message: "Expired or invalid token",
+			message: 'Expired or invalid token',
 		});
 	});
 
@@ -51,7 +52,7 @@ describe("LoginController - registerUser", () => {
 		await controller.registerUser(req as Request, res as Response);
 		expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR);
 		expect(res.json).toHaveBeenCalledWith({
-			message: "Error extracting token",
+			message: 'Error extracting token',
 		});
 	});
 
@@ -59,19 +60,19 @@ describe("LoginController - registerUser", () => {
 		const date: Date = new Date(2025, 1, 25);
 
 		mockTokenService.extractToken.mockResolvedValue({
-			accessToken: "eysdnsdnsakns",
-			email: "usuariaaceleradora@gmail.com",
+			accessToken: 'eysdnsdnsakns',
+			email: 'usuariaaceleradora@gmail.com',
 			exp: 5689,
 			iat: 4567,
-			id: "1",
-			jti: "njjdkmk",
-			name: "Milena",
-			provider: "google",
-			sub: "1568888",
+			id: '1',
+			jti: 'njjdkmk',
+			name: 'Milena',
+			provider: 'google',
+			sub: '1568888',
 		});
 
 		mockTokenService.findUserByEmail.mockResolvedValue({
-			email: "usuariaaceleradora@gmail.com",
+			email: 'usuariaaceleradora@gmail.com',
 			id: 1,
 			loginDate: date,
 			provider: "google",
@@ -80,20 +81,20 @@ describe("LoginController - registerUser", () => {
 
 		await controller.registerUser(req as Request, res as Response);
 		expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
-		expect(res.json).toHaveBeenCalledWith({ message: "User already exists" });
+		expect(res.json).toHaveBeenCalledWith({ message: 'User already exists' });
 	});
 
 	it('Verifica se ocorreu um erro ao registrar o usuário, deve retornar: "Error registering user"', async () => {
 		mockTokenService.extractToken.mockResolvedValue({
-			accessToken: "eysdnsdnsakns",
-			email: "usuariaaceleradora@gmail.com",
+			accessToken: 'eysdnsdnsakns',
+			email: 'usuariaaceleradora@gmail.com',
 			exp: 5689,
 			iat: 4567,
-			id: "1",
-			jti: "njjdkmk",
-			name: "Milena",
-			provider: "google",
-			sub: "1568888",
+			id: '1',
+			jti: 'njjdkmk',
+			name: 'Milena',
+			provider: 'google',
+			sub: '1568888',
 		});
 
 		mockTokenService.findUserByEmail.mockResolvedValue(null);
@@ -104,19 +105,19 @@ describe("LoginController - registerUser", () => {
 
 		expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR);
 		expect(res.json).toHaveBeenCalledWith({
-			message: "Error registering user",
+			message: 'Error registering user',
 		});
 	});
 
 	it('Verifica se ocorreu uma exceção ao criar usuário, deve retornar: "Error processing the created user"', async () => {
 		mockTokenService.extractToken.mockRejectedValue(
-			new Error("Error processing the created user"),
+			new Error('Error processing the created user'),
 		);
 
 		await controller.registerUser(req as Request, res as Response);
 		expect(res.status).toHaveBeenCalledWith(STATUS_CODE.INTERNAL_SERVER_ERROR);
 		expect(res.json).toHaveBeenCalledWith({
-			message: "Error processing the created user",
+			message: 'Error processing the created user',
 		});
 	});
 
@@ -124,21 +125,21 @@ describe("LoginController - registerUser", () => {
 		const date: Date = new Date(2025, 1, 25);
 
 		mockTokenService.extractToken.mockResolvedValue({
-			accessToken: "eysdnsdnsakns",
-			email: "usuariaaceleradora@gmail.com",
+			accessToken: 'eysdnsdnsakns',
+			email: 'usuariaaceleradora@gmail.com',
 			exp: 5689,
 			iat: 4567,
-			id: "1",
-			jti: "njjdkmk",
-			name: "Milena",
-			provider: "google",
-			sub: "1568888",
+			id: '1',
+			jti: 'njjdkmk',
+			name: 'Milena',
+			provider: 'google',
+			sub: '1568888',
 		});
 
 		mockTokenService.findUserByEmail.mockResolvedValue(null);
 
 		mockTokenService.registerUser.mockResolvedValue({
-			email: "test@gmail.com",
+			email: 'test@gmail.com',
 			id: 2,
 			loginDate: date,
 			provider: "github",
@@ -149,7 +150,7 @@ describe("LoginController - registerUser", () => {
 
 		expect(res.status).toHaveBeenCalledWith(STATUS_CODE.OK);
 		expect(res.json).toHaveBeenCalledWith({
-			message: "User created successfully!",
+			message: 'User created successfully!',
 		});
 	});
 });

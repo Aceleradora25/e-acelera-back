@@ -1,13 +1,13 @@
-import { plainToInstance } from "class-transformer";
-import { ValidationError, validateOrReject } from "class-validator";
-import type { Request, Response } from "express";
-import { GetTopicByIdDTO } from "../../dtos/GetTopicById.dto";
-import { GetTopicsByThemeIdDTO } from "../../dtos/GetTopicsByThemeId.dto";
-import { TopicService } from "../../services/topic/TopicService.js";
-import { STATUS_CODE } from "../../utils/constants.js";
-import { CreateTopicDTO } from "../../dtos/CreateTopic.dto";
-import { UpdateTopicDTO } from "../../dtos/UpdateTopic.dto";
-import { getPaginationParams } from "../../utils/pagination";
+import { plainToInstance } from 'class-transformer';
+import { ValidationError, validateOrReject } from 'class-validator';
+import type { Request, Response } from 'express';
+import { GetTopicByIdDTO } from '../../dtos/GetTopicById.dto.js';
+import { GetTopicsByThemeIdDTO } from '../../dtos/GetTopicsByThemeId.dto.js';
+import { TopicService } from '../../services/topic/TopicService.js';
+import { STATUS_CODE } from '../../utils/constants.js';
+import { CreateTopicDTO } from '../../dtos/CreateTopic.dto.js';
+import { UpdateTopicDTO } from '../../dtos/UpdateTopic.dto.js';
+import { getPaginationParams } from '../../utils/pagination.js';
 
 export class TopicController {
 	private topicService: TopicService;
@@ -33,19 +33,18 @@ export class TopicController {
 				error.every((err) => err instanceof ValidationError)
 			) {
 				return res.status(STATUS_CODE.BAD_REQUEST).json({
-					message: error[0].constraints?.isNotEmpty || "Invalid data",
+					message: error[0].constraints?.isNotEmpty || 'Invalid data',
 				});
 			}
 
 			return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
-				message: "Error creating topic",
+				message: 'Error creating topic',
 				details: error,
 			});
 		}
 	}
 
 	async getAllTopics(req: Request, res: Response) {
-
 		try {
 			const { page, limit } = getPaginationParams(req);
 			const topics = await this.topicService.getAllTopics(page, limit);
@@ -53,7 +52,7 @@ export class TopicController {
 		} catch (_error) {
 			return res
 				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-				.json({ message: "Error fetching topics" });
+				.json({ message: 'Error fetching topics' });
 		}
 	}
 
@@ -69,7 +68,7 @@ export class TopicController {
 			if (!topic) {
 				return res
 					.status(STATUS_CODE.NOT_FOUND)
-					.json({ message: "Topic not found" });
+					.json({ message: 'Topic not found' });
 			}
 
 			return res.status(STATUS_CODE.OK).json(topic);
@@ -80,12 +79,12 @@ export class TopicController {
 			) {
 				return res
 					.status(STATUS_CODE.BAD_REQUEST)
-					.json({ message: "Invalid Topic ID" });
+					.json({ message: 'Invalid Topic ID' });
 			}
 
 			return res
 				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-				.json({ message: "Error fetching topic" });
+				.json({ message: 'Error fetching topic' });
 		}
 	}
 
@@ -105,11 +104,11 @@ export class TopicController {
 			) {
 				return res
 					.status(STATUS_CODE.BAD_REQUEST)
-					.json({ message: "Invalid Theme ID" });
+					.json({ message: 'Invalid Theme ID' });
 			}
 			return res
 				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-				.json({ message: "Error fetching topics by theme ID" });
+				.json({ message: 'Error fetching topics by theme ID' });
 		}
 	}
 
@@ -132,12 +131,12 @@ export class TopicController {
 				error.every((err) => err instanceof ValidationError)
 			) {
 				return res.status(STATUS_CODE.BAD_REQUEST).json({
-					message: "Invalid data for update",
+					message: 'Invalid data for update',
 				});
 			}
 
 			return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
-				message: "Error updating topic",
+				message: 'Error updating topic',
 				details: error,
 			});
 		}
@@ -147,11 +146,13 @@ export class TopicController {
 		const id = req.params.id.trim();
 		try {
 			await this.topicService.deleteTopic(id);
-			return res.status(STATUS_CODE.OK).json({ message: "Topic deleted with success" });
+			return res
+				.status(STATUS_CODE.OK)
+				.json({ message: 'Topic deleted with success' });
 		} catch (error: any) {
 			return res
 				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-				.json({ message: "Error deleting topic", details: error });
+				.json({ message: 'Error deleting topic', details: error });
 		}
 	}
 }

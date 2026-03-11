@@ -1,5 +1,5 @@
-import type { NextFunction, Request, Response } from "express";
-import { AppError } from "../errors/AppError.js";
+import type { NextFunction, Request, Response } from 'express';
+import { AppError } from '../errors/AppError.js';
 
 export function errorHandlerMiddleware(
 	// biome-ignore lint/suspicious/noExplicitAny: TODO: WIP
@@ -21,11 +21,11 @@ export function errorHandlerMiddleware(
 				constraints: e.constraints,
 				property: e.property,
 			})),
-			error: "Validation failed",
+			error: 'Validation failed',
 		});
 	}
 
 	// biome-ignore lint/suspicious/noConsole: TODO: Melhorar observalidade do projeto através de logs mais robustos.
 	console.error(err);
-	return res.status(500).json({ error: "Internal Server Error" });
+	return res.status(500).json({ error: 'Internal Server Error' });
 }
