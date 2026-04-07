@@ -15,6 +15,15 @@ export class ProgressController {
 	private progressService: ProgressService;
 	private stackbyService: StackbyService;
 
+	private isInvalidRouteParam(value: string | undefined): boolean {
+		if (!value) {
+			return true;
+		}
+
+		const normalized = value.trim().toLowerCase();
+		return normalized === "null" || normalized === "undefined";
+	}
+
 	constructor() {
 		this.progressService = new ProgressService();
 		this.stackbyService = new StackbyService();
@@ -95,6 +104,21 @@ export class ProgressController {
 			await validateOrReject(dto);
 			const { elementType, itemStatus, themeId } = dto;
 
+			if (
+				this.isInvalidRouteParam(topicId) ||
+				this.isInvalidRouteParam(itemId)
+			) {
+				console.warn("[progress] Invalid route params on saveStatusProgress", {
+					method: req.method,
+					path: req.originalUrl,
+					topicId,
+					itemId,
+				});
+				return res.status(STATUS_CODE.BAD_REQUEST).json({
+					message: "You must pass a valid topicId and itemId as params.",
+				});
+			}
+
 			if (!userId) {
 				return res.status(STATUS_CODE.BAD_REQUEST).json({
 					message: "Missing userId. You must pass a valid userId.",
@@ -160,6 +184,7 @@ export class ProgressController {
 
 	async getExerciseStatusProgress(req: Request, res: Response) {
 		const { itemId } = req.params;
+		const { topicId } = req.params;
 		const userId = req.user?.id;
 
 		if (!userId) {
@@ -168,7 +193,16 @@ export class ProgressController {
 			});
 		}
 
-		if (!itemId) {
+		if (
+			this.isInvalidRouteParam(topicId) ||
+			this.isInvalidRouteParam(itemId)
+		) {
+			console.warn("[progress] Invalid route params on getExerciseStatusProgress", {
+				method: req.method,
+				path: req.originalUrl,
+				topicId,
+				itemId,
+			});
 			return res
 				.status(STATUS_CODE.BAD_REQUEST)
 				.json({ message: "You must pass an itemId and a topicId as params." });

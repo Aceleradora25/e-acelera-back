@@ -11,8 +11,15 @@ export async function validateTokenMiddleware(
 ) {
 	const tokenService = new TokenService();
 	const token = req.headers.authorization?.split(' ')[1];
+	const requestMeta = {
+		method: req.method,
+		path: req.originalUrl,
+		origin: req.headers.origin,
+		hasAuthorizationHeader: Boolean(req.headers.authorization),
+	};
 
 	if (!token) {
+		console.warn('[auth] Missing bearer token', requestMeta);
 		return res
 			.status(STATUS_CODE.UNAUTHORIZED)
 			.json({ message: 'Token was not provided' });
@@ -23,6 +30,7 @@ export async function validateTokenMiddleware(
 
 	try {
 		if (!email) {
+			console.warn('[auth] Unable to extract token payload', requestMeta);
 			return res
 				.status(STATUS_CODE.TOKEN_EXPIRED)
 				.json({ message: 'Token invalid' });
@@ -35,6 +43,10 @@ export async function validateTokenMiddleware(
 		});
 
 		if (!user) {
+			console.warn('[auth] User not found for token email', {
+				...requestMeta,
+				email,
+			});
 			return res
 				.status(STATUS_CODE.NOT_FOUND)
 				.json({ message: 'User not found' });
@@ -43,7 +55,11 @@ export async function validateTokenMiddleware(
 		// TODO: Propriedade role não deveria estar estatica no login, ao invés disso olhar na documentação do OAUTH como passar essa propriedade dependendo da conta.
 		req.user = { email, id: +user.id, role: Role.VIEWER };
 		next();
-	} catch (_error) {
+	} catch (error) {
+		console.error('[auth] Authentication failed with exception', {
+			...requestMeta,
+			error,
+		});
 		return res
 			.status(STATUS_CODE.UNAUTHORIZED)
 			.json({ message: 'Authentication failed' });
