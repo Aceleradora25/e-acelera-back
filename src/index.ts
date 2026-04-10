@@ -7,24 +7,9 @@ import cors from 'cors';
 const PORT = 5002;
 const app = express();
 
-const corsAllowedOrigins = process.env.CORS_ALLOWED_ORIGINS
-	?.split(',')
-	.map((origin) => origin.trim())
-	.filter(Boolean);
-
 app.use(
 	cors({
-		origin: (origin, callback) => {
-			if (!origin) {
-				return callback(null, true);
-			}
-
-			if (!corsAllowedOrigins?.length || corsAllowedOrigins.includes(origin)) {
-				return callback(null, true);
-			}
-
-			return callback(new Error(`Origin not allowed by CORS: ${origin}`));
-		},
+		origin: 'http://localhost:3000',
 		credentials: true,
 	}),
 );
