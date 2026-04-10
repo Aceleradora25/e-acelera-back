@@ -40,3 +40,6 @@ next-env.d.ts
 
 # editor
 .vscode
+
+# docs gerados em investigacoes
+docs/progress-401-investigation.md
