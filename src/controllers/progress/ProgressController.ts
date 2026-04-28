@@ -11,6 +11,12 @@ import {
 	STATUS_CODE,
 } from "../../utils/constants.js";
 
+export class ProgressController {
+	private progressService: ProgressService;
+	private stackbyService: StackbyService;
+
+	private isInvalidRouteParam(value: string | undefined): boolean {
+		if (!value) {
 			return true;
 		}
 
@@ -57,6 +63,12 @@ import {
 					themes,
 					topics,
 				);
+				const result = await this.progressService.getProgressPercentageById(
+					{ id, idType, userId },
+					totalItems,
+					themes,
+					topics,
+				);
 				return res.status(STATUS_CODE.OK).json(result);
 			} else {
 				const totalItems = this.stackbyService.calculateTotalItems(
@@ -96,12 +108,6 @@ import {
 				this.isInvalidRouteParam(topicId) ||
 				this.isInvalidRouteParam(itemId)
 			) {
-				console.warn("[progress] Invalid route params on saveStatusProgress", {
-					method: req.method,
-					path: req.originalUrl,
-					topicId,
-					itemId,
-				});
 				return res.status(STATUS_CODE.BAD_REQUEST).json({
 					message: "You must pass a valid topicId and itemId as params.",
 				});
@@ -185,12 +191,6 @@ import {
 			this.isInvalidRouteParam(topicId) ||
 			this.isInvalidRouteParam(itemId)
 		) {
-			console.warn("[progress] Invalid route params on getExerciseStatusProgress", {
-				method: req.method,
-				path: req.originalUrl,
-				topicId,
-				itemId,
-			});
 			return res
 				.status(STATUS_CODE.BAD_REQUEST)
 				.json({ message: "You must pass an itemId and a topicId as params." });
