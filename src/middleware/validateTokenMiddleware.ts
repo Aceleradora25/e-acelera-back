@@ -19,7 +19,6 @@ export async function validateTokenMiddleware(
 	};
 
 	if (!token) {
-		console.warn('[auth] Missing bearer token', requestMeta);
 		return res
 			.status(STATUS_CODE.UNAUTHORIZED)
 			.json({ message: 'Token was not provided' });
@@ -30,7 +29,6 @@ export async function validateTokenMiddleware(
 
 	try {
 		if (!email) {
-			console.warn('[auth] Unable to extract token payload', requestMeta);
 			return res
 				.status(STATUS_CODE.TOKEN_EXPIRED)
 				.json({ message: 'Token invalid' });
@@ -43,10 +41,6 @@ export async function validateTokenMiddleware(
 		});
 
 		if (!user) {
-			console.warn('[auth] User not found for token email', {
-				...requestMeta,
-				email,
-			});
 			return res
 				.status(STATUS_CODE.NOT_FOUND)
 				.json({ message: 'User not found' });
@@ -56,10 +50,6 @@ export async function validateTokenMiddleware(
 		req.user = { email, id: +user.id, role: Role.VIEWER };
 		next();
 	} catch (error) {
-		console.error('[auth] Authentication failed with exception', {
-			...requestMeta,
-			error,
-		});
 		return res
 			.status(STATUS_CODE.UNAUTHORIZED)
 			.json({ message: 'Authentication failed' });

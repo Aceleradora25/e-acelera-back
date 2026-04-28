@@ -11,12 +11,6 @@ import {
 	STATUS_CODE,
 } from "../../utils/constants.js";
 
-export class ProgressController {
-	private progressService: ProgressService;
-	private stackbyService: StackbyService;
-
-	private isInvalidRouteParam(value: string | undefined): boolean {
-		if (!value) {
 			return true;
 		}
 
@@ -60,12 +54,6 @@ export class ProgressController {
 				const totalItems = this.stackbyService.calculateTotalItems(
 					id,
 					endpoint,
-					themes,
-					topics,
-				);
-				const result = await this.progressService.getProgressPercentageById(
-					{ id, idType, userId },
-					totalItems,
 					themes,
 					topics,
 				);
