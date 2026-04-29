@@ -15,18 +15,15 @@ export class ProgressController {
 	private progressService: ProgressService;
 	private stackbyService: StackbyService;
 
-	private isInvalidRouteParam(value: string | undefined): boolean {
-		if (!value) {
-			return true;
-		}
-
-		const normalized = value.trim().toLowerCase();
-		return normalized === "null" || normalized === "undefined";
-	}
-
 	constructor() {
 		this.progressService = new ProgressService();
 		this.stackbyService = new StackbyService();
+	}
+
+	private isInvalidRouteParam(value: string | undefined): boolean {
+		if (!value) return true;
+		const normalized = value.trim().toLowerCase();
+		return normalized === "null" || normalized === "undefined";
 	}
 
 	async getProgressPercentageById(req: Request, res: Response) {
@@ -36,102 +33,106 @@ export class ProgressController {
 		try {
 			if (!userId) {
 				return res.status(STATUS_CODE.BAD_REQUEST).json({
-					message: "Missing userId. You must pass a valid userId.",
+					message: "Missing userId.",
 				});
 			}
-			await validateOrReject(dto);
 
+			await validateOrReject(dto);
 			const { id, idType } = dto;
 
 			const endpoint = STACKBY_ENDPOINTS_HASHTABLE[idType as IdType];
 			if (!endpoint) {
 				return res.status(STATUS_CODE.BAD_REQUEST).json({
-					message: "You must pass a valid id and an idType as params.",
+					message: "Invalid idType.",
 				});
 			}
 
 			const topics = await this.stackbyService.fetchStackbyData(
 				StackbyEndpoint.TOPICS,
 			);
+
 			if (idType === IdType.THEME_ID) {
 				const themes = await this.stackbyService.fetchStackbyData(
 					StackbyEndpoint.THEMES,
 				);
+
 				const totalItems = this.stackbyService.calculateTotalItems(
 					id,
 					endpoint,
 					themes,
 					topics,
 				);
-				const result = await this.progressService.getProgressPercentageById(
+
+				const result =
+					await this.progressService.getProgressPercentageById(
+						{ id, idType, userId },
+						totalItems,
+						themes,
+						topics,
+					);
+
+				return res.status(STATUS_CODE.OK).json(result);
+			}
+
+			const totalItems = this.stackbyService.calculateTotalItems(
+				id,
+				endpoint,
+				topics,
+			);
+
+			const result =
+				await this.progressService.getProgressPercentageById(
 					{ id, idType, userId },
 					totalItems,
-					themes,
-					topics,
 				);
-				return res.status(STATUS_CODE.OK).json(result);
-			} else {
-				const totalItems = this.stackbyService.calculateTotalItems(
-					id,
-					endpoint,
-					topics,
-				);
-				const topicProgress =
-					await this.progressService.getProgressPercentageById(
-						{
-							id,
-							idType,
-							userId,
-						},
-						totalItems,
-					);
-				return res.status(STATUS_CODE.OK).json(topicProgress);
-			}
-		} catch (_error) {
-			return res
-				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-				.json({ message: "Error processing the request" });
+
+			return res.status(STATUS_CODE.OK).json(result);
+		} catch {
+			return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+				message: "Internal error",
+			});
 		}
 	}
 
 	async saveStatusProgress(req: Request, res: Response) {
 		const { topicId, itemId } = req.params;
 		const dto = plainToInstance(SaveStatusProgressDTO, req.body);
-
 		const userId = req.user?.id;
 
 		try {
 			await validateOrReject(dto);
-			const { elementType, itemStatus, themeId } = dto;
+
+			if (!userId) {
+				return res.status(STATUS_CODE.BAD_REQUEST).json({
+					message: "Missing userId.",
+				});
+			}
 
 			if (
 				this.isInvalidRouteParam(topicId) ||
 				this.isInvalidRouteParam(itemId)
 			) {
 				return res.status(STATUS_CODE.BAD_REQUEST).json({
-					message: "You must pass a valid topicId and itemId as params.",
+					message: "Invalid topicId or itemId.",
 				});
 			}
 
-			if (!userId) {
-				return res.status(STATUS_CODE.BAD_REQUEST).json({
-					message: "Missing userId. You must pass a valid userId.",
-				});
-			}
+			const { elementType, itemStatus, themeId } = dto;
 
-			const updatedProgress = await this.progressService.saveStatusProgress({
-				elementType,
-				itemId,
-				itemStatus,
-				themeId,
-				topicId,
-				userId,
-			});
+			const updatedProgress =
+				await this.progressService.saveStatusProgress({
+					elementType,
+					itemId,
+					itemStatus,
+					themeId,
+					topicId,
+					userId,
+				});
 
 			return res.status(STATUS_CODE.OK).json(updatedProgress);
-		} catch (_error) {
+		} catch {
 			return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
-				message: "Internal server error while processing the request",
+				message: "Internal error",
 			});
 		}
 	}
@@ -142,78 +143,73 @@ export class ProgressController {
 
 		try {
 			await validateOrReject(dto);
-			const { idType, id } = dto;
 
 			if (!userId) {
 				return res.status(STATUS_CODE.BAD_REQUEST).json({
-					message: "Missing userId. You must pass a valid userId.",
+					message: "Missing userId.",
 				});
 			}
 
-			if (!idType || !id) {
-				return res
-					.status(STATUS_CODE.BAD_REQUEST)
-					.json({ message: "You must pass an id and an idType as params." });
-			}
-			const allProgressByTopic =
+			const { id } = dto;
+
+			const result =
 				await this.progressService.getAllStatusProgressById({
 					id,
 					idType: IdType.TOPIC_ID,
 					userId,
 				});
 
-			if (allProgressByTopic.length === 0) {
-				return res
-					.status(STATUS_CODE.NOT_FOUND)
-					.json({ message: "Progress not found" });
+			if (!result.length) {
+				return res.status(STATUS_CODE.NOT_FOUND).json({
+					message: "Progress not found",
+				});
 			}
 
-			return res.status(STATUS_CODE.OK).json(allProgressByTopic);
-		} catch (_error) {
-			return res
-				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-				.json({ message: "Error processing the request" });
+			return res.status(STATUS_CODE.OK).json(result);
+		} catch {
+			return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+				message: "Internal error",
+			});
 		}
 	}
 
 	async getExerciseStatusProgress(req: Request, res: Response) {
-		const { itemId } = req.params;
-		const { topicId } = req.params;
+		const { itemId, topicId } = req.params;
 		const userId = req.user?.id;
 
-		if (!userId) {
-			return res.status(STATUS_CODE.BAD_REQUEST).json({
-				message: "Missing userId. You must pass a valid userId.",
-			});
-		}
-
-		if (
-			this.isInvalidRouteParam(topicId) ||
-			this.isInvalidRouteParam(itemId)
-		) {
-			return res
-				.status(STATUS_CODE.BAD_REQUEST)
-				.json({ message: "You must pass an itemId and a topicId as params." });
-		}
-
 		try {
-			const exerciseStatus =
+			if (!userId) {
+				return res.status(STATUS_CODE.BAD_REQUEST).json({
+					message: "Missing userId.",
+				});
+			}
+
+			if (
+				this.isInvalidRouteParam(topicId) ||
+				this.isInvalidRouteParam(itemId)
+			) {
+				return res.status(STATUS_CODE.BAD_REQUEST).json({
+					message: "Invalid params.",
+				});
+			}
+
+			const result =
 				await this.progressService.getSingleStatusProgressByItemId(
 					itemId,
 					userId,
 				);
 
-			if (!exerciseStatus) {
-				return res
-					.status(STATUS_CODE.NOT_FOUND)
-					.json({ message: "Status not found" });
+			if (!result) {
+				return res.status(STATUS_CODE.NOT_FOUND).json({
+					message: "Status not found",
+				});
 			}
 
-			return res.status(STATUS_CODE.OK).json(exerciseStatus);
-		} catch (_error) {
-			return res
-				.status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-				.json({ message: "Error processing the request" });
+			return res.status(STATUS_CODE.OK).json(result);
+		} catch {
+			return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({
+				message: "Internal error",
+			});
 		}
 	}
 }
