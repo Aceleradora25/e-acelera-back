@@ -13,6 +13,9 @@ model User {
   provider  String
   loginDate DateTime
   Progress  Progress[]
+  role      Role       @default(VIEWER)
+
+  @@map("users")
 }
 
 model Progress {
@@ -39,4 +42,75 @@ enum ItemStatus {
 enum ElementType {
   Video
   Exercise
+}
+
+enum ThemeCategory {
+  Leveling @map("nivelamento")
+  SelfStudy @map("autoestudo")
+}
+
+model Theme {
+  id               String        @id @default(cuid())
+  title            String
+  description      String
+  shortDescription String
+  image            String
+  category         ThemeCategory
+  sequence         Int           @default(0)
+  alt              String
+  isActive       Boolean       @default(true)
+
+  topic Topic[]
+
+  @@map("themes")
+}
+
+model Topic {
+  id               String @id @default(cuid())
+  title            String
+  shortDescription String
+  description      String
+  references       String
+  isActive       Boolean       @default(true)
+
+  themeId String?
+  theme   Theme?  @relation(fields: [themeId], references: [id])
+
+  exercises Exercise[]
+  video   Video?
+
+  @@map("topics")
+}
+
+model Exercise {
+  id               String @id @default(cuid())
+  title            String
+  shortDescription String
+  description      String
+  sequence         Int    @default(0)
+  isActive       Boolean @default(true)
+
+  topicId String?
+  topic Topic? @relation(fields: [topicId], references: [id])
+
+  @@map("exercises")
+}
+
+model Video {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  references  String
+  link        String @unique
+
+  topicId String? @unique
+  topic Topic? @relation(fields: [topicId], references: [id])
+
+  @@map("videos")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  VIEWER
 }

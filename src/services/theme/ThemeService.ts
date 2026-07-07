@@ -1,0 +1,77 @@
+import { ThemeCategory } from '@prisma/client';
+import prisma from '../../../client.js';
+import { CreateThemeDTO } from '../../dtos/CreateTheme.dto.js';
+import { UpdateThemeDTO } from '../../dtos/UpdateTheme.dto.js';
+import { createPaginationMeta, pagination } from '../../utils/pagination.js';
+export class ThemeService {
+	async getThemes(
+		category?: ThemeCategory,
+		page: number = 1,
+		limit: number = 10,
+	) {
+		const where = category ? { category } : {};
+		const { skip, take } = pagination(page, limit);
+
+		const total = await prisma.theme.count({ where: {} });
+		const themes = await prisma.theme.findMany({
+			where,
+			orderBy: { sequence: 'asc' },
+			skip,
+			take,
+		});
+		return {
+			data: themes,
+			meta: createPaginationMeta(total, page, take),
+		};
+	}
+
+	async getThemeById(id: string) {
+		return await prisma.theme.findUnique({
+			include: { topic: true },
+			where: { id },
+		});
+	}
+
+	async createTheme(dto: CreateThemeDTO) {
+		const theme = await prisma.theme.create({
+			data: {
+				title: dto.title,
+				description: dto.description,
+				shortDescription: dto.shortDescription,
+				image: dto.image,
+				alt: dto.alt,
+				category: dto.category,
+				sequence: dto.sequence || 0,
+				isActive: true,
+			},
+		});
+		return theme;
+	}
+
+	async updateTheme(id: string, dto: UpdateThemeDTO) {
+		const existingTheme = await prisma.theme.findUnique({
+			where: { id },
+		});
+
+		if (!existingTheme) {
+			throw new Error('Theme not found');
+		}
+
+		const theme = await prisma.theme.update({
+			where: { id },
+			data: {
+				...dto,
+			},
+		});
+
+		return theme;
+	}
+
+	async deleteTheme(id: string) {
+		const theme = await prisma.theme.update({
+			where: { id },
+			data: { isActive: false },
+		});
+		return theme;
+	}
+}

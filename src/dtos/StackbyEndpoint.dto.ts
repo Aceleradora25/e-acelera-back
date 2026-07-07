@@ -1,21 +1,20 @@
-import { IsEnum, IsString, IsOptional } from "class-validator";
-import { StackbyEndpoint } from "../types/types";
+import { IsEnum, IsOptional, IsString } from "class-validator";
+import { StackbyEndpoint } from "../types/types.js";
+import { STACKBY_FILTER_OPERATORS } from "../utils/stackby-filter.js";
 export class StackbyParamsDto {
-  @IsEnum(StackbyEndpoint, {
-    message: "Endpoint must be one of: Exercises, Topics, Themes",
-  })
-  endpoint: StackbyEndpoint | undefined;
+	@IsEnum(StackbyEndpoint, {
+		message: "Endpoint must be one of: Exercises, Topics, Themes",
+	})
+	endpoint: StackbyEndpoint | undefined;
 
-  @IsString()
-  @IsOptional()
-  filterName?: string;
+	@IsOptional()
+	@IsEnum(STACKBY_FILTER_OPERATORS)
+	operator?: STACKBY_FILTER_OPERATORS;
 
-  @IsString()
-  @IsOptional()
-  field?: string;
+	@IsOptional()
+	@IsString()
+	column?: string;
 
-  @IsString()
-  @IsOptional()
-  filterValue?: string;
-
+	@IsOptional()
+	value?: string | number;
 }
