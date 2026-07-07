@@ -16,6 +16,7 @@ export class StackbyService {
 		endpoint: string,
 		filter?: StackbyFilter | null,
 	): Promise<StackbyDataResponse> {
+
 		const apiKey: string = STACKBY_SECRET_KEY || "";
 		let url: string = `${STACKBY_BASE_URL}/${endpoint}?latest=true`;
 		let filterKey = "";
@@ -28,11 +29,12 @@ export class StackbyService {
 					: `${filter.value}`;
 		}
 
-		return await cacheOrFetch(
+		const result = await cacheOrFetch(
 			REDIS_STACKBY_KEYS[endpoint as keyof typeof REDIS_STACKBY_KEYS](
 				filterKey ? `${filterKey}` : undefined,
 			),
 			async () => {
+
 				const response = await fetch(url, {
 					headers: {
 						"Content-Type": "application/json",
@@ -47,11 +49,24 @@ export class StackbyService {
 				}
 
 				const data = await response.json();
+
+				const orderedData = data.data
+					.map((t: any) => ({
+						...t,
+						field: {
+							...t.field,
+							sequence: Number(t.field.sequence),
+						},
+					}))
+					.sort((a: any, b: any) => a.field.sequence - b.field.sequence);
+
 				return !filter || filter instanceof StackbyStandardFilter
-					? data
-					: { data: data.data[0] };
+					? { data: orderedData }
+					: { data: [orderedData[0]] };
 			},
 		);
+
+		return result as StackbyDataResponse;
 	}
 
 	calculateTotalItems(
@@ -67,6 +82,7 @@ export class StackbyService {
 				topics as StackbyDataResponse,
 			);
 		}
+
 		return PROGRESS_CALCULATION_BY_ENTITY[endpoint](id, items);
 	}
 }
